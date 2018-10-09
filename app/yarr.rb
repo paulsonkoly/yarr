@@ -2,7 +2,7 @@ require 'cinch'
 require 'xdg'
 require 'yaml'
 
-require 'yarr/config'
+require 'yarr/config_file'
 
 config_file = Yarr::ConfigFile.new
 
