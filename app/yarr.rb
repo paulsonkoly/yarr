@@ -1,6 +1,4 @@
 require 'cinch'
-require 'xdg'
-require 'yaml'
 
 require 'yarr/config_file'
 

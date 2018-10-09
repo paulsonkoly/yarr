@@ -1,3 +1,6 @@
+require 'xdg'
+require 'yaml'
+
 module Yarr
   # A YAML configuration file loader for yarr.
   class ConfigFile
