@@ -1,0 +1,29 @@
+GIT
+  remote: https://github.com/cinchrb/cinch.git
+  revision: c66bbe7805426ed0053d52550f134b0a66f42c93
+  specs:
+    cinch (2.3.1)
+
+PATH
+  remote: .
+  specs:
+    yarr (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    byebug (10.0.2)
+    rake (10.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.16)
+  byebug
+  cinch!
+  rake (~> 10.0)
+  yarr!
+
+BUNDLED WITH
+   1.16.1
