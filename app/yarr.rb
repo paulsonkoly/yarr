@@ -1,16 +1,18 @@
 require 'cinch'
+require 'xdg'
 require 'yaml'
 
-YARR_CONFIG = File.join(ENV['HOME'], 'yarr.yml')
-$yarr = File.open(YARR_CONFIG, 'r') { |io| YAML.load(io.read) }
+require 'yarr/config'
+
+config_file = Yarr::ConfigFile.new
 
 bot = Cinch::Bot.new do
   configure do |c|
     c.server = 'irc.freenode.org'
     c.nick = 'rubydoc'
     c.channels = [ '#nonsense' ]
-    c.username = $yarr[:username]
-    c.password = $yarr[:password]
+    c.username = config_file.username
+    c.password = config_file.password
   end
 
   on :message, /\A&ri (.*)\z/ do |m, match|
