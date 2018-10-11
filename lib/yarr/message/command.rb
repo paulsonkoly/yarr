@@ -5,16 +5,22 @@ module Yarr
     # Gets the first key out of the AST and replies with it, underscores
     # translated to spaces.
     class WhatIsCommand
+      # Takes an AST and returns the response.
       def handle(ast)
         "It's a(n) #{ast.first.first}.".tr '_', ' '
       end
     end
 
+    # Generic base class for commands that require database access.
     class Command
+      # @param query_adaptor Yarr::Message::Query
       def initialize(query_adaptor = Query)
         @query_adaptor = query_adaptor
       end
 
+      # Takes the AST and based on its structure calls the appropriate sub
+      # handler. Sub handlers have to be overriden to take specific action in
+      # sub classes.
       def handle(ast)
         ast = stringify_hash_values(ast)
 
@@ -57,6 +63,7 @@ module Yarr
       end
     end
 
+    # &ri command handler. Looks up documentation link for the target.
     class RiCommand < Command
       private
 
@@ -106,6 +113,7 @@ module Yarr
       end
     end
 
+    # List command handler. Returns a matching list for the target.
     class ListCommand < Command
       private
 

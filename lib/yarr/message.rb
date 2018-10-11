@@ -2,8 +2,11 @@ require 'yarr/message/parser'
 require 'yarr/message/command_dispatcher'
 require 'yarr/message/command'
 
+# Responds to rdoc documentation queries with links and more.
 module Yarr
+  # Handles the incoming message string and returns a response string.
   module Message
+    # Handles the incoming message string and returns a response string.
     class Message
       include CommandDispatcher
 
@@ -11,6 +14,9 @@ module Yarr
         @ri_parser = Parser.new
       end
 
+      # Replies to a message
+      # @param message [String] incoming message (without command prefix)
+      # @return [String] response string
       def reply_to(message)
         dispatch(message)
         return error_message if error?

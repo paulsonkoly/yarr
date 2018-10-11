@@ -2,6 +2,7 @@ require 'sequel'
 require 'forwardable'
 
 module Yarr
+  # Handles connecting to sequel.
   class Database
     extend Forwardable
 
@@ -23,5 +24,6 @@ module Yarr
     attr_reader :db_path, :db_dir
   end
 
+  # The application's database connection. A {Database} instance.
   DB = Database.new
 end
