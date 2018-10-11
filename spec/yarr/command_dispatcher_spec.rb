@@ -1,4 +1,5 @@
 require 'yarr/message/command_dispatcher'
+
 module Yarr
   module Message
     RSpec.describe CommandDispatcher do
