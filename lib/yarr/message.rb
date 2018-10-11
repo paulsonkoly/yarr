@@ -1,4 +1,5 @@
 require 'parslet'
+require 'yarr/message/parser'
 require 'qo'
 
 module Yarr
@@ -63,34 +64,6 @@ module Yarr
                   Sequel[:methods][:flavour].as(:method_flavour))
           .where(Sequel[:methods][:name].like(method))
       end
-    end
-
-    class Parser < Parslet::Parser
-      rule(:query) do
-        expression >> str(',') >> str(' ').repeat >> stuff |
-          expression
-      end
-
-      rule(:expression) do
-        instance_method.as(:instance_method) |
-          class_method.as(:class_method) |
-          method |
-          klass
-      end
-
-      rule(:instance_method) { klass >> str('#') >> method }
-
-      rule(:class_method) { klass >> str('.') >> method }
-
-      rule(:klass) do
-        (match('[A-Z%]') >> match('[a-zA-Z:%]').repeat).as(:class_name)
-      end
-
-      rule(:method) { (match('[a-z_!?+\-*/%]').repeat(1)).as(:method_name) }
-
-      rule(:stuff) { (any.repeat).as(:stuff) }
-
-      root(:query)
     end
 
     # Gets the first key out of the AST and replies with it, underscores
