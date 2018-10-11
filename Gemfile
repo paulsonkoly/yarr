@@ -17,6 +17,7 @@ end
 group :test do
   gem 'rspec'
   gem 'faker'
+  gem 'simplecov'
 end
 
 # Specify your gem's dependencies in yarr.gemspec
