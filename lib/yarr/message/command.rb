@@ -61,9 +61,9 @@ module Yarr
       private
 
       def handle_instance_method
-        result = @query_adapptor.joined_query(klass: @klass,
-                                              method: @method,
-                                              flavour: 'instance')
+        result = @query_adaptor.joined_query(klass: @klass,
+                                             method: @method,
+                                             flavour: 'instance')
 
         if result.count == 1
           "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
@@ -73,7 +73,7 @@ module Yarr
       end
 
       def handle_class_method
-        result = @qeury_adaptor.joined_query(klass: @klass,
+        result = @query_adaptor.joined_query(klass: @klass,
                                              method: @method,
                                              flavour: 'class')
 
@@ -85,7 +85,7 @@ module Yarr
       end
 
       def handle_class_name
-        result = @qeury_adaptor.klass_query(@klass)
+        result = @query_adaptor.klass_query(@klass)
 
         if result.count == 1
           "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
@@ -95,7 +95,7 @@ module Yarr
       end
 
       def handle_method_name
-        result = @qeury_adaptor.method_query(@method)
+        result = @query_adaptor.method_query(@method)
 
         case result.count
         when 0 then "Found no entry that matches method #{@method}"
