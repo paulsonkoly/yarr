@@ -2,7 +2,6 @@ require 'parslet'
 require 'yarr/message/parser'
 require 'yarr/message/command_dispatcher'
 require 'yarr/message/command'
-require 'qo'
 
 module Yarr
   module Message
