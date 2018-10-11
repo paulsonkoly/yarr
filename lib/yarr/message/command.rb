@@ -11,7 +11,9 @@ module Yarr
     end
 
     class Command
-      include Query
+      def initialize(query_adaptor = Query)
+        @query_adaptor = query_adaptor
+      end
 
       def handle(ast)
         ast = stringify_hash_values(ast)
@@ -59,7 +61,9 @@ module Yarr
       private
 
       def handle_instance_method
-        result = joined_query(klass: @klass, method: @method, flavour: 'instance')
+        result = @query_adapptor.joined_query(klass: @klass,
+                                              method: @method,
+                                              flavour: 'instance')
 
         if result.count == 1
           "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
@@ -69,7 +73,9 @@ module Yarr
       end
 
       def handle_class_method
-        result = joined_query(klass: @klass, method: @method, flavour: 'class')
+        result = @qeury_adaptor.joined_query(klass: @klass,
+                                             method: @method,
+                                             flavour: 'class')
 
         if result.count == 1
           "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
@@ -79,7 +85,7 @@ module Yarr
       end
 
       def handle_class_name
-        result = klass_query(@klass)
+        result = @qeury_adaptor.klass_query(@klass)
 
         if result.count == 1
           "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
@@ -89,7 +95,7 @@ module Yarr
       end
 
       def handle_method_name
-        result = method_query(@method)
+        result = @qeury_adaptor.method_query(@method)
 
         case result.count
         when 0 then "Found no entry that matches method #{@method}"
@@ -104,10 +110,9 @@ module Yarr
       private
 
       def handle_instance_method
-        result = joined_like_query(
-          klass: @klass,
-          method: @method,
-          flavour: 'instance')
+        result = @query_adapptor.joined_like_query(klass: @klass,
+                                                   method: @method,
+                                                   flavour: 'instance')
 
         if result.count.zero?
           "I haven't found any entry that matches #{@klass}"
@@ -119,10 +124,9 @@ module Yarr
       end
 
       def handle_class_method
-        result = joined_like_query(
-          klass: @klass,
-          method: @method,
-          flavour: 'class')
+        result = @query_adapptor.joined_like_query(klass: @klass,
+                                                   method: @method,
+                                                   flavour: 'class')
 
         if result.count.zero?
           "I haven't found any entry that matches #{klass}"
@@ -134,7 +138,7 @@ module Yarr
       end
 
       def handle_clas_name
-        result = klass_like_query(@klass)
+        result = @query_adapptor.klass_like_query(@klass)
 
         if result.count.zero?
           "I haven't found any entry that matches #{@klass}"
@@ -144,7 +148,7 @@ module Yarr
       end
 
       def handle_method_name
-        result = method_like_query(@method)
+        result = @qeury_adaptor.method_like_query(@method)
 
         if result.count.zero?
           "I haven't found any entry that matches #{@klass}"
