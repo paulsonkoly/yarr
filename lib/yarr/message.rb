@@ -24,39 +24,82 @@ module Yarr
       end
     end
 
-    class Message
-      class RiParser < Parslet::Parser
-        rule(:query) do
-          expression >> str(',') >> str(' ').repeat >> stuff |
-            expression
-        end
-
-        rule(:expression) do
-          instance_method.as(:instance_method) |
-            class_method.as(:class_method) |
-            method |
-            klass
-        end
-
-        rule(:instance_method) { klass >> str('#') >> method }
-
-        rule(:class_method) { klass >> str('.') >> method }
-
-        rule(:klass) do
-          (match('[A-Z%]') >> match('[a-zA-Z:%]').repeat).as(:class_name)
-        end
-
-        rule(:method) { (match('[a-z_!?@+\-*/%]').repeat(1)).as(:method_name) }
-
-        rule(:stuff) { (any.repeat).as(:stuff) }
-
-        root(:query)
+    module Query
+      def joined_query(method:, klass:, flavour:)
+        DB[:classes]
+          .join(:methods, class_id: :id)
+          .where(Sequel[:methods][:name] => method,
+                 Sequel[:classes][:name] => klass,
+                 Sequel[:methods][:flavour] => flavour)
       end
 
+      def klass_query(klass)
+        DB[:classes].where(name: klass)
+      end
+
+      def method_query(method)
+        DB[:methods].where(name: method)
+      end
+
+      def joined_like_query(method:, klass:, flavour:)
+        DB[:classes]
+          .join(:methods, class_id: :id)
+          .select(Sequel[:methods][:name].as(:method_name),
+        Sequel[:classes][:name].as(:class_name))
+          .where(Sequel[:methods][:name].like(method) &
+        Sequel[:classes][:name].like(klass) &
+        { Sequel[:methods][:flavour] => flavour })
+      end
+
+      def klass_like_query(klass)
+        Yarr::DB[:classes].where(Sequel[:name].like(klass))
+      end
+
+      def method_like_query(klass:, method:)
+        Yarr::DB[:classes]
+          .join(:methods, class_id: :id)
+          .select(Sequel[:methods][:name].as(:method_name),
+                  Sequel[:classes][:name].as(:class_name),
+                  Sequel[:methods][:flavour].as(:method_flavour))
+          .where(Sequel[:methods][:name].like(method))
+      end
+    end
+
+    class Parser < Parslet::Parser
+      rule(:query) do
+        expression >> str(',') >> str(' ').repeat >> stuff |
+          expression
+      end
+
+      rule(:expression) do
+        instance_method.as(:instance_method) |
+          class_method.as(:class_method) |
+          method |
+          klass
+      end
+
+      rule(:instance_method) { klass >> str('#') >> method }
+
+      rule(:class_method) { klass >> str('.') >> method }
+
+      rule(:klass) do
+        (match('[A-Z%]') >> match('[a-zA-Z:%]').repeat).as(:class_name)
+      end
+
+      rule(:method) { (match('[a-z_!?+\-*/%]').repeat(1)).as(:method_name) }
+
+      rule(:stuff) { (any.repeat).as(:stuff) }
+
+      root(:query)
+    end
+
+    class Message
+
       include CommandDispatcher
+      include Query
 
       def initialize
-        @ri_parser = RiParser.new
+        @ri_parser = Parser.new
       end
 
       def reply_to(message)
@@ -74,11 +117,7 @@ module Yarr
           klass = ast[:instance_method][:class_name].to_s
           method = ast[:instance_method][:method_name].to_s
 
-          result = Yarr::DB[:classes]
-            .join(:methods, class_id: :id)
-            .where(Sequel[:methods][:name] => method,
-          Sequel[:classes][:name] => klass,
-          Sequel[:methods][:flavour] => 'instance')
+          result = joined_query(klass: klass, method: method, flavour: 'instance')
 
           if result.count == 1
             "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
@@ -90,11 +129,7 @@ module Yarr
           klass = ast[:class_method][:class_name].to_s
           method = ast[:class_method][:method_name].to_s
 
-          result = Yarr::DB[:classes]
-            .join(:methods, class_id: :id)
-            .where(Sequel[:methods][:name] => method,
-          Sequel[:classes][:name] => klass,
-          Sequel[:methods][:flavour] => 'class')
+          result = joined_query(klass: klass, method: method, flavour: 'class')
 
           if result.count == 1
             "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
@@ -105,7 +140,7 @@ module Yarr
         when Qo[class_name: Any]
           klass = ast[:class_name].to_s
 
-          result = DB[:classes].where(name: klass)
+          result = klass_query(klass) # yeah. I know
 
           if result.count == 1
             "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
@@ -116,7 +151,7 @@ module Yarr
         when Qo[method_name: Any]
           method = ast[:method_name].to_s
 
-          result = DB[:methods].where(name: method)
+          result = method_query(method)
 
           case result.count
           when 0 then "Found no entry that matches method #{method}"
@@ -137,13 +172,10 @@ module Yarr
           klass = ast[:instance_method][:class_name].to_s
           method = ast[:instance_method][:method_name].to_s
 
-          result = Yarr::DB[:classes]
-            .join(:methods, class_id: :id)
-            .select(Sequel[:methods][:name].as(:method_name),
-          Sequel[:classes][:name].as(:class_name))
-            .where(Sequel[:methods][:name].like(method) &
-          Sequel[:classes][:name].like(klass) &
-          { Sequel[:methods][:flavour] => 'instance' })
+          result = joined_like_query(
+            klass: klass,
+            method: method,
+            flavour: 'instance')
 
           if result.count.zero?
             "I haven't found any entry that matches #{klass}"
@@ -157,13 +189,10 @@ module Yarr
           klass = ast[:class_method][:class_name].to_s
           method = ast[:class_method][:method_name].to_s
 
-          result = Yarr::DB[:classes]
-            .join(:methods, class_id: :id)
-            .select(Sequel[:methods][:name].as(:method_name),
-          Sequel[:classes][:name].as(:class_name))
-            .where(Sequel[:methods][:name].like(method) &
-          Sequel[:classes][:name].like(klass) &
-          { Sequel[:methods][:flavour] => 'class' })
+          result = joined_like_query(
+            klass: klass,
+            method: method,
+            flavour: 'class')
 
           if result.count.zero?
             "I haven't found any entry that matches #{klass}"
@@ -176,7 +205,7 @@ module Yarr
         when Qo[class_name: Any]
           klass = ast[:class_name].to_s
 
-          result = Yarr::DB[:classes].where(Sequel[:name].like(klass))
+          result = klass_like_query(klass)
 
           if result.count.zero?
             "I haven't found any entry that matches #{klass}"
@@ -187,12 +216,7 @@ module Yarr
         when Qo[method_name: Any]
           method = ast[:method_name].to_s
 
-          result = Yarr::DB[:classes]
-            .join(:methods, class_id: :id)
-            .select(Sequel[:methods][:name].as(:method_name),
-          Sequel[:classes][:name].as(:class_name),
-          Sequel[:methods][:flavour].as(:method_flavour))
-            .where(Sequel[:methods][:name].like(method))
+          result = method_like_query(method)
 
           if result.count.zero?
             "I haven't found any entry that matches #{klass}"
