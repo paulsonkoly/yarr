@@ -127,7 +127,7 @@ module Yarr
           end
 
           it 'returns the count' do
-            expect(subject.send(:handle_instance_method)).to match(/10/)
+            expect(subject.send(:handle_instance_method)).to match('10')
           end
         end
       end
@@ -151,7 +151,7 @@ module Yarr
           end
 
           it 'returns the count' do
-            expect(subject.send(:handle_class_method)).to match(/10/)
+            expect(subject.send(:handle_class_method)).to match('10')
           end
         end
       end
@@ -175,7 +175,7 @@ module Yarr
           end
 
           it 'returns the count' do
-            expect(subject.send(:handle_class_name)).to match(/10/)
+            expect(subject.send(:handle_class_name)).to match('10')
           end
         end
       end
@@ -192,14 +192,24 @@ module Yarr
           end
         end
 
-        context 'when the number of results is not 1' do
+        context 'when the number of results is more than 1' do
           before do
             allow(query_adaptor).to receive(:method_query).and_return(
               [url: 'definition.html'] * 10)
           end
 
           it 'returns the count' do
-            expect(subject.send(:handle_method_name)).to match(/10/)
+            expect(subject.send(:handle_method_name)).to match('10')
+          end
+        end
+
+        context 'when there is no result' do
+          before do
+            allow(query_adaptor).to receive(:method_query).and_return([])
+          end
+
+          it 'returns the count' do
+            expect(subject.send(:handle_method_name)).to match('no entry')
           end
         end
       end
