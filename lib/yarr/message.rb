@@ -93,8 +93,15 @@ module Yarr
       root(:query)
     end
 
-    class Message
+    # Gets the first key out of the AST and replies with it, underscores
+    # translated to spaces.
+    class WhatIsCommand
+      def handle(ast)
+        "It's a(n) #{ast.first.first}.".tr '_', ' '
+      end
+    end
 
+    class Message
       include CommandDispatcher
       include Query
 
@@ -163,7 +170,7 @@ module Yarr
       end
 
       def what_is(ast)
-        "It's a(n) #{ast.first.first}.".tr '_', ' '
+        WhatIsCommand.new.handle(ast)
       end
 
       def list(ast)
