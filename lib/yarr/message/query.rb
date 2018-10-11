@@ -34,7 +34,7 @@ module Yarr
           Yarr::DB[:classes].where(Sequel[:name].like(klass))
         end
 
-        def method_like_query(method:)
+        def method_like_query(method)
           Yarr::DB[:classes]
             .join(:methods, class_id: :id)
             .select(Sequel[:methods][:name].as(:method_name),
