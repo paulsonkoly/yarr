@@ -16,22 +16,8 @@ module Yarr
       def reply_to(message)
         dispatch(message)
         return error_message if error?
-        ast = @ri_parser.parse(@target)
-        send(dispatch_method, ast)
-      end
-
-      private
-
-      def ri(ast)
-        RiCommand.new.handle(ast)
-      end
-
-      def what_is(ast)
-        WhatIsCommand.new.handle(ast)
-      end
-
-      def list(ast)
-        ListCommand.new.handle(ast)
+        ast = @ri_parser.parse(target)
+        handler.handle(ast)
       end
     end
   end

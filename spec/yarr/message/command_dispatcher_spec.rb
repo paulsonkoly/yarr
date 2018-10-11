@@ -19,7 +19,7 @@ module Yarr
         subject.dispatch('ri')
 
         expect(subject.error?).to eql false
-        expect(subject.dispatch_method).to eql :ri
+        expect(subject.handler).to be_an RiCommand
         expect(subject.target).to eql ''
       end
 
@@ -27,7 +27,7 @@ module Yarr
         subject.dispatch('ri aa')
 
         expect(subject.error?).to eql false
-        expect(subject.dispatch_method).to eql :ri
+        expect(subject.handler).to be_an RiCommand
         expect(subject.target).to eql 'aa'
       end
 
@@ -35,7 +35,7 @@ module Yarr
         subject.dispatch('what_is')
 
         expect(subject.error?).to eql false
-        expect(subject.dispatch_method).to eql :what_is
+        expect(subject.handler).to be_an WhatIsCommand
         expect(subject.target).to eql ''
       end
 
@@ -43,7 +43,7 @@ module Yarr
         subject.dispatch('what_is aa')
 
         expect(subject.error?).to eql false
-        expect(subject.dispatch_method).to eql :what_is
+        expect(subject.handler).to be_an WhatIsCommand
         expect(subject.target).to eql 'aa'
       end
 
@@ -51,7 +51,7 @@ module Yarr
         subject.dispatch('list')
 
         expect(subject.error?).to eql false
-        expect(subject.dispatch_method).to eql :list
+        expect(subject.handler).to be_an ListCommand
         expect(subject.target).to eql ''
       end
 
@@ -59,7 +59,7 @@ module Yarr
         subject.dispatch('list aa')
 
         expect(subject.error?).to eql false
-        expect(subject.dispatch_method).to eql :list
+        expect(subject.handler).to be_an ListCommand
         expect(subject.target).to eql 'aa'
       end
     end
