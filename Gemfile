@@ -7,6 +7,7 @@ gem 'xdg', git: 'https://github.com/rubyworks/xdg.git'
 
 group :development do
   gem 'byebug'
+  gem 'pry'
 end
 
 group :test do
