@@ -110,7 +110,7 @@ module Yarr
       private
 
       def handle_instance_method
-        result = @query_adapptor.joined_like_query(klass: @klass,
+        result = @query_adaptor.joined_like_query(klass: @klass,
                                                    method: @method,
                                                    flavour: 'instance')
 
@@ -124,12 +124,12 @@ module Yarr
       end
 
       def handle_class_method
-        result = @query_adapptor.joined_like_query(klass: @klass,
+        result = @query_adaptor.joined_like_query(klass: @klass,
                                                    method: @method,
                                                    flavour: 'class')
 
         if result.count.zero?
-          "I haven't found any entry that matches #{klass}"
+          "I haven't found any entry that matches #{@klass}"
         else
           result.map do |row|
             "#{row[:class_name]}.#{row[:method_name]}"
@@ -137,8 +137,8 @@ module Yarr
         end
       end
 
-      def handle_clas_name
-        result = @query_adapptor.klass_like_query(@klass)
+      def handle_class_name
+        result = @query_adaptor.klass_like_query(@klass)
 
         if result.count.zero?
           "I haven't found any entry that matches #{@klass}"
@@ -148,7 +148,7 @@ module Yarr
       end
 
       def handle_method_name
-        result = @qeury_adaptor.method_like_query(@method)
+        result = @query_adaptor.method_like_query(@method)
 
         if result.count.zero?
           "I haven't found any entry that matches #{@klass}"
