@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require 'yarr/message'
 
 module Yarr
   RSpec.describe Message do
