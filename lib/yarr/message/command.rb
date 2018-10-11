@@ -99,5 +99,66 @@ module Yarr
         end
       end
     end
+
+    class ListCommand < Command
+      private
+
+      def handle_instance_method
+        result = joined_like_query(
+          klass: @klass,
+          method: @method,
+          flavour: 'instance')
+
+        if result.count.zero?
+          "I haven't found any entry that matches #{@klass}"
+        else
+          result.map do |row|
+            "#{row[:class_name]}##{row[:method_name]}"
+          end.join(', ')
+        end
+      end
+
+      def handle_class_method
+        result = joined_like_query(
+          klass: @klass,
+          method: @method,
+          flavour: 'class')
+
+        if result.count.zero?
+          "I haven't found any entry that matches #{klass}"
+        else
+          result.map do |row|
+            "#{row[:class_name]}.#{row[:method_name]}"
+          end.join(', ')
+        end
+      end
+
+      def handle_clas_name
+        result = klass_like_query(@klass)
+
+        if result.count.zero?
+          "I haven't found any entry that matches #{@klass}"
+        else
+          result.map { |row| "#{row[:name]}" }.join(', ')
+        end
+      end
+
+      def handle_method_name
+        result = method_like_query(@method)
+
+        if result.count.zero?
+          "I haven't found any entry that matches #{@klass}"
+        else
+          result.map do |row|
+            flavour = case row[:method_flavour]
+                      when 'instance' then '#'
+                      when 'class' then '.'
+                      else '???'
+                      end
+            "#{row[:class_name]}#{flavour}#{row[:method_name]}"
+          end.join(', ')
+        end
+      end
+    end
   end
 end
