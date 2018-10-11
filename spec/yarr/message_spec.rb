@@ -22,7 +22,7 @@ module Yarr
 
         expect(subject.error?).to eql false
         expect(subject.dispatch_method).to eql :ri
-        expect(subject.dispatch_arguments).to eql ''
+        expect(subject.target).to eql ''
       end
 
       it 'handles "ri aa"' do
@@ -30,7 +30,7 @@ module Yarr
 
         expect(subject.error?).to eql false
         expect(subject.dispatch_method).to eql :ri
-        expect(subject.dispatch_arguments).to eql 'aa'
+        expect(subject.target).to eql 'aa'
       end
 
       it 'handles "what_is"' do
@@ -38,7 +38,7 @@ module Yarr
 
         expect(subject.error?).to eql false
         expect(subject.dispatch_method).to eql :what_is
-        expect(subject.dispatch_arguments).to eql ''
+        expect(subject.target).to eql ''
       end
 
       it 'handles "what_is aa"' do
@@ -46,7 +46,7 @@ module Yarr
 
         expect(subject.error?).to eql false
         expect(subject.dispatch_method).to eql :what_is
-        expect(subject.dispatch_arguments).to eql 'aa'
+        expect(subject.target).to eql 'aa'
       end
 
       it 'handles "list"' do
@@ -54,7 +54,7 @@ module Yarr
 
         expect(subject.error?).to eql false
         expect(subject.dispatch_method).to eql :list
-        expect(subject.dispatch_arguments).to eql ''
+        expect(subject.target).to eql ''
       end
 
       it 'handles "list aa"' do
@@ -62,7 +62,7 @@ module Yarr
 
         expect(subject.error?).to eql false
         expect(subject.dispatch_method).to eql :list
-        expect(subject.dispatch_arguments).to eql 'aa'
+        expect(subject.target).to eql 'aa'
       end
     end
 =begin
