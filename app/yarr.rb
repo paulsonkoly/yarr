@@ -13,7 +13,7 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /\A& *(.*)\z/ do |m, match|
-    message = Yarr::Message.new
+    message = Yarr::Message::Message.new
     m.reply message.reply_to(match)
   end
 end
