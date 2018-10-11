@@ -1,5 +1,5 @@
-require "yarr/version"
+require 'yarr/version'
+require 'yarr/config_file'
+require 'yarr/database'
+require 'yarr/message'
 
-module Yarr
-  # Your code goes here...
-end

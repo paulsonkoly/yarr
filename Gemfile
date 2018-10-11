@@ -6,6 +6,8 @@ gem 'cinch', git: 'https://github.com/cinchrb/cinch.git'
 gem 'xdg', git: 'https://github.com/rubyworks/xdg.git'
 gem 'sequel'
 gem 'sqlite3'
+gem 'parslet'
+gem 'qo'
 
 group :development do
   gem 'byebug'
