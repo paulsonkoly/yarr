@@ -20,7 +20,7 @@ module Yarr
       return error_message if error?
       ast = @parser.parse(target)
       response = handler.handle(ast)
-      stuff.prepend(' , ') unless stuff.empty?
+      stuff.prepend(' ,') unless stuff.empty?
       Message::Truncator.truncate(response) + Message::Truncator.truncate(stuff)
     end
   end
