@@ -77,47 +77,48 @@ module Yarr
     private
 
     def handle_instance_method
-      result = @query_adaptor.joined_query(klass: @klass,
-                                           method: @method,
-                                           flavour: 'instance')
-
-      if result.count == 1
-        "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
-      else
-        "I found #{result.count} entries matching with class: #{@klass}, instance method: #{@method}"
-      end
+      handle_call('instance')
     end
 
     def handle_class_method
-      result = @query_adaptor.joined_query(klass: @klass,
-                                           method: @method,
-                                           flavour: 'class')
-
-      if result.count == 1
-        "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
-      else
-        "I found #{result.count} entries matching with class: #{@klass}, class method: #{@method}"
-      end
+      handle_call('class')
     end
 
     def handle_class_name
       result = @query_adaptor.klass_query(@klass)
 
-      if result.count == 1
-        "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
-      else
-        "I found #{result.count} entries matching with class: #{@klass}."
-      end
+      response(count: result.count,
+               url_lambda: -> { result.first[:url] },
+               objects_string: "class #@klass")
     end
 
     def handle_method_name
       result = @query_adaptor.method_query(@method)
 
-      case result.count
-      when 0 then "Found no entry that matches method #{@method}"
-      when 1 then "https://ruby-doc.org/core-2.5.1/#{result.first[:url]}"
+      response(count: result.count,
+               url_lambda: -> { result.first[:url] },
+               objects_string: "method #@method",
+               advice: "Use &list #@method if you would like to see a list")
+    end
+
+    def handle_call(type)
+      result = @query_adaptor.joined_query(klass: @klass,
+                                           method: @method,
+                                           flavour: type.to_s)
+
+      response(count: result.count,
+               url_lambda: -> { result.first[:url] },
+               objects_string: "class #@klass #{type} method #@method")
+    end
+
+    def response(count:, url_lambda:, objects_string:, advice: nil)
+      case count
+      when 0 then "Found no entry that matches #{objects_string}."
+      when 1 then "https://ruby-doc.org/core-2.5.1/#{url_lambda.call}"
       else
-        "I found #{result.count} entries matching with method: #{@method}. Use &list #{@method} if you would like to see a list"
+        [ "I found #{count} entries matching with #{objects_string}.",
+          advice
+        ].compact.join(' ')
       end
     end
   end
@@ -127,38 +128,18 @@ module Yarr
     private
 
     def handle_instance_method
-      result = @query_adaptor.joined_like_query(klass: @klass,
-                                                 method: @method,
-                                                 flavour: 'instance')
-
-      if result.count.zero?
-        "I haven't found any entry that matches #{@klass}"
-      else
-        result.map do |row|
-          "#{row[:class_name]}##{row[:method_name]}"
-        end.join(', ')
-      end
+      handle_call('instance', '#')
     end
 
     def handle_class_method
-      result = @query_adaptor.joined_like_query(klass: @klass,
-                                                 method: @method,
-                                                 flavour: 'class')
-
-      if result.count.zero?
-        "I haven't found any entry that matches #{@klass}"
-      else
-        result.map do |row|
-          "#{row[:class_name]}.#{row[:method_name]}"
-        end.join(', ')
-      end
+      handle_call('class', '.')
     end
 
     def handle_class_name
       result = @query_adaptor.klass_like_query(@klass)
 
       if result.count.zero?
-        "I haven't found any entry that matches #{@klass}"
+        "I haven't found any entry that matches class #@klass"
       else
         result.map { |row| "#{row[:name]}" }.join(', ')
       end
@@ -168,7 +149,7 @@ module Yarr
       result = @query_adaptor.method_like_query(@method)
 
       if result.count.zero?
-        "I haven't found any entry that matches #{@klass}"
+        "I haven't found any entry that matches method #@method"
       else
         result.map do |row|
           flavour = case row[:method_flavour]
@@ -177,6 +158,19 @@ module Yarr
                     else '???'
                     end
           "#{row[:class_name]}#{flavour}#{row[:method_name]}"
+        end.join(', ')
+      end
+    end
+
+    def handle_call(type, type_delimiter)
+      result = @query_adaptor.joined_like_query(klass: @klass,
+                                                method: @method,
+                                                flavour: type.to_s)
+      if result.count.zero?
+        "I haven't found any entry that matches #{type} method #@method on class #@klass"
+      else
+        result.map do |row|
+          "#{row[:class_name]}#{type_delimiter}#{row[:method_name]}"
         end.join(', ')
       end
     end
