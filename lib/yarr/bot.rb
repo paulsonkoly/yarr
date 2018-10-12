@@ -1,5 +1,5 @@
+require 'yarr/command_dispatcher'
 require 'yarr/message/parser'
-require 'yarr/message/command_dispatcher'
 require 'yarr/message/command'
 require 'yarr/message/truncator'
 
@@ -7,8 +7,7 @@ require 'yarr/message/truncator'
 module Yarr
   # Handles the incoming message string and returns a response string.
   class Bot
-    # TODO why is it in Message?
-    include Message::CommandDispatcher
+    include CommandDispatcher
 
     def initialize
       @parser = Message::Parser.new
