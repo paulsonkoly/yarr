@@ -71,7 +71,7 @@ list %ile
 >>> Enumerable#chunk_while, Enumerator::Lazy#chunk_while, Regexp.compile, RubyVM::InstructionSequence.compile, RubyVM::InstructionSequence.compile_file,...
 ```
 
-However it is possible to force it to be part of a class or method name by this trick:
+However it is possible to force it to be part of a class or module name by this trick:
 
 ```
 list %ile.% 
