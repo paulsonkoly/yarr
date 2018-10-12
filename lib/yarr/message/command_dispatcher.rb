@@ -2,15 +2,20 @@ require 'yarr/message/command'
 
 module Yarr
   module Message
-    # Splits the incomming command into two halfs: the command and the target.
-    # @todo probably this should handle the tailing stuff, and truncation.
+    # Splits the incomming command into the following sections:
+    #   - command (like 'list')
+    #   - command target (like 'Array')
+    #   - stuff (anything precedded by a ',')
     module CommandDispatcher
-      attr_reader :error_message, :handler, :target
+      # @!attribute [r] handler
+      #   @return the command handler, {Yarr::Message::Command}
+      attr_reader :error_message, :handler, :target, :stuff
 
       # splits up the message and sets {handler} to the appropriate command
       # handler
       def dispatch(message)
-        command, _, @target = message.chomp.partition(/\s+/)
+        command, _, rest = message.chomp.partition(/\s+/)
+        @target, _, @stuff = rest.partition(',')
 
         if %w[ri list what_is].include? command
           command = command.split('_').map(&:capitalize).join

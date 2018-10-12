@@ -21,7 +21,7 @@ module Yarr
         dispatch(message)
         return error_message if error?
         ast = @ri_parser.parse(target)
-        handler.handle(ast)
+        handler.handle(ast) << (stuff.empty? ? '' : " , #{stuff}")
       end
     end
   end

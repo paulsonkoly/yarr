@@ -15,11 +15,6 @@ module Yarr
     #
     # @note We also accept % character anywhere to support like queries.
     class Parser < Parslet::Parser
-      rule(:query) do
-        expression >> str(',') >> str(' ').repeat >> stuff |
-          expression
-      end
-
       rule(:expression) do
         instance_method.as(:instance_method) |
           class_method.as(:class_method) |
@@ -37,9 +32,7 @@ module Yarr
 
       rule(:method) { (match('[a-z_!?+\-*/%]').repeat(1)).as(:method_name) }
 
-      rule(:stuff) { (any.repeat).as(:stuff) }
-
-      root(:query)
+      root(:expression)
     end
   end
 end
