@@ -13,10 +13,10 @@ module Yarr
       end
     end
 
-    RSpec.describe Command do
+    RSpec.describe QueryCommand do
       describe '#stringify_hash_values' do
         subject do
-          Command.new.send(:stringify_hash_values, { a: 1, b: { c: 2 } })
+          described_class.new.send(:stringify_hash_values, { a: 1, b: { c: 2 } })
         end
 
         it { is_expected.to eq({ a: '1', b: { c: '2' } }) }

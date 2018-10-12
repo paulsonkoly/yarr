@@ -2,9 +2,18 @@ require 'yarr/message/query'
 
 module Yarr
   module Message
+    # Generic base class for command handling
+    class Command
+      # Responds to a command received
+      # @param ast The parsed AST of a command target
+      def handle(ast)
+        raise NotImplementedError
+      end
+    end
+
     # Gets the first key out of the AST and replies with it, underscores
     # translated to spaces.
-    class WhatIsCommand
+    class WhatIsCommand < Command
       # Takes an AST and returns the response.
       def handle(ast)
         "It's a(n) #{ast.first.first}.".tr '_', ' '
@@ -12,7 +21,7 @@ module Yarr
     end
 
     # Generic base class for commands that require database access.
-    class Command
+    class QueryCommand < Command
       # @param query_adaptor Yarr::Message::Query
       def initialize(query_adaptor = Query)
         @query_adaptor = query_adaptor
@@ -47,6 +56,7 @@ module Yarr
 
       private
 
+      # TODO this shouldn't even be here
       def stringify_hash_values(hash)
         hash.transform_values do |value|
           case value
@@ -64,7 +74,7 @@ module Yarr
     end
 
     # &ri command handler. Looks up documentation link for the target.
-    class RiCommand < Command
+    class RiCommand < QueryCommand
       private
 
       def handle_instance_method
@@ -114,7 +124,7 @@ module Yarr
     end
 
     # List command handler. Returns a matching list for the target.
-    class ListCommand < Command
+    class ListCommand < QueryCommand
       private
 
       def handle_instance_method
