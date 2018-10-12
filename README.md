@@ -45,8 +45,8 @@ ri puts
 
 ### list
 
-list lists the matching names. % is takes as a wildchar that can match any
-string fragment.
+list lists the matching names. % is taken as a wildcard character that can
+match any string fragment.
 
 ```
 list puts
