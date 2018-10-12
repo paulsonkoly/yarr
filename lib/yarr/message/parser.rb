@@ -30,7 +30,7 @@ module Yarr
         (match('[A-Z%]') >> match('[a-zA-Z:%]').repeat).as(:class_name)
       end
 
-      rule(:method) { (match('[a-z_!?+\-*/%]').repeat(1)).as(:method_name) }
+      rule(:method) { (match('[a-z_!?=+\-*/%]').repeat(1)).as(:method_name) }
 
       root(:expression)
     end
