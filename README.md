@@ -2,6 +2,8 @@
 
 This application is the workhorse behind the rubydoc bot on freenode.net #ruby.
 
+[![Build Status](https://travis-ci.org/phaul/yarr.svg?branch=master)](https://travis-ci.org/phaul/yarr)
+
 ## Installation
 
 ```bash
