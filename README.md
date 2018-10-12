@@ -34,7 +34,7 @@ $ bundle exec ruby app/yarr # run bot mode.
 
 ri looks up the documentation of a class name, a method name, an instance
 method call (in the form of `ri Array#size`) and a class method call (in the
-form of `ri File.size`). If the query is ambigous the bot will tell you that.
+form of `ri File.size`). If the query is ambiguous the bot will tell you that.
 
 ```
 ri instance_methods
@@ -55,7 +55,7 @@ list %!
 >>> BasicObject#!, String#capitalize!, String#chomp!, String#chop!, Array#collect!, Array#compact!, Hash#compact!, String#delete!, String#delete_prefix!,...
 ```
 
-For ambigous method names we simply call list:
+For ambiguous method names we simply call list:
 
 ```
 list size
@@ -63,7 +63,7 @@ list size
 ```
 
 One caveat is that yarr decides if a token is a class name or not by checking
-if the first character is upcase. Therefor we can't list the File class this
+if the first character is upcase. Therefore we can't list the File class this
 way:
 
 ```
