@@ -113,14 +113,12 @@ module Yarr
   end
 
   RSpec.describe RiCommand do
-    let(:query_adaptor) { double('query_adaptor') }
-    subject { RiCommand.new(query_adaptor) }
-
     describe '#handle_instance_method' do
       context 'when there is a single result' do
         before do
-          allow(query_adaptor).to receive(:joined_query).and_return(
-            [url: 'definition.html'])
+          allow(Query::KlassAndMethod).to receive(:query)
+            .and_return([OpenStruct.new(method_:
+                           OpenStruct.new(url: 'definition.html'))])
         end
 
         it 'returns the url' do
@@ -130,8 +128,8 @@ module Yarr
 
       context 'when the number of results is not 1' do
         before do
-          allow(query_adaptor).to receive(:joined_query).and_return(
-            [url: 'definition.html'] * 10)
+          allow(Query::KlassAndMethod).to receive(:query)
+            .and_return([1] * 10)
         end
 
         it 'returns the count' do
@@ -143,8 +141,9 @@ module Yarr
     describe '#handle_class_method' do
       context 'when there is a single result' do
         before do
-          allow(query_adaptor).to receive(:joined_query).and_return(
-            [url: 'definition.html'])
+          allow(Query::KlassAndMethod).to receive(:query)
+            .and_return([OpenStruct.new(method_:
+                           OpenStruct.new(url: 'definition.html'))])
         end
 
         it 'returns the url' do
@@ -154,8 +153,8 @@ module Yarr
 
       context 'when the number of results is not 1' do
         before do
-          allow(query_adaptor).to receive(:joined_query).and_return(
-            [url: 'definition.html'] * 10)
+          allow(Query::KlassAndMethod).to receive(:query)
+            .and_return([1] * 10)
         end
 
         it 'returns the count' do
@@ -167,8 +166,8 @@ module Yarr
     describe '#handle_class_name' do
       context 'when there is a single result' do
         before do
-          allow(query_adaptor).to receive(:klass_query).and_return(
-            [url: 'definition.html'])
+          allow(Query::Klass).to receive(:query)
+            .and_return([OpenStruct.new(url: 'definition.html')])
         end
 
         it 'returns the url' do
@@ -178,8 +177,7 @@ module Yarr
 
       context 'when the number of results is not 1' do
         before do
-          allow(query_adaptor).to receive(:klass_query).and_return(
-            [url: 'definition.html'] * 10)
+          allow(Query::Klass).to receive(:query).and_return([1] * 10)
         end
 
         it 'returns the count' do
@@ -191,8 +189,8 @@ module Yarr
     describe '#handle_method_name' do
       context 'when there is a single result' do
         before do
-          allow(query_adaptor).to receive(:method_query).and_return(
-            [url: 'definition.html'])
+          allow(Query::Method).to receive(:query)
+            .and_return([OpenStruct.new(url: 'definition.html')])
         end
 
         it 'returns the url' do
@@ -202,8 +200,7 @@ module Yarr
 
       context 'when the number of results is more than 1' do
         before do
-          allow(query_adaptor).to receive(:method_query).and_return(
-            [url: 'definition.html'] * 10)
+          allow(Query::Method).to receive(:query).and_return([1] * 10)
         end
 
         it 'returns the count' do
@@ -212,10 +209,6 @@ module Yarr
       end
 
       context 'when there is no result' do
-        before do
-          allow(query_adaptor).to receive(:method_query).and_return([])
-        end
-
         it 'returns the count' do
           expect(subject.send(:handle_method_name)).to match('no entry')
         end
@@ -224,16 +217,13 @@ module Yarr
   end
 
   RSpec.describe ListCommand do
-    let(:query_adaptor) { double('query_adaptor') }
-    let(:multi_result) { [{ class_name: 'File', method_name: 'size' },
-                          { class_name: 'Array', method_name: 'size' }] }
-    subject { ListCommand.new(query_adaptor) }
-
     describe '#handle_instance_method' do
       context 'when there is at least one result' do
         before do
-          allow(query_adaptor).to receive(:joined_like_query)
-            .and_return(multi_result)
+          allow(Query::KlassAndMethod).to receive(:query)
+            .and_return(double('query-result',
+                               count: 2,
+                               entries: ['File#size', 'Array#size']))
         end
 
         it 'returns the list' do
@@ -242,10 +232,6 @@ module Yarr
       end
 
       context 'when the number of results is 0' do
-        before do
-          allow(query_adaptor).to receive(:joined_like_query).and_return([])
-        end
-
         it 'complains' do
           expect(subject.send(:handle_instance_method)).to match('haven\'t found any')
         end
@@ -255,8 +241,10 @@ module Yarr
     describe '#handle_class_method' do
       context 'when there is at least one result' do
         before do
-          allow(query_adaptor).to receive(:joined_like_query)
-            .and_return(multi_result)
+          allow(Query::KlassAndMethod).to receive(:query)
+            .and_return(double('query-result',
+                               count: 2,
+                               entries: ['File.size', 'Array.size']))
         end
 
         it 'returns the list' do
@@ -265,10 +253,6 @@ module Yarr
       end
 
       context 'when the number of results is 0' do
-        before do
-          allow(query_adaptor).to receive(:joined_like_query).and_return([])
-        end
-
         it 'complains' do
           expect(subject.send(:handle_class_method)).to match('haven\'t found any')
         end
@@ -278,8 +262,8 @@ module Yarr
     describe '#handle_class_name' do
       context 'when there is at least one result' do
         before do
-          allow(query_adaptor).to receive(:klass_like_query).and_return(
-            [{ name: 'Array' }, { name: 'String' }])
+          allow(Query::Klass).to receive(:query)
+            .and_return(double('query_result', count: 2, entries: ['Array', 'String']))
         end
 
         it 'returns the list' do
@@ -288,10 +272,6 @@ module Yarr
       end
 
       context 'when the number of results is 0' do
-        before do
-          allow(query_adaptor).to receive(:klass_like_query).and_return([])
-        end
-
         it 'complains' do
           expect(subject.send(:handle_class_name)).to match('haven\'t found any')
         end
@@ -301,23 +281,18 @@ module Yarr
     describe '#handle_method_name' do
       context 'when there is at least one result' do
         before do
-          allow(query_adaptor).to receive(:method_like_query)
-            .and_return([
-              { class_name: 'File', method_name: 'size', method_flavour: 'class' },
-              { class_name: 'Array', method_name: 'size', method_flavour: 'instance'},
-              { class_name: 'bad', method_name: 'worse', method_flavour: 'nonexistent'}])
+          allow(Query::Method).to receive(:query)
+            .and_return(double('query-result',
+                               count: 2,
+                               entries: ['File.size', 'Array#size']))
         end
 
         it 'returns the list' do
-          expect(subject.send(:handle_method_name)).to eql 'File.size, Array#size, bad???worse'
+          expect(subject.send(:handle_method_name)).to eql 'File.size, Array#size'
         end
       end
 
       context 'when the number of results is 0' do
-        before do
-          allow(query_adaptor).to receive(:method_like_query).and_return([])
-        end
-
         it 'complains' do
           expect(subject.send(:handle_method_name)).to match('haven\'t found any')
         end

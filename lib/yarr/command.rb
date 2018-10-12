@@ -21,11 +21,6 @@ module Yarr
 
   # Generic base class for commands that require database access.
   class QueryCommand < Command
-    # @param query_adaptor {Yarr::Query}
-    def initialize(query_adaptor = Query)
-      @query_adaptor = query_adaptor
-    end
-
     # Takes the AST and based on its structure calls the appropriate sub
     # handler. Sub handlers have to be overriden to take specific action in
     # sub classes.
@@ -85,29 +80,29 @@ module Yarr
     end
 
     def handle_class_name
-      result = @query_adaptor.klass_query(@klass)
+      result = Query::Klass.query(name: @klass)
 
       response(count: result.count,
-               url_lambda: -> { result.first[:url] },
+               url_lambda: -> { result.first.url },
                objects_string: "class #@klass")
     end
 
     def handle_method_name
-      result = @query_adaptor.method_query(@method)
+      result = Query::Method.query(name: @method)
 
       response(count: result.count,
-               url_lambda: -> { result.first[:url] },
+               url_lambda: -> { result.first.url },
                objects_string: "method #@method",
                advice: "Use &list #@method if you would like to see a list")
     end
 
     def handle_call(type)
-      result = @query_adaptor.joined_query(klass: @klass,
-                                           method: @method,
+      result = Query::KlassAndMethod.query(method: @method,
+                                           klass: @klass,
                                            flavour: type.to_s)
 
       response(count: result.count,
-               url_lambda: -> { result.first[:url] },
+               url_lambda: -> { result.first.method_.url },
                objects_string: "class #@klass #{type} method #@method")
     end
 
@@ -136,42 +131,34 @@ module Yarr
     end
 
     def handle_class_name
-      result = @query_adaptor.klass_like_query(@klass)
+      result = Query::Klass.query(name: @klass, allow_like: true)
 
       if result.count.zero?
         "I haven't found any entry that matches class #@klass"
       else
-        result.map { |row| "#{row[:name]}" }.join(', ')
+        result.entries.join(', ')
       end
     end
 
     def handle_method_name
-      result = @query_adaptor.method_like_query(@method)
+      result = Query::Method.query(name: @method, allow_like: true)
 
       if result.count.zero?
         "I haven't found any entry that matches method #@method"
       else
-        result.map do |row|
-          flavour = case row[:method_flavour]
-                    when 'instance' then '#'
-                    when 'class' then '.'
-                    else '???'
-                    end
-          "#{row[:class_name]}#{flavour}#{row[:method_name]}"
-        end.join(', ')
+        result.entries.join(', ')
       end
     end
 
     def handle_call(type, type_delimiter)
-      result = @query_adaptor.joined_like_query(klass: @klass,
-                                                method: @method,
-                                                flavour: type.to_s)
+      result = Query::KlassAndMethod.query(klass: @klass,
+                                           method: @method,
+                                           flavour: type.to_s,
+                                           allow_like: true)
       if result.count.zero?
         "I haven't found any entry that matches #{type} method #@method on class #@klass"
       else
-        result.map do |row|
-          "#{row[:class_name]}#{type_delimiter}#{row[:method_name]}"
-        end.join(', ')
+        result.entries.join(', ')
       end
     end
   end
