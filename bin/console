@@ -3,7 +3,7 @@
 require "bundler/setup"
 require "yarr"
 
-bot = Yarr::Message::Message.new
+bot = Yarr::Bot.new
 puts "Yarr Version #{Yarr::VERSION}"
 
 loop do

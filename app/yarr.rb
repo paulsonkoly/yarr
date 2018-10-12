@@ -2,6 +2,7 @@ require 'cinch'
 require 'yarr'
 
 config_file = Yarr::ConfigFile.new
+yarr = Yarr::Bot.new
 
 bot = Cinch::Bot.new do
   configure do |c|
@@ -13,8 +14,7 @@ bot = Cinch::Bot.new do
   end
 
   on :message, /\A& *(.*)\z/ do |m, match|
-    message = Yarr::Message::Message.new
-    m.reply message.reply_to(match)
+    m.reply yarr.reply_to(match)
   end
 end
 
