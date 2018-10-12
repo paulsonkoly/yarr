@@ -1,6 +1,8 @@
 require 'parslet'
 
 module Yarr
+  # Code dealing with the subject (aka. target) part of the bot's command. See
+  # {Parser} for a list of what we can handle.
   module Message
     # A parslet parser that parses RDoc notation ruby tokens. We can parse:
     # method names, class names, instance method calls, class method calls.
