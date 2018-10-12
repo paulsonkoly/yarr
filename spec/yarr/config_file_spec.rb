@@ -1,5 +1,4 @@
-require_relative '../spec_helper'
-
+require 'spec_helper'
 require 'yarr/config_file'
 
 module Yarr
