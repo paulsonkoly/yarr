@@ -116,9 +116,9 @@ module Yarr
     describe '#handle_instance_method' do
       context 'when there is a single result' do
         before do
+          joint_result = double(method: double('method', url: 'definition.html'))
           allow(Query::KlassAndMethod).to receive(:query)
-            .and_return([OpenStruct.new(method_:
-                           OpenStruct.new(url: 'definition.html'))])
+            .and_return(double('query-result', first: joint_result, count: 1))
         end
 
         it 'returns the url' do
@@ -141,9 +141,9 @@ module Yarr
     describe '#handle_class_method' do
       context 'when there is a single result' do
         before do
+          joint_result = double(method: double('method', url: 'definition.html'))
           allow(Query::KlassAndMethod).to receive(:query)
-            .and_return([OpenStruct.new(method_:
-                           OpenStruct.new(url: 'definition.html'))])
+            .and_return(double('query-result', first: joint_result, count: 1))
         end
 
         it 'returns the url' do
@@ -166,8 +166,9 @@ module Yarr
     describe '#handle_class_name' do
       context 'when there is a single result' do
         before do
+          klass = double('klass', url: 'definition.html')
           allow(Query::Klass).to receive(:query)
-            .and_return([OpenStruct.new(url: 'definition.html')])
+            .and_return(double('query-result', count: 1, first: klass))
         end
 
         it 'returns the url' do
@@ -189,8 +190,9 @@ module Yarr
     describe '#handle_method_name' do
       context 'when there is a single result' do
         before do
+          method = double('method', url: 'definition.html')
           allow(Query::Method).to receive(:query)
-            .and_return([OpenStruct.new(url: 'definition.html')])
+            .and_return(double('query-result', count: 1, first: method))
         end
 
         it 'returns the url' do

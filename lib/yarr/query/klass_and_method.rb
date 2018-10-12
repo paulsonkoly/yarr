@@ -3,17 +3,17 @@ module Yarr
     class KlassAndMethod
       def initialize(klass, method)
         @klass = klass
-        @method_ = method
+        @method = method
       end
 
-      attr_reader :klass, :method_
+      attr_reader :klass, :method
 
       def to_s
-        delim = case method_.flavour
+        delim = case method.flavour
                 when 'instance' then ?#
                 when 'class' then ?.
                 end
-        "#{klass}#{delim}#{method_}"
+        "#{klass}#{delim}#{method}"
       end
 
       def self.query(method:, klass:, flavour:, allow_like: false)

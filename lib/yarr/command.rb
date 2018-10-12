@@ -102,7 +102,7 @@ module Yarr
                                            flavour: type.to_s)
 
       response(count: result.count,
-               url_lambda: -> { result.first.method_.url },
+               url_lambda: -> { result.first.method.url },
                objects_string: "class #@klass #{type} method #@method")
     end
 
