@@ -1,6 +1,5 @@
 require 'yarr/command_dispatcher'
 require 'yarr/message/parser'
-require 'yarr/message/command'
 require 'yarr/message/truncator'
 
 # Responds to rdoc documentation queries with links and more.

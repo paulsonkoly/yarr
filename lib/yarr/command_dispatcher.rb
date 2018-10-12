@@ -1,4 +1,4 @@
-require 'yarr/message/command'
+require 'yarr/command'
 
 module Yarr
   # Splits the incomming command into the following sections:
@@ -18,7 +18,7 @@ module Yarr
 
       if %w[ri list what_is].include? command
         command = command.split('_').map(&:capitalize).join
-        @handler = Yarr::Message.const_get("#{command}Command").new
+        @handler = Yarr.const_get("#{command}Command").new
         @error = false
       else
         @error = true

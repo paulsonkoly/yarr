@@ -1,4 +1,4 @@
-require 'yarr/message/command'
+require 'yarr/command'
 
 module Yarr
   module Message
