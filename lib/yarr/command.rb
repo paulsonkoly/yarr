@@ -1,4 +1,4 @@
-require 'yarr/message/query'
+require 'yarr/query'
 
 module Yarr
   # Generic base class for command handling
@@ -21,8 +21,8 @@ module Yarr
 
   # Generic base class for commands that require database access.
   class QueryCommand < Command
-    # @param query_adaptor Yarr::Message::Query
-    def initialize(query_adaptor = Message::Query)
+    # @param query_adaptor {Yarr::Query}
+    def initialize(query_adaptor = Query)
       @query_adaptor = query_adaptor
     end
 
