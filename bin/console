@@ -3,10 +3,15 @@
 require "bundler/setup"
 require "yarr"
 
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
+bot = Yarr::Message::Message.new
+puts "Yarr Version #{Yarr::VERSION}"
 
-
-require "pry"
-Pry.start
-
+loop do
+  request = gets
+  begin
+    puts bot.reply_to(request)
+    STDOUT.flush
+  rescue Parslet::ParseFailed => e
+    puts e
+  end
+end

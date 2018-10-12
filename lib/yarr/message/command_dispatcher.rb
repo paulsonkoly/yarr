@@ -10,7 +10,7 @@ module Yarr
       # splits up the message and sets {handler} to the appropriate command
       # handler
       def dispatch(message)
-        command, _, @target = message.partition(/\s+/)
+        command, _, @target = message.chomp.partition(/\s+/)
 
         if %w[ri list what_is].include? command
           command = command.split('_').map(&:capitalize).join
