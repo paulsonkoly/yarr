@@ -1,6 +1,7 @@
 require 'yarr/message/parser'
 require 'yarr/message/command_dispatcher'
 require 'yarr/message/command'
+require 'yarr/message/truncator'
 
 # Responds to rdoc documentation queries with links and more.
 module Yarr
@@ -21,7 +22,9 @@ module Yarr
         dispatch(message)
         return error_message if error?
         ast = @ri_parser.parse(target)
-        handler.handle(ast) << (stuff.empty? ? '' : " , #{stuff}")
+        response = handler.handle(ast)
+        stuff.prepend(' , ') unless stuff.empty?
+        Truncator.truncate(response) + Truncator.truncate(stuff)
       end
     end
   end
