@@ -8,6 +8,7 @@ gem 'sequel'
 gem 'sqlite3'
 gem 'parslet'
 gem 'activesupport'
+gem 'qo'
 
 group :development do
   gem 'byebug'

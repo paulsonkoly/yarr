@@ -26,12 +26,12 @@ module Yarr
             .where(Sequel[:methods][:name].like(name))
 
           Result.new(dataset, -> row {
-            new(KlassAndMethod.new(Klass.new(row[:class_name],
-                                             row[:class_url])),
-                                   new(row[:method_name],
-                                       row[:method_url],
-                                       row[:method_flavour],
-                                       row[:class_id]))
+            klass = Klass.new(row[:class_name], row[:class_url])
+            method = new(row[:method_name],
+                         row[:method_url],
+                         row[:method_flavour],
+                         row[:class_id])
+            KlassAndMethod.new(klass, method)
           })
         else
           dataset = DB[:methods].where(name: name)

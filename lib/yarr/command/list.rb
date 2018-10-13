@@ -1,47 +1,78 @@
+require 'yarr/command/base'
+
 module Yarr
   module Command
-    # List command handler. Returns a matching list for the target.
-    class List < Query
+    class List < Base
+      def handle
+        result = query
+        return error_message if result.count.zero?
+
+        result.entries.join(', ')
+      end
+
       private
 
-      def handle_instance_method
-        handle_call('instance')
+      def query
+        raise NotImplementedError
       end
 
-      def handle_class_method
-        handle_call('class')
+      def error_message
+        raise NotImplementedError
+      end
+    end
+
+    class ListInstanceMethod < List
+      private
+
+      def query
+        Yarr::Query::KlassAndMethod.query(klass: klass,
+                                          method: method,
+                                          flavour: 'instance',
+                                          allow_like: true)
       end
 
-      def handle_class_name
-        result = Yarr::Query::Klass.query(name: @klass, allow_like: true)
+      def error_message
+        "I haven't found any entry that matches instance method #{method} on class #{klass}"
+      end
+    end
 
-        if result.count.zero?
-          "I haven't found any entry that matches class #@klass"
-        else
-          result.entries.join(', ')
-        end
+
+    class ListClassMethod < List
+      private
+
+      def query
+        Yarr::Query::KlassAndMethod.query(klass: klass,
+                                          method: method,
+                                          flavour: 'class',
+                                          allow_like: true)
       end
 
-      def handle_method_name
-        result = Yarr::Query::Method.query(name: @method, allow_like: true)
+      def error_message
+        "I haven't found any entry that matches class method #{method} on class #{klass}"
+      end
+    end
 
-        if result.count.zero?
-          "I haven't found any entry that matches method #@method"
-        else
-          result.entries.join(', ')
-        end
+    class ListClassName < List
+      private
+
+      def query
+        Yarr::Query::Klass.query(name: klass, allow_like: true)
       end
 
-      def handle_call(type)
-        result = Yarr::Query::KlassAndMethod.query(klass: @klass,
-                                                   method: @method,
-                                                   flavour: type.to_s,
-                                                   allow_like: true)
-        if result.count.zero?
-          "I haven't found any entry that matches #{type} method #@method on class #@klass"
-        else
-          result.entries.join(', ')
-        end
+      def error_message
+        "I haven't found any entry that matches class #{klass}"
+      end
+    end
+
+    class ListMethodName < List
+      private
+
+      def query
+        Yarr::Query::Method.query(name: method, allow_like: true)
+      end
+
+      def error_message
+        "I haven't found any entry that matches method #{method}"
       end
     end
   end

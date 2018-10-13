@@ -1,25 +1,36 @@
 require 'yarr/command'
+require 'qo'
 
 module Yarr
-  # Splits the incomming command into the following sections:
-  #   - command (like 'list')
-  #   - command target (like 'Array')
-  #   - stuff (anything precedded by a ',')
   module CommandDispatcher
-    # @!attribute [r] handler
-    #   @return the command handler, {Yarr::Message::Command}
-    attr_reader :error_message, :handler, :target, :stuff
+    attr_reader :error_message
 
-    # splits up the message and sets {handler} to the appropriate command
-    # handler
-    def dispatch(message)
-      command, _, rest = message.chomp.partition(/\s+/)
-      @target, _, @stuff = rest.partition(',')
+    # @return the command handler for the incoming command / AST
+    def dispatch(command, ast)
+      @error = false
 
-      if %w[ri list what_is].include? command
-        command = command.split('_').map(&:capitalize).join
-        @handler = Yarr::Command.const_get(command).new
-        @error = false
+      case [command, ast]
+      when Qo['what_is', Any]
+        Yarr::Command::WhatIs.new(ast)
+
+      when Qo['ri', Qo[instance_method: Any]]
+        Yarr::Command::RiInstanceMethod.new(ast)
+      when Qo['ri', Qo[class_method: Any]]
+        Yarr::Command::RiClassMethod.new(ast)
+      when Qo['ri', Qo[method_name: Any]]
+        Yarr::Command::RiMethodName.new(ast)
+      when Qo['ri', Qo[class_name: Any]]
+        Yarr::Command::RiClassName.new(ast)
+
+      when Qo['list', Qo[instance_method: Any]]
+        Yarr::Command::ListInstanceMethod.new(ast)
+      when Qo['list', Qo[class_method: Any]]
+        Yarr::Command::ListClassMethod.new(ast)
+      when Qo['list', Qo[method_name: Any]]
+        Yarr::Command::ListMethodName.new(ast)
+      when Qo['list', Qo[class_name: Any]]
+        Yarr::Command::ListClassName.new(ast)
+
       else
         @error = true
         @error_message = "I did not understand command #{command}."

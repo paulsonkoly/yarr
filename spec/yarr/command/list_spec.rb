@@ -2,8 +2,11 @@ require 'spec_helper'
 
 module Yarr
   module Command
-    RSpec.describe List do
-      describe '#handle_instance_method' do
+    RSpec.describe ListInstanceMethod do
+      let(:ast) { { class_name: '%', method_name: 'size' } }
+      subject { described_class.new(ast) }
+
+      describe '#handle' do
         context 'when there is at least one result' do
           before do
             allow(Yarr::Query::KlassAndMethod).to receive(:query)
@@ -13,18 +16,28 @@ module Yarr
           end
 
           it 'returns the list' do
-            expect(subject.send(:handle_instance_method)).to eql 'File#size, Array#size'
+            expect(subject.send(:handle)).to eql 'File#size, Array#size'
           end
         end
 
         context 'when the number of results is 0' do
+          before do
+            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+              .and_return(double('query-result', count: 0))
+          end
+
           it 'complains' do
-            expect(subject.send(:handle_instance_method)).to match('haven\'t found any')
+            expect(subject.send(:handle)).to match('haven\'t found any')
           end
         end
       end
+    end
 
-      describe '#handle_class_method' do
+    RSpec.describe ListClassMethod do
+      let(:ast) { { class_name: '%', method_name: 'size' } }
+      subject { described_class.new(ast) }
+
+      describe '#handle' do
         context 'when there is at least one result' do
           before do
             allow(Yarr::Query::KlassAndMethod).to receive(:query)
@@ -34,18 +47,28 @@ module Yarr
           end
 
           it 'returns the list' do
-            expect(subject.send(:handle_class_method)).to eql 'File.size, Array.size'
+            expect(subject.send(:handle)).to eql 'File.size, Array.size'
           end
         end
 
         context 'when the number of results is 0' do
+          before do
+            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+              .and_return(double('query-result', count: 0))
+          end
+
           it 'complains' do
-            expect(subject.send(:handle_class_method)).to match('haven\'t found any')
+            expect(subject.send(:handle)).to match('haven\'t found any')
           end
         end
       end
+    end
 
-      describe '#handle_class_name' do
+    RSpec.describe ListClassName do
+      let(:ast) { { class_name: '%', method_name: 'size' } }
+      subject { described_class.new(ast) }
+
+      describe '#handle' do
         context 'when there is at least one result' do
           before do
             allow(Yarr::Query::Klass).to receive(:query)
@@ -53,18 +76,28 @@ module Yarr
           end
 
           it 'returns the list' do
-            expect(subject.send(:handle_class_name)).to eql 'Array, String'
+            expect(subject.send(:handle)).to eql 'Array, String'
           end
         end
 
         context 'when the number of results is 0' do
+          before do
+            allow(Yarr::Query::Klass).to receive(:query)
+              .and_return(double('query-result', count: 0))
+          end
+
           it 'complains' do
-            expect(subject.send(:handle_class_name)).to match('haven\'t found any')
+            expect(subject.send(:handle)).to match('haven\'t found any')
           end
         end
       end
+    end
 
-      describe '#handle_method_name' do
+    RSpec.describe ListMethodName do
+      let(:ast) { { class_name: '%', method_name: 'size' } }
+      subject { described_class.new(ast) }
+
+      describe '#handle' do
         context 'when there is at least one result' do
           before do
             allow(Yarr::Query::Method).to receive(:query)
@@ -74,13 +107,18 @@ module Yarr
           end
 
           it 'returns the list' do
-            expect(subject.send(:handle_method_name)).to eql 'File.size, Array#size'
+            expect(subject.send(:handle)).to eql 'File.size, Array#size'
           end
         end
 
         context 'when the number of results is 0' do
+          before do
+            allow(Yarr::Query::Method).to receive(:query)
+              .and_return(double('query-result', count: 0))
+          end
+
           it 'complains' do
-            expect(subject.send(:handle_method_name)).to match('haven\'t found any')
+            expect(subject.send(:handle)).to match('haven\'t found any')
           end
         end
       end

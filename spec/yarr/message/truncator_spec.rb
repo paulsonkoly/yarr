@@ -3,6 +3,10 @@ require 'spec_helper'
 module Yarr
   module Message
     RSpec.describe Truncator do
+      subject do
+        truncator = described_class
+        Class.new { include truncator }.new
+      end
       let (:short) { Faker::Lorem.paragraph_by_chars(Truncator::MAX_LENGTH - 10) }
       let (:long) { Faker::Lorem.paragraph_by_chars(Truncator::MAX_LENGTH + 10) }
 

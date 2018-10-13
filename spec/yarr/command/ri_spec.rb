@@ -2,8 +2,11 @@ require 'spec_helper'
 
 module Yarr
   module Command
-    RSpec.describe Ri do
-      describe '#handle_instance_method' do
+    RSpec.describe RiInstanceMethod do
+      let(:ast) { { class_name: '%', method_name: 'size' } }
+      subject { described_class.new(ast) }
+
+      describe '#handle' do
         context 'when there is a single result' do
           before do
             joint_result = double(method: double('method', url: 'definition.html'))
@@ -12,7 +15,7 @@ module Yarr
           end
 
           it 'returns the url' do
-            expect(subject.send(:handle_instance_method)).to end_with 'definition.html'
+            expect(subject.send(:handle)).to end_with 'definition.html'
           end
         end
 
@@ -23,12 +26,17 @@ module Yarr
           end
 
           it 'returns the count' do
-            expect(subject.send(:handle_instance_method)).to match('10')
+            expect(subject.send(:handle)).to match('10')
           end
         end
       end
+    end
 
-      describe '#handle_class_method' do
+    RSpec.describe RiClassMethod do
+      let(:ast) { { class_name: '%', method_name: 'size' } }
+      subject { described_class.new(ast) }
+
+      describe '#handle' do
         context 'when there is a single result' do
           before do
             joint_result = double(method: double('method', url: 'definition.html'))
@@ -37,7 +45,7 @@ module Yarr
           end
 
           it 'returns the url' do
-            expect(subject.send(:handle_class_method)).to end_with 'definition.html'
+            expect(subject.send(:handle)).to end_with 'definition.html'
           end
         end
 
@@ -48,12 +56,18 @@ module Yarr
           end
 
           it 'returns the count' do
-            expect(subject.send(:handle_class_method)).to match('10')
+            expect(subject.send(:handle)).to match('10')
           end
         end
       end
+    end
 
-      describe '#handle_class_name' do
+
+    RSpec.describe RiClassName do
+      let(:ast) { { class_name: '%'} }
+      subject { described_class.new(ast) }
+
+      describe '#handle' do
         context 'when there is a single result' do
           before do
             klass = double('klass', url: 'definition.html')
@@ -62,7 +76,7 @@ module Yarr
           end
 
           it 'returns the url' do
-            expect(subject.send(:handle_class_name)).to end_with 'definition.html'
+            expect(subject.send(:handle)).to end_with 'definition.html'
           end
         end
 
@@ -72,12 +86,17 @@ module Yarr
           end
 
           it 'returns the count' do
-            expect(subject.send(:handle_class_name)).to match('10')
+            expect(subject.send(:handle)).to match('10')
           end
         end
       end
+    end
 
-      describe '#handle_method_name' do
+    RSpec.describe RiMethodName do
+      let(:ast) { { class_name: '%'} }
+      subject { described_class.new(ast) }
+
+      describe '#handle' do
         context 'when there is a single result' do
           before do
             method = double('method', url: 'definition.html')
@@ -86,7 +105,7 @@ module Yarr
           end
 
           it 'returns the url' do
-            expect(subject.send(:handle_method_name)).to end_with 'definition.html'
+            expect(subject.send(:handle)).to end_with 'definition.html'
           end
         end
 
@@ -96,13 +115,13 @@ module Yarr
           end
 
           it 'returns the count' do
-            expect(subject.send(:handle_method_name)).to match('10')
+            expect(subject.send(:handle)).to match('10')
           end
         end
 
         context 'when there is no result' do
           it 'returns the count' do
-            expect(subject.send(:handle_method_name)).to match('no entry')
+            expect(subject.send(:handle)).to match('no entry')
           end
         end
       end

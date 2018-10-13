@@ -10,10 +10,10 @@ module Yarr
     # @example
     #
     #   p = Yarr::Message::Parser.new
-    #   p.parse 'a' # => {:method_name=>"a"@0}
-    #   p.parse 'B' # => {:class_name=>"B"@0}
-    #   p.parse 'A#b' # => {:instance_method=>{:class_name=>"A"@0, :method_name=>"b"@2}}
-    #   p.parse 'A.b' # => {:class_method=>{:class_name=>"A"@0, :method_name=>"b"@2}}
+    #   p.parse 'a' # => {:method_name=>"a"}
+    #   p.parse 'B' # => {:class_name=>"B"}
+    #   p.parse 'A#b' # => {:instance_method=>{:class_name=>"A", :method_name=>"b"}}
+    #   p.parse 'A.b' # => {:class_method=>{:class_name=>"A", :method_name=>"b"}}
     #
     # @note We also accept % character anywhere to support like queries.
     class Parser < Parslet::Parser
@@ -35,6 +35,21 @@ module Yarr
       rule(:method) { (match('[a-z_!?=+\-*/%]').repeat(1)).as(:method_name) }
 
       root(:expression)
+
+      def parse(string)
+        stringify_hash_values(super)
+      end
+
+      private
+
+      def stringify_hash_values(hash)
+        hash.transform_values do |value|
+          case value
+          when Hash then stringify_hash_values(value)
+          else value.to_s
+          end
+        end
+      end
     end
   end
 end

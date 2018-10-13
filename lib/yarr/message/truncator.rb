@@ -5,11 +5,10 @@ module Yarr
     # Flood protection.
     module Truncator
       MAX_LENGTH = 160 # max message length.
-      class << self
-        # Truncates the given string to the predefined maximum size.
-        def truncate(message)
-          message.truncate(MAX_LENGTH, separator: ' ')
-        end
+
+      # Truncates the given string to the predefined maximum size.
+      def truncate(message)
+        message.truncate(MAX_LENGTH, separator: ' ')
       end
     end
   end
