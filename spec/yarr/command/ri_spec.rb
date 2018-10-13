@@ -100,7 +100,7 @@ module Yarr
         context 'when there is a single result' do
           before do
             method = double('method', url: 'definition.html')
-            allow(Yarr::Query::Method).to receive(:query)
+            allow(Yarr::Query::Method::Strict).to receive(:query)
               .and_return(double('query-result', count: 1, first: method))
           end
 
@@ -111,7 +111,7 @@ module Yarr
 
         context 'when the number of results is more than 1' do
           before do
-            allow(Yarr::Query::Method).to receive(:query).and_return([1] * 10)
+            allow(Yarr::Query::Method::Strict).to receive(:query).and_return([1] * 10)
           end
 
           it 'returns the count' do

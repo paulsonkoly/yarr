@@ -68,7 +68,7 @@ module Yarr
       private
 
       def query
-        Yarr::Query::Method.query(name: method, allow_like: true)
+        Yarr::Query::Method::Like.query(name: method)
       end
 
       def error_message

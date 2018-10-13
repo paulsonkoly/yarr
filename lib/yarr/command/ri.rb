@@ -44,7 +44,7 @@ module Yarr
 
     class RiMethodName < Ri
       def handle
-        result = Yarr::Query::Method.query(name: method)
+        result = Yarr::Query::Method::Strict.query(name: method)
 
         response(count: result.count,
                  url_lambda: -> { result.first.url },

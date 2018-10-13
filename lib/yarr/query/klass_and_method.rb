@@ -39,7 +39,7 @@ module Yarr
 
         Result.new(dataset, -> row {
           new(Klass.new(row[:class_name], row[:class_url]),
-              Method.new(row[:method_name], row[:method_url], row[:method_flavour], row[:class_id]))
+              Method::Base.new(row[:method_name], row[:method_url], row[:method_flavour], row[:class_id]))
         })
       end
     end
