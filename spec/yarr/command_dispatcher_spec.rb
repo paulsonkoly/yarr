@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'yarr/command_dispatcher'
 
 module Yarr
   RSpec.describe CommandDispatcher do
@@ -19,7 +18,7 @@ module Yarr
       subject.dispatch('ri')
 
       expect(subject.error?).to eql false
-      expect(subject.handler).to be_an RiCommand
+      expect(subject.handler).to be_an Command::Ri
       expect(subject.target).to eql ''
     end
 
@@ -27,7 +26,7 @@ module Yarr
       subject.dispatch('ri aa')
 
       expect(subject.error?).to eql false
-      expect(subject.handler).to be_an RiCommand
+      expect(subject.handler).to be_an Command::Ri
       expect(subject.target).to eql 'aa'
     end
 
@@ -35,7 +34,7 @@ module Yarr
       subject.dispatch('what_is')
 
       expect(subject.error?).to eql false
-      expect(subject.handler).to be_an WhatIsCommand
+      expect(subject.handler).to be_an Command::WhatIs
       expect(subject.target).to eql ''
     end
 
@@ -43,7 +42,7 @@ module Yarr
       subject.dispatch('what_is aa')
 
       expect(subject.error?).to eql false
-      expect(subject.handler).to be_an WhatIsCommand
+      expect(subject.handler).to be_an Command::WhatIs
       expect(subject.target).to eql 'aa'
     end
 
@@ -51,7 +50,7 @@ module Yarr
       subject.dispatch('list')
 
       expect(subject.error?).to eql false
-      expect(subject.handler).to be_an ListCommand
+      expect(subject.handler).to be_an Command::List
       expect(subject.target).to eql ''
     end
 
@@ -59,7 +58,7 @@ module Yarr
       subject.dispatch('list aa')
 
       expect(subject.error?).to eql false
-      expect(subject.handler).to be_an ListCommand
+      expect(subject.handler).to be_an Command::List
       expect(subject.target).to eql 'aa'
     end
   end

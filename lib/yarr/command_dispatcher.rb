@@ -18,7 +18,7 @@ module Yarr
 
       if %w[ri list what_is].include? command
         command = command.split('_').map(&:capitalize).join
-        @handler = Yarr.const_get("#{command}Command").new
+        @handler = Yarr::Command.const_get(command).new
         @error = false
       else
         @error = true

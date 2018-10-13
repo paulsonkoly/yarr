@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-require 'yarr/bot'
-
 module Yarr
   RSpec.describe Bot do
     describe '.reply_to' do

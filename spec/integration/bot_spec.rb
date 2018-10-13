@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-require 'yarr'
-
 RSpec.describe Yarr::Bot do
   it 'does ri instance_method' do
     expect(subject.reply_to('ri instance_method')).to eq 'https://ruby-doc.org/core-2.5.1/Module.html#method-i-instance_method'
