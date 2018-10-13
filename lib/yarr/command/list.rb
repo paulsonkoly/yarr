@@ -5,11 +5,11 @@ module Yarr
       private
 
       def handle_instance_method
-        handle_call('instance', '#')
+        handle_call('instance')
       end
 
       def handle_class_method
-        handle_call('class', '.')
+        handle_call('class')
       end
 
       def handle_class_name
@@ -32,7 +32,7 @@ module Yarr
         end
       end
 
-      def handle_call(type, type_delimiter)
+      def handle_call(type)
         result = Yarr::Query::KlassAndMethod.query(klass: @klass,
                                                    method: @method,
                                                    flavour: type.to_s,
