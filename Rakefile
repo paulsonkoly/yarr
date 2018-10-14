@@ -43,6 +43,11 @@ namespace :lint do
 
   desc 'module level coverage'
   task :module_coverage do
+    puts <<~EOS
+
+      Only run this if you want to check per module coverage
+
+    EOS
     list = FileList['lib/**/*.rb']
     list.exclude('lib/yarr.rb',
                  'lib/yarr/bot.rb',

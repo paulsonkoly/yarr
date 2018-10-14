@@ -2,6 +2,19 @@ require 'spec_helper'
 
 module Yarr
   module Command
+    RSpec.describe List do
+      let(:ast) { { class_name: '%', method_name: 'size' } }
+      subject { described_class.new(ast) }
+
+      it 'doesn\'t implement #query' do
+        expect { subject.send(:query) }.to raise_error NotImplementedError
+      end
+
+      it 'doesn\'t implement #error_message' do
+        expect { subject.send(:error_message) }.to raise_error NotImplementedError
+      end
+    end
+
     RSpec.describe ListInstanceMethod do
       let(:ast) { { class_name: '%', method_name: 'size' } }
       subject { described_class.new(ast) }

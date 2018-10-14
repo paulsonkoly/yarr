@@ -78,12 +78,12 @@ module Yarr
             .where(Sequel[:methods][:name].like(name))
 
           Result.new(dataset, -> row {
-            klass = Klass.new(row[:class_name], row[:class_url])
+            klass = Klass::Like.new(row[:class_name], row[:class_url])
             method = new(row[:method_name],
                          row[:method_url],
                          row[:method_flavour],
                          row[:class_id])
-            KlassAndMethod.new(klass, method)
+            KlassAndMethod::Like.new(klass, method)
           })
         end
       end
