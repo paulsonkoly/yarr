@@ -29,15 +29,34 @@ end
 
 namespace :lint do
   desc 'all lints'
-  task :all => [:spec_helper_check, :reek, :spec]
+  task :all => [:spec_helper_check, :reek, :spec, :module_coverage]
 
   desc 'Check for require spec_helper in spec files'
   task :spec_helper_check do
     puts 'Listing files missing the require:'
-    Dir['spec/**/*_spec.rb'].each do |f|
+    FileList['spec/**/*_spec.rb'].each do |f|
       File.open(f, 'r') do |io|
         puts f unless io.each_line.any?(/require 'spec_helper'/)
       end
+    end
+  end
+
+  desc 'module level coverage'
+  task :module_coverage do
+    list = FileList['lib/**/*.rb']
+    list.exclude('lib/yarr.rb',
+                 'lib/yarr/bot.rb',
+                 'lib/yarr/command.rb',
+                 'lib/yarr/database.rb',
+                 'lib/yarr/query.rb',
+                 'lib/yarr/version.rb')
+    list.each do |f|
+      basename = File.basename(f, '.rb')
+      dirname = File.dirname(f).sub(/\blib\b/, 'spec')
+      specname = "#{dirname}/#{basename}_spec.rb"
+      ENV['MODULE_COVERAGE_FILE'] = File.basename(f)
+      ENV['MODULE_COVERAGE_SPEC'] = specname
+      sh "rspec -o /dev/null -r module_coverage #{specname}"
     end
   end
 
