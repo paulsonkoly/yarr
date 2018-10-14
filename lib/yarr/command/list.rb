@@ -25,10 +25,9 @@ module Yarr
       private
 
       def query
-        Yarr::Query::KlassAndMethod.query(klass: klass,
-                                          method: method,
-                                          flavour: 'instance',
-                                          allow_like: true)
+        Yarr::Query::KlassAndMethod::Like.query(klass: klass,
+                                                method: method,
+                                                flavour: 'instance')
       end
 
       def error_message
@@ -41,10 +40,9 @@ module Yarr
       private
 
       def query
-        Yarr::Query::KlassAndMethod.query(klass: klass,
-                                          method: method,
-                                          flavour: 'class',
-                                          allow_like: true)
+        Yarr::Query::KlassAndMethod::Like.query(klass: klass,
+                                                method: method,
+                                                flavour: 'class')
       end
 
       def error_message

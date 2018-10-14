@@ -20,9 +20,9 @@ module Yarr
 
     class RiInstanceMethod < Ri
       def handle
-        result = Yarr::Query::KlassAndMethod.query(method: method,
-                                                   klass: klass,
-                                                   flavour: 'instance')
+        result = Yarr::Query::KlassAndMethod::Strict.query(method: method,
+                                                           klass: klass,
+                                                           flavour: 'instance')
 
         response(count: result.count,
                  url_lambda: -> { result.first.method.url },
@@ -32,9 +32,9 @@ module Yarr
 
     class RiClassMethod < Ri
       def handle
-        result = Yarr::Query::KlassAndMethod.query(method: method,
-                                                   klass: klass,
-                                                   flavour: 'class')
+        result = Yarr::Query::KlassAndMethod::Strict.query(method: method,
+                                                           klass: klass,
+                                                           flavour: 'class')
 
         response(count: result.count,
                  url_lambda: -> { result.first.method.url },

@@ -9,7 +9,7 @@ module Yarr
       describe '#handle' do
         context 'when there is at least one result' do
           before do
-            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+            allow(Yarr::Query::KlassAndMethod::Like).to receive(:query)
               .and_return(double('query-result',
             count: 2,
             entries: ['File#size', 'Array#size']))
@@ -22,7 +22,7 @@ module Yarr
 
         context 'when the number of results is 0' do
           before do
-            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+            allow(Yarr::Query::KlassAndMethod::Like).to receive(:query)
               .and_return(double('query-result', count: 0))
           end
 
@@ -40,7 +40,7 @@ module Yarr
       describe '#handle' do
         context 'when there is at least one result' do
           before do
-            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+            allow(Yarr::Query::KlassAndMethod::Like).to receive(:query)
               .and_return(double('query-result',
             count: 2,
             entries: ['File.size', 'Array.size']))
@@ -53,7 +53,7 @@ module Yarr
 
         context 'when the number of results is 0' do
           before do
-            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+            allow(Yarr::Query::KlassAndMethod::Like).to receive(:query)
               .and_return(double('query-result', count: 0))
           end
 

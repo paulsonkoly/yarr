@@ -10,7 +10,7 @@ module Yarr
         context 'when there is a single result' do
           before do
             joint_result = double(method: double('method', url: 'definition.html'))
-            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+            allow(Yarr::Query::KlassAndMethod::Strict).to receive(:query)
               .and_return(double('query-result', first: joint_result, count: 1))
           end
 
@@ -21,7 +21,7 @@ module Yarr
 
         context 'when the number of results is not 1' do
           before do
-            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+            allow(Yarr::Query::KlassAndMethod::Strict).to receive(:query)
               .and_return([1] * 10)
           end
 
@@ -40,7 +40,7 @@ module Yarr
         context 'when there is a single result' do
           before do
             joint_result = double(method: double('method', url: 'definition.html'))
-            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+            allow(Yarr::Query::KlassAndMethod::Strict).to receive(:query)
               .and_return(double('query-result', first: joint_result, count: 1))
           end
 
@@ -51,7 +51,7 @@ module Yarr
 
         context 'when the number of results is not 1' do
           before do
-            allow(Yarr::Query::KlassAndMethod).to receive(:query)
+            allow(Yarr::Query::KlassAndMethod::Strict).to receive(:query)
               .and_return([1] * 10)
           end
 
