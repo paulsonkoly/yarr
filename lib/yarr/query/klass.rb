@@ -33,6 +33,9 @@ module Yarr
       # Queries klasses by name using strict lookup rules.
       # For usage examples see {Klass}.
       class Strict < Base
+        # Queries classes by name using strict lookup rules.
+        # @param name [String] the class name
+        # @return [Result]
         def self.query(name:)
           dataset = DB[:classes].where({ name: name })
           Result.new(dataset, -> row {
@@ -44,6 +47,9 @@ module Yarr
       # Queries klasses using SQL like lookup.
       # For usage examples see {Klass}.
       class Like < Base
+        # Queries classes by name using SQL like query
+        # @param name [String] the class name, % wildcard allowed
+        # @return [Result]
         def self.query(name:)
           dataset = DB[:classes].where(Sequel[:name].like(name))
           Result.new(dataset, -> row {

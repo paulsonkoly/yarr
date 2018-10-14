@@ -25,8 +25,8 @@ module Yarr
         #   @return [Method] the method part of the database entry
         attr_reader :klass, :method
 
-        # @return [String] "#{Klass}.#{method}" for class methods, spearator #
-        #         for instance methods
+        # @return [String] returns the class name, method name concatenated by
+        #                  '#' for instance methods, '.' for class methods
         def to_s
           delim = case method.flavour
                   when 'instance' then ?#

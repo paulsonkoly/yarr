@@ -35,14 +35,24 @@ module Yarr
         def to_s
           @name
         end
+
+        private
+
+        def self.methods
+          Sequel[:methods]
+        end
+
+        def self.klasses
+          Sequel[:classes]
+        end
       end
 
       # Queries methods by name using strict lookup rules.
       # For usage examples see {Method}.
       class Strict < Base
-        # Queries methods by name using strict lookup rules. {Result} is an
-        # Enumerable of {Base} objects.
-        # @param name [String] the name of the method
+        # Queries methods by name using strict lookup rules.
+        # @param name [String] the method name
+        # @return [Result]
         def self.query(name:)
           dataset = DB[:methods].where(name: name)
           Result.new(dataset, -> row {
@@ -54,17 +64,17 @@ module Yarr
       # Queries methods using SQL like lookup.
       # For usage examples see {Method}.
       class Like < Base
-        # Queries methods using SQL like lookup. {Result} is an Enumerable of
-        # {KlassAndMethod} objects.
-        # @param name [String] the name of the method
+        # Queries methods using SQL like lookup.
+        # @param name [String] the method name, % wildcards allowed
+        # @return [Result]
         def self.query(name:)
           dataset = DB[:classes]
             .join(:methods, class_id: :id)
-            .select(Sequel[:methods][:name].as(:method_name),
-          Sequel[:methods][:url].as(:method_url),
-          Sequel[:methods][:flavour].as(:method_flavour),
-          Sequel[:classes][:name].as(:class_name),
-          Sequel[:classes][:url].as(:class_url))
+            .select(methods[:name].as(:method_name),
+                    methods[:url].as(:method_url),
+                    methods[:flavour].as(:method_flavour),
+                    klasses[:name].as(:class_name),
+                    klasses[:url].as(:class_url))
             .where(Sequel[:methods][:name].like(name))
 
           Result.new(dataset, -> row {
