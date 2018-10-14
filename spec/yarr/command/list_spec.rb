@@ -71,7 +71,7 @@ module Yarr
       describe '#handle' do
         context 'when there is at least one result' do
           before do
-            allow(Yarr::Query::Klass).to receive(:query)
+            allow(Yarr::Query::Klass::Like).to receive(:query)
               .and_return(double('query_result', count: 2, entries: ['Array', 'String']))
           end
 
@@ -82,7 +82,7 @@ module Yarr
 
         context 'when the number of results is 0' do
           before do
-            allow(Yarr::Query::Klass).to receive(:query)
+            allow(Yarr::Query::Klass::Like).to receive(:query)
               .and_return(double('query-result', count: 0))
           end
 

@@ -1,23 +1,55 @@
 module Yarr
   module Query
-    class Klass
-      def initialize(name, url)
-        @name = name
-        @url = url
+    # Classes are stored in the database. Klasses provide an access interface.
+    #
+    # @example
+    #
+    #    a = Klass::Strict.query('Array')
+    #    a.count # => 1
+    #    a.first.name # => 'Array'
+    #    a.first.url # => 'array.html'
+    module Klass
+      # Database object for classes.
+      # For usage examples see {Klass}.
+      class Base
+        def initialize(name, url)
+          @name = name
+          @url = url
+        end
+        protected :initialize
+
+        # @!attribute [r] name
+        #   @return [String] the class name
+        # @!attribute [r] url
+        #   @return [String] the class url
+        attr_reader :name, :url
+
+        # @return [String] the name of the class
+        def to_s
+          @name
+        end
       end
 
-      attr_reader :name, :url
-
-      def to_s
-        @name
+      # Queries klasses by name using strict lookup rules.
+      # For usage examples see {Klass}.
+      class Strict < Base
+        def self.query(name:)
+          dataset = DB[:classes].where({ name: name })
+          Result.new(dataset, -> row {
+            new(row[:name], row[:url])
+          })
+        end
       end
 
-      def self.query(name:, allow_like: false)
-        constraint = allow_like ? Sequel[:name].like(name) : { name: name }
-        dataset = DB[:classes].where(constraint)
-        Result.new(dataset, -> row {
-          new(row[:name], row[:url])
-        })
+      # Queries klasses using SQL like lookup.
+      # For usage examples see {Klass}.
+      class Like < Base
+        def self.query(name:)
+          dataset = DB[:classes].where(Sequel[:name].like(name))
+          Result.new(dataset, -> row {
+            new(row[:name], row[:url])
+          })
+        end
       end
     end
   end

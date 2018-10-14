@@ -71,7 +71,7 @@ module Yarr
         context 'when there is a single result' do
           before do
             klass = double('klass', url: 'definition.html')
-            allow(Yarr::Query::Klass).to receive(:query)
+            allow(Yarr::Query::Klass::Strict).to receive(:query)
               .and_return(double('query-result', count: 1, first: klass))
           end
 
@@ -82,7 +82,7 @@ module Yarr
 
         context 'when the number of results is not 1' do
           before do
-            allow(Yarr::Query::Klass).to receive(:query).and_return([1] * 10)
+            allow(Yarr::Query::Klass::Strict).to receive(:query).and_return([1] * 10)
           end
 
           it 'returns the count' do

@@ -38,7 +38,7 @@ module Yarr
           .where(constraint)
 
         Result.new(dataset, -> row {
-          new(Klass.new(row[:class_name], row[:class_url]),
+          new(Klass::Base.new(row[:class_name], row[:class_url]),
               Method::Base.new(row[:method_name], row[:method_url], row[:method_flavour], row[:class_id]))
         })
       end

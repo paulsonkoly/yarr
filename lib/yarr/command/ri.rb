@@ -55,7 +55,7 @@ module Yarr
 
     class RiClassName < Ri
       def handle
-        result = Yarr::Query::Klass.query(name: klass)
+        result = Yarr::Query::Klass::Strict.query(name: klass)
 
         response(count: result.count,
                  url_lambda: -> { result.first.url },

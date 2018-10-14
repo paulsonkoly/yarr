@@ -56,7 +56,7 @@ module Yarr
       private
 
       def query
-        Yarr::Query::Klass.query(name: klass, allow_like: true)
+        Yarr::Query::Klass::Like.query(name: klass)
       end
 
       def error_message
