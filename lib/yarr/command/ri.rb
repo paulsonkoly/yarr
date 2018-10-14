@@ -22,6 +22,7 @@ module Yarr
 
     # Handles 'ri Array#size' like commands
     class RiInstanceMethod < Ri
+      # @return [String] documentation url
       def handle
         result = Yarr::Query::KlassAndMethod::Strict.query(method: method,
                                                            klass: klass,
@@ -40,6 +41,7 @@ module Yarr
 
     # Handles 'ri File.size' like commands
     class RiClassMethod < Ri
+      # @return [String] documentation url
       def handle
         result = Yarr::Query::KlassAndMethod::Strict.query(method: method,
                                                            klass: klass,
@@ -58,6 +60,7 @@ module Yarr
 
     # Handles 'ri size' like commands
     class RiMethodName < Ri
+      # @return [String] documentation url
       def handle
         result = Yarr::Query::Method::Strict.query(name: method)
 
@@ -75,6 +78,7 @@ module Yarr
 
     # Handles 'ri File' like commands
     class RiClassName < Ri
+      # @return [String] documentation url
       def handle
         result = Yarr::Query::Klass::Strict.query(name: klass)
 

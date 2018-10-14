@@ -4,6 +4,7 @@ module Yarr
   module Command
     # list command handler
     class List < Base
+      # @return [String] found entries joined by ', '
       def handle
         result = query
         return error_message if result.count.zero?
