@@ -7,6 +7,8 @@ module Yarr
         @ast = ast
       end
 
+      attr_reader :ast
+
       # Responds to a command received
       def handle
         raise NotImplementedError
@@ -22,10 +24,12 @@ module Yarr
         dig_deep(@ast, :method_name)
       end
 
+      # :reek:FeatureEnvy Hash is stdlib class.
+      # :reek:TooManyStatements
       def dig_deep(hash, key)
         return hash[key] if hash.key? key
-        hash.values.select { |h| h.kind_of? Hash }.each do |h|
-          candidate = dig_deep(h, key)
+        hash.values.select { |value| value.kind_of? Hash }.each do |value|
+          candidate = dig_deep(value, key)
           return candidate if candidate
         end
         nil

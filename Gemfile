@@ -13,6 +13,7 @@ gem 'qo'
 group :development do
   gem 'byebug'
   gem 'pry'
+  gem 'reek', '~> 4.8.0'
 end
 
 group :test do

@@ -2,6 +2,7 @@ require 'yarr/command/base'
 
 module Yarr
   module Command
+    # list command handler
     class List < Base
       def handle
         result = query
@@ -21,6 +22,7 @@ module Yarr
       end
     end
 
+    # handles 'list Ar%#si%' like commands
     class ListInstanceMethod < List
       private
 
@@ -35,7 +37,7 @@ module Yarr
       end
     end
 
-
+    # handles 'list Ar%.si%' like commands
     class ListClassMethod < List
       private
 
@@ -50,6 +52,7 @@ module Yarr
       end
     end
 
+    # handles 'list Ar%' like commands
     class ListClassName < List
       private
 
@@ -62,6 +65,7 @@ module Yarr
       end
     end
 
+    # handles 'list si%' like commands
     class ListMethodName < List
       private
 

@@ -5,7 +5,10 @@ module Yarr
     #   - command target (like 'Array')
     #   - stuff (anything precedded by a ',')
     module Splitter
-      ## performs splitting
+
+      # :reek:UtilityFunction
+
+      # performs splitting
       def split(message)
         command, _, rest = message.chomp.partition(/\s+/)
         target, _, stuff = rest.partition(',')

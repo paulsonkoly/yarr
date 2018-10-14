@@ -6,6 +6,9 @@ module Yarr
   module CommandDispatcher
     attr_reader :error_message
 
+    # :reek:TooManyStatements I prefer a flat dispatcher. Routing logic in one
+    # place
+
     # @return the command handler for the incoming command / AST
     def dispatch(command, ast)
       @error = false

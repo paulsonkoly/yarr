@@ -1,5 +1,8 @@
 require "bundler/gem_tasks"
+require 'rspec/core/rake_task'
 
+
+RSpec::Core::RakeTask.new(:spec)
 task :default => :spec
 
 directory 'db'
@@ -25,6 +28,9 @@ namespace :db do
 end
 
 namespace :lint do
+  desc 'all lints'
+  task :all => [:spec_helper_check, :reek, :spec]
+
   desc 'Check for require spec_helper in spec files'
   task :spec_helper_check do
     puts 'Listing files missing the require:'
@@ -34,4 +40,7 @@ namespace :lint do
       end
     end
   end
+
+  desc 'reek'
+  task(:reek) { sh 'reek -c .reek' }
 end

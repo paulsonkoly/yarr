@@ -36,6 +36,9 @@ module Yarr
 
       root(:expression)
 
+      # Same as Parslet::Parser#parse, except we return string hash values
+      # @param string [String] the input to parse
+      # @return [Hash] AST
       def parse(string)
         stringify_hash_values(super)
       end

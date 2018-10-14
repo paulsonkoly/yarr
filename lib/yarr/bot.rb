@@ -19,15 +19,26 @@ module Yarr
     # @param message [String] incoming message (without command prefix)
     # @return [String] response string
     def reply_to(message)
-      command, target, stuff = split(message)
-      ast = @parser.parse(target)
+      command, ast, stuff = parse_input(message)
 
       handler = dispatch(command, ast)
       return error_message if error?
 
       response = handler.handle
-      stuff.prepend(' ,') unless stuff.empty?
 
+      post_process(response, stuff)
+    end
+
+    private
+
+    def parse_input(message)
+      command, target, stuff = split(message)
+      ast = @parser.parse(target)
+      [command, ast, stuff]
+    end
+
+    def post_process(response, stuff)
+      stuff.prepend(' ,') unless stuff.empty?
       truncate(response) + truncate(stuff)
     end
   end

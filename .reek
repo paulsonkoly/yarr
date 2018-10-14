@@ -1,2 +1,4 @@
 UtilityFunction:
   public_methods_only: true
+exclude_paths:
+  - 'spec'
