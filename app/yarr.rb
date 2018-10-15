@@ -22,4 +22,5 @@ bot.loggers.clear
 bot.loggers << Cinch::Logger::FormattedLogger.new(File.open("log/log.txt", "a"))
 bot.loggers.level = :info
 
+Process.daemon(true)
 bot.start
