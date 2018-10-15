@@ -7,8 +7,22 @@ module Yarr
         expect { subject.parse('') }.to raise_error Parslet::ParseFailed
       end
 
-      it 'raises error on invalid target' do
-        expect { subject.parse('@@') }.to raise_error Parslet::ParseFailed
+      %w[@@ .. // ' " a$ {}].each do |w|
+        it "raises error for #{w}" do
+          expect { subject.parse(w) }.to raise_error Parslet::ParseFailed
+        end
+      end
+
+      it 'parses [] as a method' do
+        expect(subject.parse('[]')).to eq({method_name: '[]' })
+      end
+
+      it 'parses << as a method' do
+        expect(subject.parse('<<')).to eq({method_name: '<<' })
+      end
+
+      it 'parses size= as a method' do
+        expect(subject.parse('size=')).to eq({method_name: 'size=' })
       end
 
       it 'parses "Class" as class name' do
@@ -50,8 +64,6 @@ module Yarr
                                                    { class_name: 'File',
                                                      method_name: 'size' }})
       end
-
-      it 'needs more examples'
     end
   end
 end

@@ -32,7 +32,18 @@ module Yarr
         (match('[A-Z%]') >> match('[a-zA-Z:%]').repeat).as(:class_name)
       end
 
-      rule(:method) { (match('[a-z_!?=+\-*/%]').repeat(1)).as(:method_name) }
+      rule(:method) { (operator | suffixed | normal_name).as(:method_name) }
+
+      rule(:operator) { match('[+\-*/%]') | str('**') | str('==') | str('!=') |
+                        str('>') | str('<') | str('>=') | str('<=') |
+                        str('<=>') | str('===') | str('&') | str('|') |
+                        str('^') | str('~') | str('<<') | str('>>') |
+                        str('&&') | str('||') | str('!') | str('[]') |
+                        str('[]=') }
+
+      rule(:suffixed) { normal_name >> match('[?!=]') }
+
+      rule(:normal_name) { match('[a-z%_]').repeat(1) }
 
       root(:expression)
 
