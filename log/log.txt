@@ -1,0 +1,3 @@
+[2018/10/16 00:24:28.599] II Connecting to irc.freenode.org:6667
+[2018/10/16 00:24:40.367] II Detected IRCd: ircd-seven
+[2018/10/16 00:24:40.371] II Detected network: freenode
