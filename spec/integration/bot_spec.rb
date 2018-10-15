@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yarr/bot'
 
 RSpec.describe Yarr::Bot do
   it 'does ri size' do

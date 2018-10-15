@@ -1,3 +1,4 @@
+require 'yarr/query'
 require 'yarr/command/base'
 
 module Yarr

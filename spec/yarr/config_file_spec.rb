@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yarr/config_file'
 
 module Yarr
   RSpec.describe ConfigFile do

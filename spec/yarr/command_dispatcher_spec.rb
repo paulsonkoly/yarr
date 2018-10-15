@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'byebug'
+require 'yarr/command_dispatcher'
 
 module Yarr
   RSpec.describe CommandDispatcher do

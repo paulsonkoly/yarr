@@ -1,3 +1,6 @@
+require 'yarr/query/klass'
+require 'yarr/query/klass_and_method'
+
 module Yarr
   module Query
     # Methods are stored in the database. Method classes provide an access

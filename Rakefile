@@ -1,7 +1,6 @@
 require "bundler/gem_tasks"
 require 'rspec/core/rake_task'
 
-
 RSpec::Core::RakeTask.new(:spec_no_db)
 task :spec do
   ENV['TEST'] = '1'
@@ -42,7 +41,7 @@ namespace :lint do
 
   desc 'Check for require spec_helper in spec files'
   task :spec_helper_check do
-    puts 'Listing files missing the require:'
+    puts "Listing files missing require 'spec_helper'"
     FileList['spec/**/*_spec.rb'].each do |f|
       File.open(f, 'r') do |io|
         puts f unless io.each_line.any?(/require 'spec_helper'/)
@@ -50,13 +49,20 @@ namespace :lint do
     end
   end
 
+  desc 'module coverage for file'
+  task :coverage_for, [:file] do |task, args|
+    target = args[:file]
+    basename = File.basename(target, '.rb')
+    dirname = File.dirname(target).sub(/\blib\b/, 'spec')
+    specname = "#{dirname}/#{basename}_spec.rb"
+    ENV['MODULE_COVERAGE_FILE'] = File.basename(target)
+    ENV['MODULE_COVERAGE_SPEC'] = specname
+    sh "rspec -r module_coverage #{specname}"
+  end
+
   desc 'module level coverage'
   task :module_coverage do
-    puts <<~EOS
-
-      Only run this if you want to check per module coverage
-
-    EOS
+    puts "Module coverage checks"
     list = FileList['lib/**/*.rb']
     list.exclude('lib/yarr.rb',
                  'lib/yarr/bot.rb',
@@ -65,13 +71,9 @@ namespace :lint do
                  'lib/yarr/query.rb',
                  'lib/yarr/version.rb')
     list.each do |f|
-      basename = File.basename(f, '.rb')
-      dirname = File.dirname(f).sub(/\blib\b/, 'spec')
-      specname = "#{dirname}/#{basename}_spec.rb"
-      ENV['MODULE_COVERAGE_FILE'] = File.basename(f)
-      ENV['MODULE_COVERAGE_SPEC'] = specname
-      ENV['TEST'] = '1'
-      sh "rspec -o /dev/null -r module_coverage #{specname}"
+      ENV['MODULE_COVERAGE_ASSERT'] = 'true'
+      Rake::Task['lint:coverage_for'].invoke(f, :assert)
+      Rake::Task['lint:coverage_for'].reenable
     end
   end
 

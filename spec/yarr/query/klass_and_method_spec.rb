@@ -1,4 +1,9 @@
 require 'spec_helper'
+require 'yarr/database'
+require 'yarr/query/result'
+require 'yarr/query/method'
+require 'yarr/query/klass'
+require 'yarr/query/klass_and_method'
 
 module Yarr
   module Query

@@ -1,23 +1,19 @@
-RSpec.configure do |config|
-  config.after(:suite) do
-    file = SimpleCov.result.files.find do |f|
-      File.basename(f.filename) == ENV['MODULE_COVERAGE_FILE']
+require 'simplecov'
+
+if ENV['MODULE_COVERAGE_ASSERT'] == 'true'
+  RSpec.configure do |config|
+    config.after(:suite) do
+      file = SimpleCov.result.files.find do |f|
+        File.basename(f.filename) == ENV['MODULE_COVERAGE_FILE']
+      end
+
+      expect(file.covered_percent).to be >= 100
+      expect(file.missed_branches).to be_empty
     end
-
-    if file.covered_percent < 100
-      abort <<~EOS
-
-       ********
-
-       File #{file.filename} is only #{file.covered_percent}% covered at module level
-
-       to reproduce this run : bundle exec rspec #{ENV['MODULE_COVERAGE_SPEC']}
-       and inspect coverage/index.html. Note that only #{file.filename} is
-       supposed to have 100% coverage.
-
-       ********
-      EOS
-    end
-    abort "Missed branch in #{file.filename} at module level" unless file.missed_branches.empty?
   end
+end
+
+SimpleCov.start do
+  use_branchable_report true if respond_to?(:use_branchable_report)
+  add_filter 'spec/'
 end

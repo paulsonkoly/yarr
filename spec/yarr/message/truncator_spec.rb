@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yarr/message/truncator'
 
 module Yarr
   module Message

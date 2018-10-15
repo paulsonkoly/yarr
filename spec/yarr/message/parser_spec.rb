@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yarr/message/parser'
 
 module Yarr
   module Message

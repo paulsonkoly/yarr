@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yarr/message/splitter'
 
 module Yarr
   module Message

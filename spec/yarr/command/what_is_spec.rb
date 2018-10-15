@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yarr/command/what_is'
 
 module Yarr
   module Command
