@@ -1,6 +1,7 @@
 require_relative 'db_helper'
+require 'yarr/environment'
 
-if ENV['TEST']
+if Yarr::Environment.test?
   classes_path = File.join(DB.db_dir, 'fixtures', 'test_class_index.txt')
   methods_path = File.join(DB.db_dir, 'fixtures', 'test_method_index.txt')
 else
