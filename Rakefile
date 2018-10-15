@@ -15,7 +15,7 @@ namespace :db do
 
   desc 'Drops the database if exists'
   task :drop_database do
-    rm 'db/database'
+    rm_f 'db/database'
   end
 
   desc 'Seeds the database'
