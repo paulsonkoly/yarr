@@ -120,6 +120,10 @@ module Yarr
         end
 
         context 'when there is no result' do
+          before do
+            allow(Yarr::Query::Method::Strict).to receive(:query).and_return([])
+          end
+
           it 'returns the count' do
             expect(subject.send(:handle)).to match('no entry')
           end

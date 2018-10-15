@@ -1,23 +1,23 @@
 require 'spec_helper'
 
 RSpec.describe Yarr::Bot do
-  it 'does ri instance_method' do
-    expect(subject.reply_to('ri instance_method')).to eq 'https://ruby-doc.org/core-2.5.1/Module.html#method-i-instance_method'
+  it 'does ri size' do
+    expect(subject.reply_to('ri size')).to eq 'https://ruby-doc.org/core-2.5.1/Array.html#method-i-size'
   end
 
-  it 'does ri File.size' do
-    expect(subject.reply_to('ri File.size')).to eq 'https://ruby-doc.org/core-2.5.1/File.html#method-c-size'
+  it 'does ri Array.size' do
+    expect(subject.reply_to('ri size')).to eq 'https://ruby-doc.org/core-2.5.1/Array.html#method-i-size'
   end
 
-  it 'does ri File' do
-    expect(subject.reply_to('ri File')).to eq 'https://ruby-doc.org/core-2.5.1/File.html'
+  it 'does ri Array' do
+    expect(subject.reply_to('ri Array')).to eq 'https://ruby-doc.org/core-2.5.1/Array.html'
   end
 
-  it 'does list F%le' do
-    expect(subject.reply_to('list F%le')).to eq 'File'
+  it 'does list Ar%y' do
+    expect(subject.reply_to('list Ar%y')).to eq 'Array'
   end
 
-  it 'does list F%le.si%' do
-    expect(subject.reply_to('list F%le.si%')).to eq 'File.size, File.size?'
+  it 'does list Ar%y#si%' do
+    expect(subject.reply_to('list Ar%y#si%')).to eq 'Array#size'
   end
 end

@@ -2,7 +2,12 @@ require "bundler/gem_tasks"
 require 'rspec/core/rake_task'
 
 
-RSpec::Core::RakeTask.new(:spec)
+RSpec::Core::RakeTask.new(:spec_no_db)
+task :spec do
+  ENV['TEST'] = '1'
+  Rake::Task['db:setup'].invoke
+  Rake::Task['spec_no_db'].invoke
+end
 task :default => :spec
 
 directory 'db'
@@ -15,7 +20,11 @@ namespace :db do
 
   desc 'Drops the database if exists'
   task :drop_database do
-    rm_f 'db/database'
+    if ENV['TEST']
+      rm_f 'db/test'
+    else
+      rm_f 'db/database'
+    end
   end
 
   desc 'Seeds the database'
@@ -61,6 +70,7 @@ namespace :lint do
       specname = "#{dirname}/#{basename}_spec.rb"
       ENV['MODULE_COVERAGE_FILE'] = File.basename(f)
       ENV['MODULE_COVERAGE_SPEC'] = specname
+      ENV['TEST'] = '1'
       sh "rspec -o /dev/null -r module_coverage #{specname}"
     end
   end

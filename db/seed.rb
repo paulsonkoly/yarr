@@ -1,7 +1,12 @@
 require_relative 'db_helper'
 
-classes_path = File.join(DB.db_dir, 'fixtures', 'stdlib_class_index.txt')
-methods_path = File.join(DB.db_dir, 'fixtures', 'stdlib_method_index.txt')
+if ENV['TEST']
+  classes_path = File.join(DB.db_dir, 'fixtures', 'test_class_index.txt')
+  methods_path = File.join(DB.db_dir, 'fixtures', 'test_method_index.txt')
+else
+  classes_path = File.join(DB.db_dir, 'fixtures', 'stdlib_class_index.txt')
+  methods_path = File.join(DB.db_dir, 'fixtures', 'stdlib_method_index.txt')
+end
 
 DB.transaction do
   DB[:classes].delete
