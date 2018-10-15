@@ -1,4 +1,5 @@
 require 'parslet'
+require 'byebug'
 
 module Yarr
   # Code dealing with the subject (aka. target) part of the bot's command. See
@@ -20,26 +21,24 @@ module Yarr
       rule(:expression) do
         instance_method.as(:instance_method) |
           class_method.as(:class_method) |
-          method |
+          # do not override the method :method.
+          method_ |
           klass
       end
 
-      rule(:instance_method) { klass >> str('#') >> method }
+      rule(:instance_method) { klass >> str('#') >> method_ }
 
-      rule(:class_method) { klass >> str('.') >> method }
+      rule(:class_method) { klass >> str('.') >> method_ }
 
       rule(:klass) do
         (match('[A-Z%]') >> match('[a-zA-Z:%]').repeat).as(:class_name)
       end
 
-      rule(:method) { (operator | suffixed | normal_name).as(:method_name) }
+      rule(:method_) { (operator | suffixed | normal_name).as(:method_name) }
 
-      rule(:operator) { match('[+\-*/%]') | str('**') | str('==') | str('!=') |
-                        str('>') | str('<') | str('>=') | str('<=') |
-                        str('<=>') | str('===') | str('&') | str('|') |
-                        str('^') | str('~') | str('<<') | str('>>') |
-                        str('&&') | str('||') | str('!') | str('[]') |
-                        str('[]=') }
+      Operators = %w[% & * ** + - / < << <= <=> == === =~ > >= >> [] []= ^ ! != !~]
+
+      rule(:operator) { Operators.map(&method(:str)).inject(:|) }
 
       rule(:suffixed) { normal_name >> match('[?!=]') }
 
