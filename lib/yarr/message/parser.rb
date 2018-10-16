@@ -1,5 +1,4 @@
 require 'parslet'
-require 'byebug'
 
 module Yarr
   # Code dealing with the subject (aka. target) part of the bot's command. See
