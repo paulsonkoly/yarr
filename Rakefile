@@ -13,12 +13,12 @@ directory 'db'
 
 namespace :db do
   desc 'Creates a new database (schema only)'
-  task :create_database => :db do
+  task :create => :db do
     ruby 'db/schema.rb'
   end
 
   desc 'Drops the database if exists'
-  task :drop_database do
+  task :drop do
     if ENV['TEST']
       rm_f 'db/test'
     else
