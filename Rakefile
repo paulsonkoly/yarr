@@ -32,7 +32,7 @@ namespace :db do
   end
 
   desc 'Sets up a new database'
-  task :setup => [:drop_database, :create_database, :seed]
+  task :setup => [:drop, :create, :seed]
 end
 
 namespace :lint do
