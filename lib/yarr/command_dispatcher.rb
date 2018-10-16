@@ -9,10 +9,9 @@ module Yarr
     # :reek:TooManyStatements I prefer a flat dispatcher. Routing logic in one
     # place
 
-    # @return the command handler for the incoming command / AST
+    # @return [Yarr::Command|nil] the command handler for the incoming command
+    #                             / AST
     def dispatch(command, ast)
-      @error = false
-
       case [command, ast]
       when Qo['what_is', Any]
         Yarr::Command::WhatIs.new(ast)
@@ -36,14 +35,9 @@ module Yarr
         Yarr::Command::ListClassName.new(ast)
 
       else
-        @error = true
         @error_message = "I did not understand command #{command}."
+        nil
       end
-    end
-
-    # true if there was an error with command dispatch
-    def error?
-      @error
     end
 
     private

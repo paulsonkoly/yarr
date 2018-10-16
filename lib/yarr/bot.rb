@@ -19,10 +19,9 @@ module Yarr
     # @param message [String] incoming message (without command prefix)
     # @return [String] response string
     def reply_to(message)
-      command, ast, stuff = parse_input(message)
+      (command, ast, stuff = parse_input(message)) or return error_message
 
-      handler = dispatch(command, ast)
-      return error_message if error?
+      handler = dispatch(command, ast) or return error_message
 
       response = handler.handle
 
@@ -32,9 +31,14 @@ module Yarr
     private
 
     def parse_input(message)
-      command, target, stuff = split(message)
-      ast = @parser.parse(target)
-      [command, ast, stuff]
+      begin
+        command, target, stuff = split(message)
+        ast = @parser.parse(target)
+        [command, ast, stuff]
+      rescue Parslet::ParseFailed
+        @error_message = 'did not understand command the command target'
+        nil
+      end
     end
 
     def post_process(response, stuff)

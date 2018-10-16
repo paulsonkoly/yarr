@@ -9,16 +9,15 @@ module Yarr
     end
 
     it 'handles commands it doesn\'t understand' do
-      subject.dispatch('xxx', {})
+      handler = subject.dispatch('xxx', {})
 
-      expect(subject.error?).to eql true
+      expect(handler).to be_nil
       expect(subject.error_message).to eql 'I did not understand command xxx.'
     end
 
     it 'handles "what_is aa"' do
       handler = subject.dispatch('what_is', { method_name: 'aa' })
 
-      expect(subject.error?).to eql false
       expect(handler).to be_an Command::WhatIs
     end
 
@@ -26,28 +25,24 @@ module Yarr
       it 'handles method names' do
         handler = subject.dispatch('ri', { method_name: 'aa' })
 
-        expect(subject.error?).to eql false
         expect(handler).to be_an Command::RiMethodName
       end
 
       it 'handles class names' do
         handler = subject.dispatch('ri', { class_name: 'Aa' })
 
-        expect(subject.error?).to eql false
         expect(handler).to be_an Command::RiClassName
       end
 
       it 'handles instance methods' do
         handler = subject.dispatch('ri', { instance_method: 'Aa' })
 
-        expect(subject.error?).to eql false
         expect(handler).to be_an Command::RiInstanceMethod
       end
 
       it 'handles class methods' do
         handler = subject.dispatch('ri', { class_method: 'Aa' })
 
-        expect(subject.error?).to eql false
         expect(handler).to be_an Command::RiClassMethod
       end
     end
@@ -56,28 +51,24 @@ module Yarr
       it 'handles method names' do
         handler = subject.dispatch('list', { method_name: 'aa' })
 
-        expect(subject.error?).to eql false
         expect(handler).to be_an Command::ListMethodName
       end
 
       it 'handles class names' do
         handler = subject.dispatch('list', { class_name: 'Aa' })
 
-        expect(subject.error?).to eql false
         expect(handler).to be_an Command::ListClassName
       end
 
       it 'handles instance methods' do
         handler = subject.dispatch('list', { instance_method: 'Aa' })
 
-        expect(subject.error?).to eql false
         expect(handler).to be_an Command::ListInstanceMethod
       end
 
       it 'handles class methods' do
         handler = subject.dispatch('list', { class_method: 'Aa' })
 
-        expect(subject.error?).to eql false
         expect(handler).to be_an Command::ListClassMethod
       end
     end
