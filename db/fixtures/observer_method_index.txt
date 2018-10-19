@@ -1,0 +1,7 @@
+Observable.html#method-i-add_observer%%add_observer (Observable)
+Observable.html#method-i-changed-3F%%changed? (Observable)
+Observable.html#method-i-changed%%changed (Observable)
+Observable.html#method-i-count_observers%%count_observers (Observable)
+Observable.html#method-i-delete_observer%%delete_observer (Observable)
+Observable.html#method-i-delete_observers%%delete_observers (Observable)
+Observable.html#method-i-notify_observers%%notify_observers (Observable)

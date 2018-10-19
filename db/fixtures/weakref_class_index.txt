@@ -1,0 +1,3 @@
+C%%WeakRef.html%%WeakRef
+C%%WeakRef/RefError.html%%WeakRef::RefError
+M%%WeakRef/ObjectSpace.html%%WeakRef::ObjectSpace

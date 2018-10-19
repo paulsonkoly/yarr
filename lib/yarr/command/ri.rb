@@ -11,7 +11,7 @@ module Yarr
         count = result.count
         case count
         when 0 then "Found no entry that matches #{objects_string}."
-        when 1 then "https://ruby-doc.org/core-2.5.1/#{url(result)}"
+        when 1 then "https://ruby-doc.org/#{url(result)}"
         else
           [ "I found #{count} entries matching with #{objects_string}.",
             advice
@@ -82,7 +82,12 @@ module Yarr
       def handle
         result = Yarr::Query::Klass::Strict.query(name: klass)
 
-        response(result: result, objects_string: "class #{klass}")
+        core = result.find { |k| k.origin == 'core' }
+        if result.count > 1 && core
+          "https://ruby-doc.org/core-2.5.1/#{core.url}"
+        else
+          response(result: result, objects_string: "class #{klass}")
+        end
       end
 
       private

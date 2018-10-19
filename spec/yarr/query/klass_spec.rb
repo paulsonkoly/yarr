@@ -7,13 +7,26 @@ module Yarr
   module Query
     module Klass
       RSpec.describe Base do
-        subject do
-          described_class.new('size', 'array.html')
-        end
 
         describe '.to_s' do
-          it 'returns the name' do
-            expect(subject.to_s).to eql 'size'
+          context 'when origin is core' do
+            subject do
+              described_class.new('size', 'array.html', 'core')
+            end
+
+            it 'returns the name' do
+              expect(subject.to_s).to eql 'size'
+            end
+          end
+
+          context 'when origin is test' do
+            subject do
+              described_class.new('size', 'array.html', 'test')
+            end
+
+            it 'returns the name' do
+              expect(subject.to_s).to eql 'size (test)'
+            end
           end
         end
       end
@@ -25,6 +38,8 @@ module Yarr
           before do
             query = double('query')
             allow(DB).to receive(:[]).and_return(query)
+            allow(query).to receive(:join).and_return(query)
+            allow(query).to receive(:select).and_return(query)
             allow(query).to receive(:where).and_return([{name: 'Array'}])
           end
 
@@ -47,6 +62,8 @@ module Yarr
           before do
             query = double('query')
             allow(DB).to receive(:[]).and_return(query)
+            allow(query).to receive(:join).and_return(query)
+            allow(query).to receive(:select).and_return(query)
             allow(query).to receive(:where).and_return([{name: 'Array'}])
           end
 

@@ -1,0 +1,9 @@
+C%%Digest/Base.html%%Digest::Base
+C%%Digest/Class.html%%Digest::Class
+C%%Digest/MD5.html%%Digest::MD5
+C%%Digest/RMD160.html%%Digest::RMD160
+C%%Digest/SHA1.html%%Digest::SHA1
+C%%Digest/SHA2.html%%Digest::SHA2
+C%%Object.html%%Object
+M%%Digest.html%%Digest
+M%%Digest/Instance.html%%Digest::Instance

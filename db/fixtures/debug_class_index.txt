@@ -1,0 +1,4 @@
+C%%DEBUGGER__.html%%DEBUGGER__
+C%%Object.html%%Object
+M%%DEBUGGER__/RubyVM.html%%DEBUGGER__::RubyVM
+M%%DEBUGGER__/Thread.html%%DEBUGGER__::Thread

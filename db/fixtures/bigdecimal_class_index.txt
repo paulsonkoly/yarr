@@ -1,0 +1,10 @@
+C%%BigDecimal.html%%BigDecimal
+C%%Float.html%%Float
+C%%Integer.html%%Integer
+C%%Rational.html%%Rational
+C%%String.html%%String
+M%%BigMath.html%%BigMath
+M%%Jacobian.html%%Jacobian
+M%%Kernel.html%%Kernel
+M%%LUSolve.html%%LUSolve
+M%%Newton.html%%Newton

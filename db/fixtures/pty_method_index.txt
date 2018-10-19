@@ -1,0 +1,6 @@
+IO.html#method-i-expect%%expect (IO)
+PTY/ChildExited.html#method-i-status%%status (PTY::ChildExited)
+PTY.html#method-c-check%%check (PTY)
+PTY.html#method-c-getpty%%getpty (PTY)
+PTY.html#method-c-open%%open (PTY)
+PTY.html#method-c-spawn%%spawn (PTY)

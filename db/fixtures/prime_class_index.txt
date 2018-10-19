@@ -1,0 +1,8 @@
+C%%Integer.html%%Integer
+C%%Prime/EratosthenesGenerator.html%%Prime::EratosthenesGenerator
+C%%Prime/EratosthenesSieve.html%%Prime::EratosthenesSieve
+C%%Prime/Generator23.html%%Prime::Generator23
+C%%Prime.html%%Prime
+C%%Prime/PseudoPrimeGenerator.html%%Prime::PseudoPrimeGenerator
+C%%Prime/TrialDivisionGenerator.html%%Prime::TrialDivisionGenerator
+C%%Prime/TrialDivision.html%%Prime::TrialDivision

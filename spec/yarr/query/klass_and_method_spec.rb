@@ -5,11 +5,13 @@ require 'yarr/query/method'
 require 'yarr/query/klass'
 require 'yarr/query/klass_and_method'
 
+require 'helpers/query_helper'
+
 module Yarr
   module Query
     module KlassAndMethod
       RSpec.describe KlassAndMethod do
-        let(:klass) { Klass::Base.new('Array', 'array.html') }
+        let(:klass) { Klass::Base.new('Array', 'array.html', 'core') }
         let(:imethod) do
           Method::Base.new('size', 'array-i-size.html', 'instance', 10)
         end
@@ -47,10 +49,6 @@ module Yarr
             end
 
             before do
-              query = double('query')
-              allow(DB).to receive(:[]).and_return(query)
-              allow(query).to receive(:join).and_return(query)
-              allow(query).to receive(:select).and_return(query)
               allow(query).to receive(:where).and_return([{method_name: 'size'}])
             end
 
@@ -75,10 +73,6 @@ module Yarr
             end
 
             before do
-              query = double('query')
-              allow(DB).to receive(:[]).and_return(query)
-              allow(query).to receive(:join).and_return(query)
-              allow(query).to receive(:select).and_return(query)
               allow(query).to receive(:where).and_return([{method_name: 'size'}])
             end
 

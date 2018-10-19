@@ -1,0 +1,2 @@
+C%%ObjectSpace/InternalObjectWrapper.html%%ObjectSpace::InternalObjectWrapper
+M%%ObjectSpace.html%%ObjectSpace

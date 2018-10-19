@@ -1,0 +1,5 @@
+C%%Object.html%%Object
+C%%Timeout/Error.html%%Object::TimeoutError
+C%%Timeout/Error.html%%Timeout::Error
+C%%Timeout/TimeoutError.html%%Timeout::TimeoutError
+M%%Timeout.html%%Timeout

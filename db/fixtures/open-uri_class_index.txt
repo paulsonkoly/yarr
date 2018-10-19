@@ -1,0 +1,9 @@
+C%%OpenURI/HTTPError.html%%OpenURI::HTTPError
+C%%OpenURI/HTTPRedirect.html%%OpenURI::HTTPRedirect
+C%%URI/FTP.html%%URI::FTP
+C%%URI/HTTP.html%%URI::HTTP
+M%%Kernel.html%%Kernel
+M%%OpenURI.html%%OpenURI
+M%%OpenURI/Meta.html%%OpenURI::Meta
+M%%OpenURI/OpenRead.html%%OpenURI::OpenRead
+M%%URI.html%%URI

@@ -1,0 +1,8 @@
+C%%Array.html%%Array
+C%%Object.html%%Object
+C%%String.html%%String
+M%%MakeMakefile/File.html%%MakeMakefile::File
+M%%MakeMakefile.html%%MakeMakefile
+M%%MakeMakefile/Logging.html%%MakeMakefile::Logging
+M%%MakeMakefile/RbConfig.html%%MakeMakefile::RbConfig
+M%%MakeMakefile/STRING_OR_FAILED_FORMAT.html%%MakeMakefile::STRING_OR_FAILED_FORMAT

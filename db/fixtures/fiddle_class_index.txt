@@ -1,0 +1,17 @@
+C%%Fiddle/Closure/BlockCaller.html%%Fiddle::Closure::BlockCaller
+C%%Fiddle/Closure.html%%Fiddle::Closure
+C%%Fiddle/CompositeHandler.html%%Fiddle::CompositeHandler
+C%%Fiddle/CStructEntity.html%%Fiddle::CStructEntity
+C%%Fiddle/CStruct.html%%Fiddle::CStruct
+C%%Fiddle/CUnionEntity.html%%Fiddle::CUnionEntity
+C%%Fiddle/CUnion.html%%Fiddle::CUnion
+C%%Fiddle/DLError.html%%Fiddle::DLError
+C%%Fiddle/Function.html%%Fiddle::Function
+C%%Fiddle/Handle.html%%Fiddle::Handle
+C%%Fiddle/Pointer.html%%Fiddle::Pointer
+M%%Fiddle/BasicTypes.html%%Fiddle::BasicTypes
+M%%Fiddle/CParser.html%%Fiddle::CParser
+M%%Fiddle/CStructBuilder.html%%Fiddle::CStructBuilder
+M%%Fiddle.html%%Fiddle
+M%%Fiddle/Importer.html%%Fiddle::Importer
+M%%Fiddle/Win32Types.html%%Fiddle::Win32Types

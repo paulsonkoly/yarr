@@ -1,0 +1,16 @@
+C%%Shell/AppendFile.html%%Shell::AppendFile
+C%%Shell/AppendIO.html%%Shell::AppendIO
+C%%Shell/BuiltInCommand.html%%Shell::BuiltInCommand
+C%%Shell/Cat.html%%Shell::Cat
+C%%Shell/CommandProcessor.html%%Shell::CommandProcessor
+C%%Shell/Concat.html%%Shell::Concat
+C%%Shell/Echo.html%%Shell::Echo
+C%%Shell/Filter.html%%Shell::Filter
+C%%Shell/Glob.html%%Shell::Glob
+C%%Shell.html%%Shell
+C%%Shell/ProcessController.html%%Shell::ProcessController
+C%%Shell/SystemCommand.html%%Shell::SystemCommand
+C%%Shell/Tee.html%%Shell::Tee
+C%%Shell/Void.html%%Shell::Void
+M%%Shell/Error.html%%Shell::Error
+M%%Shell/Thread.html%%Shell::Thread

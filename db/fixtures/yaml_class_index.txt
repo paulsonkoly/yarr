@@ -1,0 +1,4 @@
+C%%Object.html%%Object
+C%%YAML/DBM.html%%YAML::DBM
+C%%YAML/Store.html%%YAML::Store
+M%%YAML.html%%YAML

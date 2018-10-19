@@ -1,0 +1,2 @@
+Find.html#method-c-find%%find (Find)
+Find.html#method-c-prune%%prune (Find)

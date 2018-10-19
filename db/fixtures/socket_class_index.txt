@@ -1,0 +1,16 @@
+C%%Addrinfo.html%%Addrinfo
+C%%BasicSocket.html%%BasicSocket
+C%%IPSocket.html%%IPSocket
+C%%Object.html%%Object
+C%%Socket/AncillaryData.html%%Socket::AncillaryData
+C%%SocketError.html%%SocketError
+C%%Socket.html%%Socket
+C%%Socket/Ifaddr.html%%Socket::Ifaddr
+C%%Socket/Option.html%%Socket::Option
+C%%Socket/UDPSource.html%%Socket::UDPSource
+C%%SOCKSSocket.html%%SOCKSSocket
+C%%TCPServer.html%%TCPServer
+C%%TCPSocket.html%%TCPSocket
+C%%UDPSocket.html%%UDPSocket
+C%%UNIXServer.html%%UNIXServer
+C%%UNIXSocket.html%%UNIXSocket

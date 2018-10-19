@@ -1,0 +1,4 @@
+Object.html#method-i-timeout%%timeout (Object)
+Timeout/Error.html#method-c-catch%%catch (Timeout::Error)
+Timeout/Error.html#method-i-exception%%exception (Timeout::Error)
+Timeout.html#method-c-timeout%%timeout (Timeout)

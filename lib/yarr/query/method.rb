@@ -16,11 +16,12 @@ module Yarr
       # Database object for methods.
       # For usage examples see {Method}.
       class Base
-        def initialize(name, url, flavour, klass)
+        def initialize(name, url, flavour, klass, origin)
           @name = name
           @url = url
           @flavour = flavour
           @klass = klass
+          @origin = origin
         end
         protected :initialize
 
@@ -32,7 +33,9 @@ module Yarr
         #   @return [String] either 'instance' or 'class'
         # @!attribute [r] klass
         #   @return [Integer] the class_id of the asscociated class
-        attr_reader :name, :url, :flavour, :klass
+        # @!attribute [r] origin
+        #   @return [String] gem name/'core'
+        attr_reader :name, :url, :flavour, :klass, :origin
 
         # @return [String] the name of the method
         def to_s
@@ -57,9 +60,16 @@ module Yarr
         # @param name [String] the method name
         # @return [Result]
         def self.query(name:)
-          dataset = DB[:methods].where(name: name)
+          dataset = DB[:origins]
+            .join(:methods, origin_id: :id)
+            .select(Sequel[:origins][:name].as(:origin_name))
+            .where(name: name)
           Result.new(dataset, -> row {
-            new(row[:name], row[:url], row[:flavour], row[:class_id])
+            new(row[:name],
+                row[:url],
+                row[:flavour],
+                row[:class_id],
+                row[:origin_name])
           })
         end
       end
@@ -71,21 +81,27 @@ module Yarr
         # @param name [String] the method name, % wildcards allowed
         # @return [Result]
         def self.query(name:)
-          dataset = DB[:classes]
+          dataset = DB[:origins]
+            .join(:classes, origin_id: :id)
             .join(:methods, class_id: :id)
             .select(methods[:name].as(:method_name),
                     methods[:url].as(:method_url),
                     methods[:flavour].as(:method_flavour),
                     klasses[:name].as(:class_name),
-                    klasses[:url].as(:class_url))
+                    klasses[:url].as(:class_url),
+                    Sequel[:origins][:name].as(:class_origin))
+            .order(Sequel[:origins][:id])
             .where(Sequel[:methods][:name].like(name))
 
           Result.new(dataset, -> row {
-            klass = Klass::Like.new(row[:class_name], row[:class_url])
+            klass = Klass::Like.new(row[:class_name],
+                                    row[:class_url],
+                                    row[:class_origin])
             method = new(row[:method_name],
                          row[:method_url],
                          row[:method_flavour],
-                         row[:class_id])
+                         row[:class_id]
+                         row[:origins])
             KlassAndMethod::Like.new(klass, method)
           })
         end

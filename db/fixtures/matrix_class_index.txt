@@ -1,0 +1,5 @@
+C%%Matrix/EigenvalueDecomposition.html%%Matrix::EigenvalueDecomposition
+C%%Matrix.html%%Matrix
+C%%Matrix/LUPDecomposition.html%%Matrix::LUPDecomposition
+C%%Vector.html%%Vector
+C%%Vector/ZeroVectorError.html%%Vector::ZeroVectorError

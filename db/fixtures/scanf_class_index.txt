@@ -1,0 +1,6 @@
+C%%IO.html%%IO
+C%%Scanf/FormatSpecifier.html%%Scanf::FormatSpecifier
+C%%Scanf/FormatString.html%%Scanf::FormatString
+C%%String.html%%String
+M%%Kernel.html%%Kernel
+M%%Scanf.html%%Scanf

@@ -1,0 +1,2 @@
+WeakRef.html#method-c-new%%new (WeakRef)
+WeakRef.html#method-i-weakref_alive-3F%%weakref_alive? (WeakRef)

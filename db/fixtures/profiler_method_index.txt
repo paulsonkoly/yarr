@@ -1,0 +1,3 @@
+Profiler__.html#method-i-print_profile%%print_profile (Profiler__)
+Profiler__.html#method-i-start_profile%%start_profile (Profiler__)
+Profiler__.html#method-i-stop_profile%%stop_profile (Profiler__)

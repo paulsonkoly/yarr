@@ -1,0 +1,4 @@
+Coverage.html#method-c-peek_result%%peek_result (Coverage)
+Coverage.html#method-c-result%%result (Coverage)
+Coverage.html#method-c-running-3F%%running? (Coverage)
+Coverage.html#method-c-start%%start (Coverage)

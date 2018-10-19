@@ -3,6 +3,8 @@ require 'yarr/database'
 require 'yarr/query/result'
 require 'yarr/query/method'
 
+require 'helpers/query_helper'
+
 module Yarr
   module Query
     module Method
@@ -23,8 +25,6 @@ module Yarr
           subject { described_class.query(name: 'size') }
 
           before do
-            query = double('query')
-            allow(DB).to receive(:[]).and_return(query)
             allow(query).to receive(:where).and_return([{name: 'size'}])
           end
 
@@ -45,11 +45,9 @@ module Yarr
           subject { described_class.query(name: 'si%') }
 
           before do
-            query = double('query')
-            allow(DB).to receive(:[]).and_return(query)
-            allow(query).to receive(:join).and_return(query)
-            allow(query).to receive(:select).and_return(query)
-            allow(query).to receive(:where).and_return([{class_name: 'Array', method_name: 'size', method_flavour: 'instance'}])
+            allow(query).to receive(:where).and_return([class_name: 'Array',
+                                                        method_name: 'size',
+                                                        method_flavour: 'instance'])
           end
 
           it { is_expected.to be_a Result }

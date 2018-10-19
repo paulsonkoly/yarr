@@ -1,0 +1,2 @@
+Abbrev.html#method-c-abbrev%%abbrev (Abbrev)
+Array.html#method-i-abbrev%%abbrev (Array)

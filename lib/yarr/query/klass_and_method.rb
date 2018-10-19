@@ -32,26 +32,41 @@ module Yarr
                   when 'instance' then ?#
                   when 'class' then ?.
                   end
-          "#{klass}#{delim}#{method}"
+          "#{klass.name}#{delim}#{method}"
         end
 
         protected
 
         def self.query(method:, klass:, flavour:)
-          dataset = DB[:classes]
+          dataset = DB[:origins]
+            .join(:classes, origin_id: :id)
             .join(:methods, class_id: :id)
             .select(methods[:name].as(:method_name),
                     methods[:url].as(:method_url),
                     methods[:flavour].as(:method_flavour),
                     klasses[:name].as(:class_name),
-                    klasses[:url].as(:class_url))
+                    klasses[:url].as(:class_url),
+                    Sequel[:origins][:name].as(:class_origin))
+            .order(Sequel[:origins][:id])
             .where(constraint(method, klass, flavour))
 
           Result.new(dataset, -> row {
-            new(Klass::Base.new(row[:class_name], row[:class_url]),
-                Method::Base.new(row[:method_name], row[:method_url],
+            # TODO: this needs redoing
+            method_url = rewrite_method_url(row[:class_origin], row[:method_url])
+            new(Klass::Base.new(row[:class_name],
+                                row[:class_url],
+                                row[:class_origin]),
+                Method::Base.new(row[:method_name], method_url,
                                  row[:method_flavour], row[:class_id]))
           })
+        end
+
+        def self.rewrite_method_url(origin, url)
+          if origin == 'core'
+            "core-2.5.1/#{url}"
+          else
+            "stdlib-2.5.1/libdoc/#{origin}/rdoc/#{url}"
+          end
         end
 
         def self.methods

@@ -28,7 +28,28 @@ namespace :db do
 
   desc 'Seeds the database'
   task :seed do
-    ruby 'db/seed.rb'
+    if ENV['TEST']
+      sh 'ruby db/seed.rb test'
+    else
+      # TODO io, net
+      libs = %w[ core abbrev base64 benchmark cgi
+                 cmath coverage csv date dbm
+                 delegate English
+                 expect extmk fcntl fiddle fileutils
+                 find forwardable gdbm getoptlong ipaddr
+                 logger matrix mkmf monitor
+                 mutex_m nkf objspace observer open3
+                 openssl open-uri optparse ostruct pathname prettyprint
+                 prime profile profiler pstore psych pty
+                 racc rake rdoc readline resolv resolv-replace
+                 rexml rinda ripper rss rubygems scanf
+                 sdbm securerandom set shell shellwords singleton
+                 socket stringio strscan sync syslog tempfile
+                 thwait time timeout tmpdir tracer tsort
+                 un unicode_normalize uri weakref webrick win32ole
+                 yaml zlib ]
+      libs.each { |lib| sh "ruby db/seed.rb #{lib}" }
+    end
   end
 
   desc 'Sets up a new database'
@@ -81,8 +102,9 @@ namespace :lint do
                  'lib/yarr/query.rb',
                  'lib/yarr/version.rb')
     list.each do |f|
+      ENV['TEST'] = '1'
       ENV['MODULE_COVERAGE_ASSERT'] = 'true'
-      Rake::Task['lint:coverage_for'].invoke(f, :assert)
+      Rake::Task['lint:coverage_for'].invoke(f)
       Rake::Task['lint:coverage_for'].reenable
     end
   end

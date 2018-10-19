@@ -1,0 +1,6 @@
+C%%GetoptLong/AmbiguousOption.html%%GetoptLong::AmbiguousOption
+C%%GetoptLong/Error.html%%GetoptLong::Error
+C%%GetoptLong.html%%GetoptLong
+C%%GetoptLong/InvalidOption.html%%GetoptLong::InvalidOption
+C%%GetoptLong/MissingArgument.html%%GetoptLong::MissingArgument
+C%%GetoptLong/NeedlessArgument.html%%GetoptLong::NeedlessArgument

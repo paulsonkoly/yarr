@@ -1,0 +1,4 @@
+IO.html#method-i-scanf%%scanf (IO)
+Kernel.html#method-i-scanf%%scanf (Kernel)
+String.html#method-i-block_scanf%%block_scanf (String)
+String.html#method-i-scanf%%scanf (String)

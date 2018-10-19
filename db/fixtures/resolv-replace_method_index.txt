@@ -1,0 +1,6 @@
+IPSocket.html#method-c-getaddress%%getaddress (IPSocket)
+SOCKSSocket.html#method-c-new%%new (SOCKSSocket)
+TCPSocket.html#method-c-new%%new (TCPSocket)
+UDPSocket.html#method-i-bind%%bind (UDPSocket)
+UDPSocket.html#method-i-connect%%connect (UDPSocket)
+UDPSocket.html#method-i-send%%send (UDPSocket)

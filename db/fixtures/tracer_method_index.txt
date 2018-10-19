@@ -1,0 +1,4 @@
+Tracer.html#method-c-add_filter%%add_filter (Tracer)
+Tracer.html#method-c-off%%off (Tracer)
+Tracer.html#method-c-on%%on (Tracer)
+Tracer.html#method-c-set_get_line_procs%%set_get_line_procs (Tracer)

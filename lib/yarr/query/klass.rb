@@ -12,21 +12,36 @@ module Yarr
       # Database object for classes.
       # For usage examples see {Klass}.
       class Base
-        def initialize(name, url)
+        def initialize(name, url, origin)
           @name = name
           @url = url
+          @origin = origin
         end
         protected :initialize
 
         # @!attribute [r] name
         #   @return [String] the class name
-        # @!attribute [r] url
-        #   @return [String] the class url
-        attr_reader :name, :url
+        # @!attribute [r] origin
+        #   @return [String] the gem in which this was defined. Some rupy
+        #                    classes span across multiple gems, as far as we
+        #                    are concerned those are distinct classes with the
+        #                    same name.
+        attr_reader :name, :url, :origin
 
         # @return [String] the name of the class
         def to_s
-          @name
+          @name + (core? ? '' : " (#{origin})")
+        end
+
+        # @return [String] the ri url for the class
+        def url
+          core? ? "core-2.5.1/#@url" : "stdlib-2.5.1/libdoc/#@origin/rdoc/#@url"
+        end
+
+        private
+
+        def core?
+          @origin == 'core'
         end
       end
 
@@ -37,9 +52,15 @@ module Yarr
         # @param name [String] the class name
         # @return [Result]
         def self.query(name:)
-          dataset = DB[:classes].where({ name: name })
+          dataset = DB[:origins]
+            .join(:classes, origin_id: :id)
+            .select(Sequel[:classes][:name].as(:name),
+                    Sequel[:classes][:url].as(:url),
+                    Sequel[:origins][:name].as(:origin))
+            .where(Sequel[:classes][:name] => name)
+
           Result.new(dataset, -> row {
-            new(row[:name], row[:url])
+            new(row[:name], row[:url], row[:origin])
           })
         end
       end
@@ -51,9 +72,15 @@ module Yarr
         # @param name [String] the class name, % wildcard allowed
         # @return [Result]
         def self.query(name:)
-          dataset = DB[:classes].where(Sequel[:name].like(name))
+          dataset = DB[:origins]
+            .join(:classes, origin_id: :id)
+            .select(Sequel[:classes][:name].as(:name),
+                    Sequel[:classes][:url].as(:url),
+                    Sequel[:origins][:name].as(:origin))
+            .where(Sequel[:classes][:name].like(name))
+
           Result.new(dataset, -> row {
-            new(row[:name], row[:url])
+            new(row[:name], row[:url], row[:origin])
           })
         end
       end

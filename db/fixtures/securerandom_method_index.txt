@@ -1,0 +1,8 @@
+Random/Formatter.html#method-i-alphanumeric%%alphanumeric (Random::Formatter)
+Random/Formatter.html#method-i-base64%%base64 (Random::Formatter)
+Random/Formatter.html#method-i-hex%%hex (Random::Formatter)
+Random/Formatter.html#method-i-random_bytes%%random_bytes (Random::Formatter)
+Random/Formatter.html#method-i-urlsafe_base64%%urlsafe_base64 (Random::Formatter)
+Random/Formatter.html#method-i-uuid%%uuid (Random::Formatter)
+SecureRandom.html#method-c-bytes%%bytes (SecureRandom)
+SecureRandom.html#method-c-gen_random%%gen_random (SecureRandom)

@@ -1,0 +1,4 @@
+Singleton.html#method-c-_load%%_load (Singleton)
+Singleton.html#method-i-clone%%clone (Singleton)
+Singleton.html#method-i-_dump%%_dump (Singleton)
+Singleton.html#method-i-dup%%dup (Singleton)

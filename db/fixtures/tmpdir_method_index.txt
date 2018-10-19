@@ -1,0 +1,2 @@
+Dir.html#method-c-mktmpdir%%mktmpdir (Dir)
+Dir.html#method-c-tmpdir%%tmpdir (Dir)

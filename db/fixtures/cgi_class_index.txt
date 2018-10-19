@@ -1,0 +1,16 @@
+C%%CGI/Cookie.html%%CGI::Cookie
+C%%CGI/HTML3.html%%CGI::HTML3
+C%%CGI/HTML4Fr.html%%CGI::HTML4Fr
+C%%CGI/HTML4.html%%CGI::HTML4
+C%%CGI/HTML4Tr.html%%CGI::HTML4Tr
+C%%CGI/HTML5.html%%CGI::HTML5
+C%%CGI.html%%CGI
+C%%CGI/InvalidEncoding.html%%CGI::InvalidEncoding
+C%%CGI/Session/FileStore.html%%CGI::Session::FileStore
+C%%CGI/Session.html%%CGI::Session
+C%%CGI/Session/MemoryStore.html%%CGI::Session::MemoryStore
+C%%CGI/Session/NullStore.html%%CGI::Session::NullStore
+C%%CGI/Session/PStore.html%%CGI::Session::PStore
+M%%CGI/HtmlExtension.html%%CGI::HtmlExtension
+M%%CGI/QueryExtension.html%%CGI::QueryExtension
+M%%CGI/Util.html%%CGI::Util

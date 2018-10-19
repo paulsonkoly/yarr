@@ -1,0 +1,3 @@
+C%%Pathname.html%%Pathname
+M%%Kernel.html%%Kernel
+M%%Pathname/File.html%%Pathname::File

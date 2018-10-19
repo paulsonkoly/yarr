@@ -1,0 +1,2 @@
+C%%StringScanner/Error.html%%StringScanner::Error
+C%%StringScanner.html%%StringScanner

@@ -1,0 +1,4 @@
+C%%IO.html%%IO
+C%%StringIO.html%%StringIO
+M%%IO/generic_readable.html%%IO::generic_readable
+M%%IO/generic_writable.html%%IO::generic_writable

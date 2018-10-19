@@ -1,0 +1,9 @@
+C%%Syslog/Logger/Formatter.html%%Syslog::Logger::Formatter
+C%%Syslog/Logger.html%%Syslog::Logger
+M%%Syslog/Constants.html%%Syslog::Constants
+M%%Syslog/Facility.html%%Syslog::Facility
+M%%Syslog.html%%Syslog
+M%%Syslog/Level.html%%Syslog::Level
+M%%Syslog/Logger/Severity.html%%Syslog::Logger::Severity
+M%%Syslog/Macros.html%%Syslog::Macros
+M%%Syslog/Option.html%%Syslog::Option
