@@ -1,7 +1,8 @@
 module Yarr
   module Query
+    # Extends the from database url fragment to be a full url.
     module URLCorrector
-      # @return [String] the ri url for the class
+      # @return [String] the ri url
       def url
         if core?
           "core-2.5.1/#{super}"
@@ -10,6 +11,7 @@ module Yarr
         end
       end
 
+      # @return [Bool] is our origin 'core'
       def core?
         origin.name == 'core'
       end

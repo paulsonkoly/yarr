@@ -3,9 +3,12 @@ require 'yarr/command/base'
 
 module Yarr
   module Command
-    # list command handler
+    # Base class for all list commands
     class List < Base
       private
+
+      # TODO
+      # :reek:FeatureEnvy I cannot find a good way to fix this.
 
       # @return [String] found entries joined by ', '
       def response(result)
@@ -20,6 +23,7 @@ module Yarr
       end
     end
 
+    # Base class for list commands handling calls.
     class ListCall < List
       private
 

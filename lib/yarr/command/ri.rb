@@ -3,7 +3,7 @@ require 'yarr/query'
 
 module Yarr
   module Command
-    # ri command handler
+    # Base class for all ri commands
     class Ri < Base
       private
 
@@ -25,6 +25,7 @@ module Yarr
       end
     end
 
+    # Base class for ri commands handling calls.
     class RiCall < Ri
       private
 
@@ -54,6 +55,7 @@ module Yarr
       end
     end
 
+    # Handles 'ri Array.size' like commands
     class RiClassMethod < RiCall
       private def flavour
         'class'
@@ -64,7 +66,6 @@ module Yarr
     class RiMethodName < Ri
       private
 
-      # @return [String] documentation url
       def query
         Query::Method.where(name: method)
       end
@@ -82,10 +83,12 @@ module Yarr
     class RiClassName < Ri
       private
 
-      # @return [String] documentation url
       def query
         Query::Klass.where(name: klass)
       end
+
+      # TODO
+      # :reek:FeatureEnvy I cannot find a good way to fix this.
 
       def response(result)
         core = result.find(&:core?)
