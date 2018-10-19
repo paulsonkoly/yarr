@@ -87,6 +87,10 @@ module Yarr
         Query::Klass.where(name: klass)
       end
 
+      def target
+        "class #{klass}"
+      end
+
       # TODO
       # :reek:FeatureEnvy I cannot find a good way to fix this.
 

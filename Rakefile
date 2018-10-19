@@ -29,7 +29,7 @@ namespace :db do
   desc 'Seeds the database'
   task :seed do
     if ENV['TEST']
-      sh 'ruby db/seed.rb test'
+      sh 'ruby db/test_seed.rb'
     else
       # TODO io, net
       libs = %w[ core abbrev base64 benchmark cgi

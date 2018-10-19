@@ -30,7 +30,6 @@ module Yarr
         case flavour
         when 'instance' then '#'
         when 'class' then '.'
-        else '???'
         end
       end
     end

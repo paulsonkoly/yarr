@@ -15,7 +15,7 @@ RSpec.describe Yarr::Bot do
   end
 
   it 'does list Ar%y' do
-    expect(subject.reply_to('list Ar%y')).to eq 'Array (test)'
+    expect(subject.reply_to('list Ar%y')).to eq 'Array, Array (abbrev)'
   end
 
   it 'does list Ar%y#si%' do

@@ -13,6 +13,12 @@ module Yarr
         end
       end
 
+      describe '.response' do
+        it 'raises NotImplementedError' do
+          expect { subject.send(:response) }.to raise_error(NotImplementedError)
+        end
+      end
+
       describe '.klass' do
         it 'returns the klass from the ast' do
           expect(subject.send(:klass)).to eql 'class'
