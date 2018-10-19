@@ -5,52 +5,50 @@ module Yarr
   module Command
     # list command handler
     class List < Base
-      # @return [String] found entries joined by ', '
-      def handle
-        result = query
-        return error_message if result.count.zero?
+      private
 
-        result.entries.join(', ')
+      # @return [String] found entries joined by ', '
+      def response(result)
+        case result.count
+        when 0 then "I haven't found any entry that matches #{target}"
+        else result.map(&:full_name).join(', ')
+        end
       end
 
+      def target
+        raise NotImplementedError
+      end
+    end
+
+    class ListCall < List
       private
 
       def query
-        raise NotImplementedError
+        Query::Method.where(Sequel.like(:name, method) &
+                            { klass: Query::Klass.where(Sequel.like(:name, klass)),
+                              flavour: flavour })
       end
 
-      def error_message
+      def target
+        "#{flavour} method #{method} on #{klass}"
+      end
+
+      def flavour
         raise NotImplementedError
       end
     end
 
     # handles 'list Ar%#si%' like commands
-    class ListInstanceMethod < List
-      private
-
-      def query
-        Yarr::Query::KlassAndMethod::Like.query(klass: klass,
-                                                method: method,
-                                                flavour: 'instance')
-      end
-
-      def error_message
-        "I haven't found any entry that matches instance method #{method} on class #{klass}"
+    class ListInstanceMethod < ListCall
+      private def flavour
+        'instance'
       end
     end
 
     # handles 'list Ar%.si%' like commands
-    class ListClassMethod < List
-      private
-
-      def query
-        Yarr::Query::KlassAndMethod::Like.query(klass: klass,
-                                                method: method,
-                                                flavour: 'class')
-      end
-
-      def error_message
-        "I haven't found any entry that matches class method #{method} on class #{klass}"
+    class ListClassMethod < ListCall
+      private def flavour
+        'class'
       end
     end
 
@@ -59,11 +57,11 @@ module Yarr
       private
 
       def query
-        Yarr::Query::Klass::Like.query(name: klass)
+        Query::Klass::where(Sequel.like(:name, klass))
       end
 
-      def error_message
-        "I haven't found any entry that matches class #{klass}"
+      def target
+        "class #{klass}"
       end
     end
 
@@ -72,11 +70,11 @@ module Yarr
       private
 
       def query
-        Yarr::Query::Method::Like.query(name: method)
+        Query::Method.where(Sequel.like(:name, method))
       end
 
-      def error_message
-        "I haven't found any entry that matches method #{method}"
+      def target
+        "method #{method}"
       end
     end
   end

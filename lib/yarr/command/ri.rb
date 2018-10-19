@@ -7,93 +7,93 @@ module Yarr
     class Ri < Base
       private
 
-      def response(result:, objects_string:, advice: nil)
+      def response(result)
         count = result.count
         case count
-        when 0 then "Found no entry that matches #{objects_string}."
-        when 1 then "https://ruby-doc.org/#{url(result)}"
-        else
-          [ "I found #{count} entries matching with #{objects_string}.",
-            advice
-          ].compact.join(' ')
+        when 0 then "Found no entry that matches #{target}"
+        when 1 then "https://ruby-doc.org/#{result.first.url}"
+        else "I found #{count} entries matching #{target}. #{advice}"
         end
+      end
+
+      def target
+        raise NotImplementedError
+      end
+
+      def advice
+        raise NotImplementedError
+      end
+    end
+
+    class RiCall < Ri
+      private
+
+      def query
+        Query::Method.where(name: method,
+                            flavour: flavour,
+                            klass: Query::Klass.where(name: klass))
+      end
+
+      def target
+        "class #{klass} #{flavour} method #{method}"
+      end
+
+      def advice
+        ''
+      end
+
+      def flavour
+        raise NotImplementedError
       end
     end
 
     # Handles 'ri Array#size' like commands
-    class RiInstanceMethod < Ri
-      # @return [String] documentation url
-      def handle
-        result = Yarr::Query::KlassAndMethod::Strict.query(method: method,
-                                                           klass: klass,
-                                                           flavour: 'instance')
-
-        response(result: result,
-                 objects_string: "class #{klass} instance method #{method}")
-      end
-
-      private
-
-      def url(result)
-        result.first.method.url
+    class RiInstanceMethod < RiCall
+      private def flavour
+        'instance'
       end
     end
 
-    # Handles 'ri File.size' like commands
-    class RiClassMethod < Ri
-      # @return [String] documentation url
-      def handle
-        result = Yarr::Query::KlassAndMethod::Strict.query(method: method,
-                                                           klass: klass,
-                                                           flavour: 'class')
-
-        response(result: result,
-                 objects_string: "class #{klass} class method #{method}")
-      end
-
-      private
-
-      def url(result)
-        result.first.method.url
+    class RiClassMethod < RiCall
+      private def flavour
+        'class'
       end
     end
 
     # Handles 'ri size' like commands
     class RiMethodName < Ri
-      # @return [String] documentation url
-      def handle
-        result = Yarr::Query::Method::Strict.query(name: method)
-
-        response(result: result,
-                 objects_string: "method #{method}",
-                 advice: "Use &list #{method} if you would like to see a list")
-      end
-
       private
 
-      def url(result)
-        result.first.url
+      # @return [String] documentation url
+      def query
+        Query::Method.where(name: method)
+      end
+
+      def target
+        "method #{method}"
+      end
+
+      def advice
+        "Use &list #{method} if you would like to see a list"
       end
     end
 
     # Handles 'ri File' like commands
     class RiClassName < Ri
-      # @return [String] documentation url
-      def handle
-        result = Yarr::Query::Klass::Strict.query(name: klass)
-
-        core = result.find { |k| k.origin == 'core' }
-        if result.count > 1 && core
-          "https://ruby-doc.org/core-2.5.1/#{core.url}"
-        else
-          response(result: result, objects_string: "class #{klass}")
-        end
-      end
-
       private
 
-      def url(result)
-        result.first.url
+      # @return [String] documentation url
+      def query
+        Query::Klass.where(name: klass)
+      end
+
+      def response(result)
+        core = result.find(&:core?)
+        if result.count > 1 && core
+          "https://ruby-doc.org/#{core.url}"
+        else
+          super
+        end
       end
     end
   end

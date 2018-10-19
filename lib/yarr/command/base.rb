@@ -11,10 +11,18 @@ module Yarr
 
       # Responds to a command received
       def handle
-        raise NotImplementedError
+        response(query)
       end
 
       private
+
+      def query
+        raise NotImplementedError
+      end
+
+      def response
+        raise NotImplementedError
+      end
 
       def klass
         dig_deep(@ast, :class_name)
