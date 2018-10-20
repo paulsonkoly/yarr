@@ -3,7 +3,7 @@ require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec_no_db)
 task :spec do
-  ENV['TEST'] = '1'
+  ENV['YARR_TEST'] = '1'
   Rake::Task['db:setup'].invoke
   Rake::Task['spec_no_db'].invoke
 end
@@ -19,7 +19,7 @@ namespace :db do
 
   desc 'Drops the database if exists'
   task :drop do
-    if ENV['TEST']
+    if ENV['YARR_TEST']
       rm_f 'db/test'
     else
       rm_f 'db/database'
@@ -28,7 +28,7 @@ namespace :db do
 
   desc 'Seeds the database'
   task :seed do
-    if ENV['TEST']
+    if ENV['YARR_TEST']
       sh 'ruby db/test_seed.rb'
     else
       # TODO io, net
@@ -102,7 +102,7 @@ namespace :lint do
                  'lib/yarr/query.rb',
                  'lib/yarr/version.rb')
     list.each do |f|
-      ENV['TEST'] = '1'
+      ENV['YARR_TEST'] = '1'
       ENV['MODULE_COVERAGE_ASSERT'] = 'true'
       Rake::Task['lint:coverage_for'].invoke(f)
       Rake::Task['lint:coverage_for'].reenable
