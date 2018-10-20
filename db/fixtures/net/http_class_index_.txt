@@ -31,13 +31,13 @@ C%%Net/HTTPClientError.html%%Net::HTTPClientError
 C%%Net/HTTPConflict.html%%Net::HTTPConflict
 C%%Net/HTTPContinue.html%%Net::HTTPContinue
 C%%Net/HTTPCreated.html%%Net::HTTPCreated
-C%%Net/HTTPError.html%%Net::HTTPError → Net::HTTPError
+C%%Net/HTTPError.html%%Net::HTTPError
 M%%Net/HTTPExceptions.html%%Net::HTTPExceptions
 C%%Net/HTTPExpectationFailed.html%%Net::HTTPExpectationFailed
 C%%Net/HTTPFailedDependency.html%%Net::HTTPFailedDependency
 C%%Net/HTTPFatalError.html%%Net::HTTPFatalError
 C%%Net/HTTPForbidden.html%%Net::HTTPForbidden
-C%%Net/HTTPFound.html%%Net::HTTPFound → Net::HTTPFound
+C%%Net/HTTPFound.html%%Net::HTTPFound
 C%%Net/HTTPGatewayTimeOut.html%%Net::HTTPGatewayTimeOut
 C%%Net/HTTPGenericRequest.html%%Net::HTTPGenericRequest
 C%%Net/HTTPGone.html%%Net::HTTPGone
@@ -54,7 +54,7 @@ C%%Net/HTTPMethodNotAllowed.html%%Net::HTTPMethodNotAllowed
 C%%Net/HTTPMisdirectedRequest.html%%Net::HTTPMisdirectedRequest
 C%%Net/HTTPMovedPermanently.html%%Net::HTTPMovedPermanently
 C%%Net/HTTPMultiStatus.html%%Net::HTTPMultiStatus
-C%%Net/HTTPMultipleChoices.html%%Net::HTTPMultipleChoices → Net::HTTPMultipleChoices
+C%%Net/HTTPMultipleChoices.html%%Net::HTTPMultipleChoices
 C%%Net/HTTPNetworkAuthenticationRequired.html%%Net::HTTPNetworkAuthenticationRequired
 C%%Net/HTTPNoContent.html%%Net::HTTPNoContent
 C%%Net/HTTPNonAuthoritativeInformation.html%%Net::HTTPNonAuthoritativeInformation
@@ -76,11 +76,11 @@ C%%Net/HTTPRequest.html%%Net::HTTPRequest
 C%%Net/HTTPRequestEntityTooLarge.html%%Net::HTTPRequestEntityTooLarge
 C%%Net/HTTPRequestHeaderFieldsTooLarge.html%%Net::HTTPRequestHeaderFieldsTooLarge
 C%%Net/HTTPRequestTimeOut.html%%Net::HTTPRequestTimeOut
-C%%Net/HTTPRequestURITooLong.html%%Net::HTTPRequestURITooLong → Net::HTTPRequestURITooLong
+C%%Net/HTTPRequestURITooLong.html%%Net::HTTPRequestURITooLong
 C%%Net/HTTPRequestedRangeNotSatisfiable.html%%Net::HTTPRequestedRangeNotSatisfiable
 C%%Net/HTTPResetContent.html%%Net::HTTPResetContent
 C%%Net/HTTPResponse.html%%Net::HTTPResponse
-C%%Net/HTTPRetriableError.html%%Net::HTTPRetriableError → Net::HTTPRetriableError
+C%%Net/HTTPRetriableError.html%%Net::HTTPRetriableError
 C%%Net/HTTPSeeOther.html%%Net::HTTPSeeOther
 C%%Net/HTTPServerError.html%%Net::HTTPServerError
 C%%Net/HTTPServerException.html%%Net::HTTPServerException
