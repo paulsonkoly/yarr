@@ -14,8 +14,15 @@ $ bundle install
 
 ## Configuration
 
-Write configuration in $HOME/.config/yarr/yarr.yml. And then to set up the
-database and load it with default data:
+Copy the configuration sample:
+
+```bash
+$ cp config/yarr_sample.yml config/yarr.yml
+```
+
+Edit the `config/yarr.yml` file, fill in the blanks.
+
+Set up the database and load it with default data:
 
 ```
 $ rake db:setup

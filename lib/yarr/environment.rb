@@ -17,6 +17,9 @@ module Yarr
       ! test?
     end
 
+    # The root directory of the project
+    PROJECT_ROOT = File.join(File.dirname(__FILE__), '..', '..').freeze
+
     extend self
   end
 end

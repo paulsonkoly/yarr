@@ -1,15 +1,9 @@
-require 'xdg'
 require 'yaml'
+require 'yarr/environment'
 
 module Yarr
   # A YAML configuration file loader for yarr.
   class ConfigFile
-    # A Yarr configuration file at a predefined location.
-    # @param xdg XDG provider.
-    def initialize(xdg = XDG['CONFIG_HOME'])
-      @xdg = xdg.with_subdirectory('yarr')
-    end
-
     # Username loaded from configuration
     def username
       config_data['username']
@@ -23,7 +17,7 @@ module Yarr
     private
 
     def config_file
-      File.join(@xdg.to_s, 'yarr.yml')
+      File.join(Environment::PROJECT_ROOT, 'config', 'yarr.yml')
     end
 
     def config_data

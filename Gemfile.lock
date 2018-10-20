@@ -4,12 +4,6 @@ GIT
   specs:
     cinch (2.3.1)
 
-GIT
-  remote: https://github.com/rubyworks/xdg.git
-  revision: 36b4708b1c057543226b28e8fbc406ef4f4572d5
-  specs:
-    xdg (2.2.3)
-
 PATH
   remote: .
   specs:
@@ -112,7 +106,6 @@ DEPENDENCIES
   sequel
   simplecov
   sqlite3
-  xdg!
   yarr!
 
 BUNDLED WITH
