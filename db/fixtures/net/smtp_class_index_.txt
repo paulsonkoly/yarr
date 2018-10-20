@@ -1,0 +1,10 @@
+M%%Net.html%%Net
+C%%Net/SMTP.html%%Net::SMTP
+C%%Net/SMTP/Response.html%%Net::SMTP::Response
+C%%Net/SMTPAuthenticationError.html%%Net::SMTPAuthenticationError
+M%%Net/SMTPError.html%%Net::SMTPError
+C%%Net/SMTPFatalError.html%%Net::SMTPFatalError
+C%%Net/SMTPServerBusy.html%%Net::SMTPServerBusy
+C%%Net/SMTPSyntaxError.html%%Net::SMTPSyntaxError
+C%%Net/SMTPUnknownError.html%%Net::SMTPUnknownError
+C%%Net/SMTPUnsupportedCommand.html%%Net::SMTPUnsupportedCommand

@@ -1,0 +1,8 @@
+C%%Net/APOP.html%%Net::APOP
+C%%Net/APOP.html%%Net::APOPSession → Net::APOP
+C%%Net/POP3.html%%Net::POP3
+C%%Net/POPAuthenticationError.html%%Net::POPAuthenticationError
+C%%Net/POPBadResponse.html%%Net::POPBadResponse
+C%%Net/POPError.html%%Net::POPError
+C%%Net/POPMail.html%%Net::POPMail
+M%%Net.html%%Net

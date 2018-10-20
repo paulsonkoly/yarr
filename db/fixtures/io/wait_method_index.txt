@@ -1,0 +1,5 @@
+IO.html#method-i-nread%%nread (IO)
+IO.html#method-i-ready-3F%%ready? (IO)
+IO.html#method-i-wait_readable%%wait_readable (IO)
+IO.html#method-i-wait%%wait (IO)
+IO.html#method-i-wait_writable%%wait_writable (IO)

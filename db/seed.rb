@@ -1,8 +1,10 @@
 require_relative 'db_helper'
 
 origin = ARGV[0]
-klasses_path = File.join('db', 'fixtures', "#{origin}_class_index.txt")
-methods_path = File.join('db', 'fixtures', "#{origin}_method_index.txt")
+origin_file, origin_dir  = origin.split('/').reverse
+basedir = File.join(* ['db', 'fixtures', origin_dir].compact)
+klasses_path = File.join(basedir, "#{origin_file}_class_index.txt")
+methods_path = File.join(basedir, "#{origin_file}_method_index.txt")
 
 # :reek:UtilityFunction
 def report_io(fn, io)
