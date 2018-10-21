@@ -35,6 +35,7 @@ module Yarr
 
       rule(:method_) { (operator | suffixed | normal_name).as(:method_name) }
 
+      # Ruby operators
       Operators = %w[% & * ** + - / < << <= <=> == === =~ > >= >> [] []= ^ ! != !~]
 
       rule(:operator) { Operators.map(&method(:str)).inject(:|) }
