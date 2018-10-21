@@ -6,6 +6,7 @@ gem 'cinch', git: 'https://github.com/cinchrb/cinch.git'
 gem 'sequel'
 gem 'sqlite3'
 gem 'parslet'
+gem 'activesupport'
 
 group :development do
   gem 'byebug'
