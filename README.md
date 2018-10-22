@@ -86,21 +86,6 @@ list %ile.%
 >>> File.absolute_path, File.atime, File.basename, File.birthtime, File.blockdev?, File.chardev?, File.chmod, File.chown, File.ctime, File.delete,...
 ```
 
-### what_is
-
-what_is is a debug command. We can ask the bot about a particular token:
-
-```
-what_is File
->>> It's a(n) class name.
-what_is size
->>> It's a(n) method name.
-what_is File.size
->>> It's a(n) class method.
-what_is File#size
->>> It's a(n) instance method.
-```
-
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/phaul/yarr.
@@ -110,6 +95,36 @@ module level coverage. This asserts that each module in the project is 100%
 covered by it's corresponding spec in isolation. For this to work you need to
 patch simplecov and simplecov-html with branch coverage support. `lint:all`
 should all pass.
+
+### The ast command
+
+The bot responds to the ast command which should output the parsed AST form of
+the input.
+
+```
+ast Array#si%, phaul
+>>> {:command=>"ast", :instance_method=>{:class_name=>"Array", :method_name=>"si%"}, :stuff=>" phaul"} , phaul
+```
+
+Further debug can be enabled by running the app in development environment. The
+token `@@` is not valid, we can also print why. The print out is somewhat
+lengthy and assumes familiarity with the grammar.
+
+```
+$ env YARR_DEVELOPMENT=1 bin/console
+Yarr Version 0.1.0
+ast @@
+Expected one of [COMMAND SPACES? EXPRESSION SPACES? ',' STUFF, COMMAND SPACES? EXPRESSION] at line 1 char 1.
+|- Failed to match sequence (COMMAND SPACES? EXPRESSION SPACES? ',' STUFF) at line 1 char 5.
+|  `- Expected one of [instance_method:INSTANCE_METHOD, class_method:CLASS_METHOD, METHOD_, KLASS] at line 1 char 5.
+|     |- Failed to match sequence (KLASS '#' METHOD_) at line 1 char 5.
+|     |  `- Failed to match sequence ([A-Z%] [a-zA-Z:%]{0, }) at line 1 char 5.
+|     |     `- Failed to match [A-Z%] at line 1 char 5.
+
+[...]
+```
+
+The above can be useful in debugging parser issues.
 
 API documentation can be found
 [rubydoc.info](https://www.rubydoc.info/github/phaul/yarr/master).

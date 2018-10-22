@@ -23,10 +23,10 @@ RSpec.describe Yarr::Bot do
   end
 
   it 'reports error for commands it doesn\'t understand' do
-    expect(subject.reply_to('xxx aaa')).to match(/did not understand command xxx/)
+    expect(subject.reply_to('xxx aaa')).to start_with('did not understand that')
   end
 
   it 'reports error for targets it can\'t parse' do
-    expect(subject.reply_to('xxx @@')).to match(/did not understand command the command target/)
+    expect(subject.reply_to('xxx @@')).to start_with('did not understand that')
   end
 end
