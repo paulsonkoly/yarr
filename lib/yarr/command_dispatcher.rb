@@ -37,8 +37,7 @@ module Yarr
     # place
     # :reek:UtilityFunction
 
-    # @return [Yarr::Command|nil] the command handler for the incoming command
-    #                             / AST
+    # @return [Yarr::Command] the command handler for the incoming command / AST
     def dispatch(ast)
       case ast
       when Match['ast']

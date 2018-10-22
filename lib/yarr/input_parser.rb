@@ -10,7 +10,7 @@ module Yarr
   # - The second part is until the next `,' or til the end: +Array+. This part
   #   is the command target.
   # - The third part is optional and it starts at the first `,', +, phaul+. The
-  #   code reffers to this part as "stuff" and it's copeid stright to the
+  #   code refers to this part as "stuff" and it's copied straight to the
   #   output.
   #
   # The target portion of the user input is ri notation ruby token. (Normal
