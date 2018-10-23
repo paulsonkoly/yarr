@@ -54,11 +54,6 @@ module Yarr
     def development?
       development == '1'
     end
-
-    # @return [Bool] Yarr running in production environment
-    def production?
-      ! test? && ! development?
-    end
   end
 
   class << self

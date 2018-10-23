@@ -1,20 +1,31 @@
 require 'spec_helper'
+require 'helpers/env_variable_helper'
 require 'yarr/configuration'
 
 module Yarr
   RSpec.describe Configuration do
     context 'with YARR_TEST set to 1' do
+      environment_variable('YARR_TEST') { ENV['YARR_TEST'] = '1' }
+
       it { is_expected.to be_test }
-      it { is_expected.not_to be_production }
     end
 
     context 'with TEST unset' do
-      before { ENV.delete('YARR_TEST') }
-      # we need to restore this for other tests
-      after { ENV['YARR_TEST'] = '1' }
+      environment_variable('YARR_TEST') { ENV.delete('YARR_TEST') }
 
       it { is_expected.not_to be_test }
-      it { is_expected.to be_production }
+    end
+
+    context 'with YARR_DEVELOPMENT set to 1' do
+      environment_variable('YARR_DEVELOPMENT') { ENV['YARR_DEVELOPMENT'] = '1' }
+
+      it { is_expected.to be_development }
+    end
+
+    context 'with YARR_DEVELOPMENT unset' do
+      environment_variable('YARR_DEVELOPMENT') { ENV.delete('YARR_DEVELOPMENT') }
+
+      it { is_expected.not_to be_development }
     end
 
     describe 'file based configuration' do
