@@ -1,2 +1,6 @@
 username: '<freenode user name here>'
 password: '<freenode pass here>'
+nick: 'nick'
+channels:
+  - '#ruby'
+

@@ -29,15 +29,21 @@ module Yarr
     end
 
     # @!method username
-    #   @return [String] Username loaded from configuration file
+    #   @return [String] username for freenode
 
     # @!method password
-    #   @return [String] Username loaded from configuration file
+    #   @return [String] password for freenode
+
+    # @!method nick
+    #   @return [String] bot's nick
+
+    # @!method channels
+    #   @return [[String]] array of channel names where the bot will be active
 
     # Forwardable doesn't play along nicely with AppConfiguration as these are
     # implemented via method_missing, no respond_to_missing, and forwardable
     # checks that.
-    %i[test development username password].each do |sym|
+    %i[test development username password nick channels].each do |sym|
       define_method(sym) { @config.public_send(sym) }
     end
 
