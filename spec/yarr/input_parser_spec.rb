@@ -52,6 +52,10 @@ module Yarr
         expect(subject.parse('ri Class')[:class_name]).to eq 'Class'
       end
 
+      it 'parses "Array (abbrev)" as a class with origin' do
+        expect(subject.parse('ri Array (abbrev)')[:origin_name]).to eq 'abbrev'
+      end
+
       it 'allows for % meta chars in a class name' do
         expect(subject.parse('ri Cl%ss')[:class_name]).to eq 'Cl%ss'
       end

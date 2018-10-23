@@ -28,13 +28,13 @@ module Yarr
         raise NotImplementedError
       end
 
-      def klass
-        dig_deep(@ast, :class_name)
+      def self.digger(name, ast_name = :"#{name}_name")
+        define_method(name) { dig_deep(@ast, ast_name) }
       end
 
-      def method
-        dig_deep(@ast, :method_name)
-      end
+      digger :klass, :class_name
+      digger :method
+      digger :origin
 
       # :reek:FeatureEnvy Hash is stdlib class.
       # :reek:TooManyStatements

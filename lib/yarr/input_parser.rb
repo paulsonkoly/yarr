@@ -52,6 +52,7 @@ module Yarr
         class_method.as(:class_method) |
         # do not override the method :method.
         method_ |
+        klass_origin |
         klass
     end
 
@@ -64,6 +65,10 @@ module Yarr
     end
 
     rule(:method_) { (operator | suffixed | normal_name).as(:method_name) }
+
+    rule(:klass_origin) { klass >> spaces? >> str(?() >> origin >> str(?)) }
+
+    rule(:origin) { match('[a-z]').repeat(1).as(:origin_name) }
 
     # order of operators is important for the parser
 

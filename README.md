@@ -51,6 +51,22 @@ ri puts
 >>> I found 3 entries matching with method: puts. Use &list puts if you would like to see a list
 ```
 
+#### Class or module name ambiguity
+
+In case of class or module names ri implicitly resolves ambiguous names if
+there is a definition in core. We can list all names, or be explicit in the
+query.
+
+```
+ri Array
+>>> https://ruby-doc.org/core-2.5.1/Array.html
+list Array
+>>> Array, Array (abbrev), Array (mkmf), Array (rexml), Array (shellwords)
+ri Array (mkmf)
+>>> https://ruby-doc.org/stdlib-2.5.1/libdoc/mkmf/rdoc/Array.html
+```
+
+
 ### list
 
 list lists the matching names. % is taken as a wildcard character that can

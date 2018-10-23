@@ -112,6 +112,17 @@ module Yarr
 
             it { is_expected.to match %r{https://ruby-doc.org/.*Array} }
           end
+
+          context 'with an explicit origin' do
+            subject do
+              described_class.new({
+                class_name: 'Array',
+                origin_name: 'abbrev'
+              }).handle
+            end
+
+            it { is_expected.to match %r{https://ruby-doc.org/.*abbrev.*/Array.html} }
+          end
         end
       end
 

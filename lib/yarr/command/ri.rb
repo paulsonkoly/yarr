@@ -84,7 +84,9 @@ module Yarr
       private
 
       def query
-        Query::Klass.where(name: klass)
+        constraints = { name: klass }
+        constraints.merge!(origin: Query::Origin.where(name: origin)) if origin
+        Query::Klass.where(constraints)
       end
 
       def target
