@@ -15,6 +15,12 @@ module Yarr
     end
 
     # Replies to a message
+    # @example
+    #
+    #   bot = Yarr::Bot.new
+    #   bot.reply_to 'ri Array' # => "https://ruby-doc.org/core-2.5.1/Array.html"
+    #   bot.reply_to 'ast ast' # => "{:command=>\"ast\", :method_name=>\"ast\"}"
+    #
     # @param message [String] incoming message (without IRC command prefix)
     # @return [String] response string
     def reply_to(message)
