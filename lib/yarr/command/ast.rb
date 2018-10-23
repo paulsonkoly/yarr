@@ -2,8 +2,7 @@ require 'yarr/command/base'
 
 module Yarr
   module Command
-    # Gets the first key out of the AST and replies with it, underscores
-    # translated to spaces.
+    # Debug command, useful to see how our parser works
     class AST < Base
       # @return [String]
       def handle
