@@ -1,16 +1,15 @@
 require 'sequel'
 require 'forwardable'
-require 'yarr/environment'
+require 'yarr/configuration'
 
 module Yarr
   # Handles connecting to sequel.
   class Database
     extend Forwardable
-    include Environment
 
     def initialize(connector = :sqlite)
       @db_dir = File.join(PROJECT_ROOT, 'db')
-      @db_path = File.join(@db_dir, production? ? 'database' : 'test')
+      @db_path = File.join(@db_dir, Yarr.config.test? ? 'test' : 'database')
 
       @db = Sequel.public_send(connector, @db_path)
 

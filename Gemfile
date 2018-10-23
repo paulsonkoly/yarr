@@ -7,6 +7,7 @@ gem 'sequel'
 gem 'sqlite3'
 gem 'parslet'
 gem 'activesupport'
+gem 'app_configuration'
 
 group :development do
   gem 'byebug'

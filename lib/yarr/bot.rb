@@ -1,7 +1,7 @@
 require 'yarr/command_dispatcher'
 require 'yarr/input_parser'
 require 'yarr/message/truncator'
-require 'yarr/environment'
+require 'yarr/configuration'
 
 # Responds to rdoc documentation queries with links and more.
 module Yarr
@@ -51,7 +51,7 @@ module Yarr
 
     def handle_error(error)
       cause = error.parse_failure_cause
-      puts cause.ascii_tree if Environment.development?
+      puts cause.ascii_tree if Yarr.config.development?
       "did not understand that, parser error @ char position #{cause.pos.charpos}"
     end
   end
