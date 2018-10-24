@@ -73,7 +73,9 @@ module Yarr
     # order of operators is important for the parser
 
     # Ruby operators
-    Operators = %w[[]= === <=> !~ != [] >> >= =~ == <= << ** !  ^ > < / - + * & %]
+    # % is not in the list because then we would match the first % in %x% as an
+    # operator, and then fail to parse the rest.
+    Operators = %w[[]= === <=> !~ != [] >> >= =~ == <= << ** !  ^ > < / - + * &]
 
     rule(:operator) { Operators.map(&method(:str)).inject(:|) }
 

@@ -80,6 +80,10 @@ module Yarr
         expect(subject.parse('ri %')[:method_name]).to eq '%'
       end
 
+      it 'parses %x%x as a method' do
+        expect(subject.parse('ri %x%x')[:method_name]).to  eq '%x%x'
+      end
+
       it 'parses "Array#size" as instance method' do
         ast = subject.parse('ri Array#size')
         expect(ast[:instance_method]).to eq({
