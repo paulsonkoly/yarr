@@ -75,7 +75,9 @@ module Yarr
     # Ruby operators
     # % is not in the list because then we would match the first % in %x% as an
     # operator, and then fail to parse the rest.
-    Operators = %w[[]= === <=> !~ != [] >> >= =~ == <= << ** !  ^ > < / - + * &]
+    Operators = %w[[]= === <=>
+                   !~ != [] >> >= =~ == <= << ** -@
+                   !  ^ > < / - + * &]
 
     rule(:operator) { Operators.map(&method(:str)).inject(:|) }
 
