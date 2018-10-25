@@ -24,9 +24,14 @@ bot = Cinch::Bot.new do
   end
 end
 
-bot.loggers.clear
-bot.loggers << Cinch::Logger::FormattedLogger.new(File.open("log/log.txt", "a"))
-bot.loggers.level = :info
+if Yarr.config.development?
+  bot.loggers.level = :debug
+else
+  bot.loggers.clear
+  bot.loggers << Cinch::Logger::FormattedLogger.new(File.open("log/log.txt", "a"))
+  bot.loggers.level = :info
 
-Process.daemon(true)
+  Process.daemon(true)
+end
+
 bot.start
