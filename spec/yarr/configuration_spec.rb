@@ -1,3 +1,4 @@
+require 'tmpdir'
 require 'spec_helper'
 require 'helpers/env_variable_helper'
 require 'yarr/configuration'
