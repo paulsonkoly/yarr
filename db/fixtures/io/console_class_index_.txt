@@ -1,2 +1,0 @@
-C%%IO.html%%IO
-M%%IO/generic_readable.html%%IO::generic_readable
