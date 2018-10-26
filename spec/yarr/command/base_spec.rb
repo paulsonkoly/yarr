@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'yarr/command/base'
+require 'helpers/not_implemented_helper'
 
 module Yarr
   module Command
@@ -7,17 +8,7 @@ module Yarr
       let(:ast) { { a: {}, b: { class_name: 'class', method_name: 'method' } } }
       subject { described_class.new(ast) }
 
-      describe '.handle' do
-        it 'raises NotImplementedError' do
-          expect { subject.handle }.to raise_error(NotImplementedError)
-        end
-      end
-
-      describe '.response' do
-        it 'raises NotImplementedError' do
-          expect { subject.send(:response) }.to raise_error(NotImplementedError)
-        end
-      end
+      does_not_implement :handle
 
       describe '.klass' do
         it 'returns the klass from the ast' do

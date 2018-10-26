@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'yarr/command/ri'
+require 'helpers/not_implemented_helper'
 
 module Yarr
   module Command
@@ -12,17 +13,9 @@ module Yarr
           })
         end
 
-        describe '#target' do
-          it 'raises NotImplementedError' do
-            expect{ subject.send :target }.to raise_error NotImplementedError
-          end
-        end
-
-        describe '#advice' do
-          it 'raises NotImplementedError' do
-            expect{ subject.send :advice }.to raise_error NotImplementedError
-          end
-        end
+        does_not_implement :query
+        does_not_implement :target
+        does_not_implement :advice
       end
 
       describe RiCall do
@@ -33,11 +26,7 @@ module Yarr
           })
         end
 
-        describe '#flavour' do
-          it 'raises NotImplementedError' do
-            expect{ subject.send :flavour }.to raise_error NotImplementedError
-          end
-        end
+        does_not_implement :flavour
       end
 
 

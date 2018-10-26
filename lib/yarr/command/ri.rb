@@ -5,7 +5,15 @@ module Yarr
   module Command
     # Base class for all ri commands
     class Ri < Base
+      def handle
+        response(query)
+      end
+
       private
+
+      def query
+        raise NotImplementedError
+      end
 
       def response(result)
         count = result.count

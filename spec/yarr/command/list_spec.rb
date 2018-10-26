@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'yarr/command/list'
+require 'helpers/not_implemented_helper'
 
 module Yarr
   module Command
@@ -9,21 +10,14 @@ module Yarr
       describe List do
         subject { described_class.new(ast) }
 
-        describe '#target' do
-          it 'raises NotImplementedError' do
-            expect { subject.send :target }.to raise_error NotImplementedError
-          end
-        end
+        does_not_implement :query
+        does_not_implement :target
       end
 
       describe ListCall do
         subject { described_class.new(ast) }
 
-        describe '#flavour' do
-          it 'raises NotImplementedError' do
-            expect { subject.send :flavour }.to raise_error NotImplementedError
-          end
-        end
+        does_not_implement :flavour
       end
 
       describe ListInstanceMethod do

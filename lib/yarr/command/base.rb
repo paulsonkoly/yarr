@@ -15,18 +15,10 @@ module Yarr
 
       # Responds to a command received
       def handle
-        response(query)
+        raise NotImplementedError
       end
 
       private
-
-      def query
-        raise NotImplementedError
-      end
-
-      def response
-        raise NotImplementedError
-      end
 
       def self.digger(name, ast_name = :"#{name}_name")
         define_method(name) { dig_deep(@ast, ast_name) }

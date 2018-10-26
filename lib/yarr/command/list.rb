@@ -5,7 +5,15 @@ module Yarr
   module Command
     # Base class for all list commands
     class List < Base
+      def handle
+        response(query)
+      end
+
       private
+
+      def query
+        raise NotImplementedError
+      end
 
       # TODO
       # :reek:FeatureEnvy I cannot find a good way to fix this.
