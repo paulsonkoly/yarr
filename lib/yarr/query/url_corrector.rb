@@ -5,9 +5,9 @@ module Yarr
       # @return [String] the ri url
       def url
         if core?
-          "core-2.5.1/#{super}"
+          "core-2.5.3/#{super}"
         else
-          "stdlib-2.5.1/libdoc/#{origin.name}/rdoc/#{super}"
+          "stdlib-2.5.3/libdoc/#{origin.name}/rdoc/#{super}"
         end
       end
 

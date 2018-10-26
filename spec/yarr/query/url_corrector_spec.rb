@@ -32,7 +32,7 @@ module Yarr
 
         describe '#url' do
           it 'is the core url' do
-            expect(subject.url).to eq 'core-2.5.1/xxx'
+            expect(subject.url).to match /core-\d.\d.\d\/xxx/
           end
         end
       end
@@ -48,7 +48,7 @@ module Yarr
 
         describe '#url' do
           it 'is the stdlib url url' do
-            expect(subject.url).to eq 'stdlib-2.5.1/libdoc/gem/rdoc/xxx'
+            expect(subject.url).to match %r{stdlib-\d.\d.\d/libdoc/gem/rdoc/xxx}
           end
         end
       end
