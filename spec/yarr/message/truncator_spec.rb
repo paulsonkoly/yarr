@@ -26,6 +26,10 @@ module Yarr
           it 'ends with ...' do
             expect(subject.truncate(long)).to end_with('...')
           end
+
+          it "doesn't change the original string" do
+            expect { subject.truncate(long) }.not_to change { long }
+          end
         end
       end
     end
