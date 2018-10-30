@@ -1,10 +1,15 @@
 require 'yarr/query'
 require 'yarr/command/base'
+require 'yarr/command/concern/responder'
 
 module Yarr
   module Command
     # Base class for all list commands
     class List < Base
+      include Concern::Responder
+
+      respond_with response: -> result { result.map(&:full_name).join(', ') }
+
       def handle
         response(query)
       end
@@ -13,17 +18,6 @@ module Yarr
 
       def query
         raise NotImplementedError
-      end
-
-      # TODO
-      # :reek:FeatureEnvy I cannot find a good way to fix this.
-
-      # @return [String] found entries joined by ', '
-      def response(result)
-        case result.count
-        when 0 then "I haven't found any entry that matches #{target}"
-        else result.map(&:full_name).join(', ')
-        end
       end
 
       def target

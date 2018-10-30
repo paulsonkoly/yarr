@@ -26,6 +26,12 @@ module Yarr
 
           it { is_expected.to eq  'Array#size, Array#abbrev' }
         end
+
+        describe '#target' do
+          subject { described_class.new(ast).send :target }
+
+          it { is_expected.to eq 'instance method % on %' }
+        end
       end
 
       describe ListClassMethod do
@@ -35,14 +41,6 @@ module Yarr
           end
 
           it { is_expected.to eq  'Array.new' }
-
-          context 'when nothing is found' do
-            subject do
-              described_class.new(class_name: 'NonExistent').handle
-            end
-
-            it { is_expected.to match(/\AI haven't found any/) }
-          end
         end
       end
 
@@ -51,14 +49,12 @@ module Yarr
           subject { described_class.new(class_name: 'Array').handle }
 
           it { is_expected.to eq  'Array, Array (abbrev)' }
+        end
 
-          context 'when nothing is found' do
-            subject do
-              described_class.new(class_name: 'NonExistent').handle
-            end
+        describe '#target' do
+          subject { described_class.new(ast).send :target }
 
-            it { is_expected.to match(/\AI haven't found any/) }
-          end
+          it { is_expected.to eq 'class %' }
         end
       end
 
@@ -70,12 +66,10 @@ module Yarr
 
           it { is_expected.to eq  'Array#size' }
 
-          context 'when nothing is found' do
-            subject do
-              described_class.new(method_name: 'non_existent').handle
-            end
+          describe '#target' do
+            subject { described_class.new(ast).send :target }
 
-            it { is_expected.to match(/\AI haven't found any/) }
+            it { is_expected.to eq 'method %' }
           end
         end
       end

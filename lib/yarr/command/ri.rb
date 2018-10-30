@@ -1,13 +1,21 @@
 require 'yarr/command/base'
 require 'yarr/query'
+require 'yarr/command/concern/responder'
 
 module Yarr
   module Command
     # Base class for all ri commands
     class Ri < Base
+      include Concern::Responder
+
       def handle
         response(query)
       end
+
+      respond_with(
+        response: -> result { "https://ruby-doc.org/#{result.first.url}" },
+        options: { accept_many: false })
+
 
       private
 
@@ -15,20 +23,7 @@ module Yarr
         raise NotImplementedError
       end
 
-      def response(result)
-        count = result.count
-        case count
-        when 0 then "Found no entry that matches #{target}"
-        when 1 then "https://ruby-doc.org/#{result.first.url}"
-        else "I found #{count} entries matching #{target}. #{advice}"
-        end
-      end
-
       def target
-        raise NotImplementedError
-      end
-
-      def advice
         raise NotImplementedError
       end
     end
@@ -45,10 +40,6 @@ module Yarr
 
       def target
         "class #{klass} #{flavour} method #{method}"
-      end
-
-      def advice
-        ''
       end
 
       def flavour

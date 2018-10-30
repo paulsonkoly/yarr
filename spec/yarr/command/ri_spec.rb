@@ -15,7 +15,6 @@ module Yarr
 
         does_not_implement :query
         does_not_implement :target
-        does_not_implement :advice
       end
 
       describe RiCall do
@@ -53,28 +52,17 @@ module Yarr
           end
 
           it { is_expected.to match %r{https://ruby-doc.org/.*Array.*new} }
+        end
 
-          context 'when nothing is found' do
-            subject do
-              described_class.new({
-                class_name: 'NonExistent',
-                method_name: 'new'
-              }).handle
-            end
-
-            it { is_expected.to eq('Found no entry that matches class NonExistent class method new') }
+        describe '#target' do
+          subject do
+            described_class.new({
+              class_name: 'Array',
+              method_name: 'new'
+            }).send :target
           end
 
-          context 'when multiple are found' do
-            subject do
-              described_class.new({
-                class_name: 'String',
-                method_name: 'new'
-              }).handle
-            end
-
-            it { is_expected.to eq('I found 2 entries matching class String class method new. ') }
-          end
+          it { is_expected.to eq 'class Array class method new' }
         end
       end
 
@@ -85,14 +73,6 @@ module Yarr
           end
 
           it { is_expected.to match %r{https://ruby-doc.org/.*abbrev} }
-
-          context 'when nothing is found' do
-            subject do
-              described_class.new(class_name: 'NonExistent').handle
-            end
-
-            it { is_expected.to eq('Found no entry that matches class NonExistent') }
-          end
 
           context 'when there is a hit from core' do
             subject do
@@ -113,6 +93,14 @@ module Yarr
             it { is_expected.to match %r{https://ruby-doc.org/.*abbrev.*/Array.html} }
           end
         end
+
+        describe '#target' do
+          subject do
+            described_class.new({ class_name: 'Array' }).send :target
+          end
+
+          it { is_expected.to eq 'class Array' }
+        end
       end
 
       describe RiMethodName do
@@ -122,22 +110,23 @@ module Yarr
           end
 
           it { is_expected.to match %r{https://ruby-doc.org/.*Array.*size} }
+        end
 
-          context 'when nothing is found' do
-            subject do
-              described_class.new(method_name: 'non_existent').handle
-            end
-
-            it { is_expected.to eq('Found no entry that matches method non_existent') }
+        describe '#target' do
+          subject do
+            described_class.new({ method_name: 'new' }).send :target
           end
 
-          context 'when there are multiple hits' do
-            subject do
-              described_class.new(method_name: 'new').handle
-            end
+          it { is_expected.to eq 'method new' }
+        end
 
-            it { is_expected.to match(/Use &list new if you would like to see a list/) }
+        describe '#advice' do
+          subject do
+            described_class.new({ method_name: 'new' }).send :advice
           end
+
+          it { is_expected.to eq \
+               'Use &list new if you would like to see a list' }
         end
       end
     end
