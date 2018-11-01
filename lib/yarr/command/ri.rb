@@ -13,7 +13,7 @@ module Yarr
       end
 
       respond_with(
-        response: -> result { "https://ruby-doc.org/#{result.first.url}" },
+        response: -> result { result.first.url },
         options: { accept_many: false })
 
 
@@ -98,7 +98,7 @@ module Yarr
       def response(result)
         core = result.find(&:core?)
         if result.count > 1 && core
-          "https://ruby-doc.org/#{core.url}"
+          core.url
         else
           super
         end

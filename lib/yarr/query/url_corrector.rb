@@ -5,15 +5,21 @@ module Yarr
       # @return [String] the ri url
       def url
         if core?
-          "core-2.5.3/#{super}"
+          "#{host}/core-2.5.3/#{super}"
         else
-          "stdlib-2.5.3/libdoc/#{origin.name}/rdoc/#{super}"
+          "#{host}/stdlib-2.5.3/libdoc/#{origin.name}/rdoc/#{super}"
         end
       end
 
       # @return [Bool] is our origin 'core'
       def core?
         origin.name == 'core'
+      end
+
+      private
+
+      def host
+        'https://ruby-doc.org/'
       end
     end
   end
