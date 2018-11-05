@@ -11,6 +11,7 @@ module Yarr
     include CommandDispatcher
     include Message::Truncator
 
+    # @param irc_provider [Cinch::Bot] IRC functionality provider.
     def initialize(irc_provider = NoIRC.new)
       @parser = InputParser.new
       @irc = irc_provider

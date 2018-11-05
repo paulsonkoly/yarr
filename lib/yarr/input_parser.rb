@@ -12,8 +12,9 @@ module Yarr
   # - The first word +list+ is the command.
   # - The second part is until the next `,', whitespace, or til the end:
   #   +Array+. This part is the command target.
-  # - The third part is optional: + phaul+. The code refers to this part as
-  #   "stuff" and it's copied straight to the output.
+  # - The third part is optional: +phaul+. The code refers to this part as
+  #   "stuff" and it's copied straight to the output, or in case if it's a
+  #   nick, we prefix our response with it.
   #
   # The target portion of the user input is ri notation ruby token. (Normal
   # Ruby token except # is used for instance methods.)
