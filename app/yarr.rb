@@ -1,10 +1,11 @@
 require 'cinch'
 require 'yarr'
 
-yarr = Yarr::Bot.new
-yconfig = Yarr.config
 
 bot = Cinch::Bot.new do
+  yarr = Yarr::Bot.new(self)
+  yconfig = Yarr.config
+
   configure do |c|
     c.server = 'irc.freenode.org'
     c.nick = yconfig.nick

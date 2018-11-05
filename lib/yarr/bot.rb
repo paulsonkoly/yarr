@@ -2,6 +2,7 @@ require 'yarr/command_dispatcher'
 require 'yarr/input_parser'
 require 'yarr/message/truncator'
 require 'yarr/configuration'
+require 'yarr/no_irc'
 
 # Responds to rdoc documentation queries with links and more.
 module Yarr
@@ -10,8 +11,9 @@ module Yarr
     include CommandDispatcher
     include Message::Truncator
 
-    def initialize
+    def initialize(irc_provider = NoIRC.new)
       @parser = InputParser.new
+      @irc = irc_provider
     end
 
     # Replies to a message
@@ -43,8 +45,15 @@ module Yarr
     end
 
     def post_process(response, stuff)
-      stuff.prepend(', ') unless stuff.empty?
-      truncate(response) + truncate(stuff)
+      response = truncate(response)
+      if stuff.empty?
+        response
+      else
+        user = @irc.user_list.find(stuff)
+        if user then user.nick + ': ' << response
+        else response << ', ' << truncate(stuff)
+        end
+      end
     end
 
     # :reek:FeatureEnvy
