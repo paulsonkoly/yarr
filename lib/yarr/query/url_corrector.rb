@@ -19,7 +19,7 @@ module Yarr
       private
 
       def host
-        'https://ruby-doc.org/'
+        'https://ruby-doc.org'
       end
     end
   end
