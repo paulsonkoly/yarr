@@ -2,16 +2,18 @@ require 'parslet'
 
 module Yarr
   # Code parsing the user input. The user input contains 3 sections, 2
-  # required and 1 optional. A usual user input might look like:
+  # required and 1 optional. The sesctions are separated by white spaces.
+  # Between the second and third section an optional comma is allowed.
+  # A usual user input might look like:
   #
-  #    list Array, phaul
+  #    list Array phaul
+  #    ri Set, phaul
   #
   # - The first word +list+ is the command.
-  # - The second part is until the next `,' or til the end: +Array+. This part
-  #   is the command target.
-  # - The third part is optional and it starts at the first `,', +, phaul+. The
-  #   code refers to this part as "stuff" and it's copied straight to the
-  #   output.
+  # - The second part is until the next `,', whitespace, or til the end:
+  #   +Array+. This part is the command target.
+  # - The third part is optional: + phaul+. The code refers to this part as
+  #   "stuff" and it's copied straight to the output.
   #
   # The target portion of the user input is ri notation ruby token. (Normal
   # Ruby token except # is used for instance methods.)
@@ -29,7 +31,7 @@ module Yarr
   #   pp p.parse 'ri A#b, phaul'
   #   # >> {:command=>"ri",
   #   # >>  :instance_method=>{:class_name=>"A", :method_name=>"b"},
-  #   # >>  :stuff=>" phaul"}
+  #   # >>  :stuff=>"phaul"}
   #   pp p.parse 'ast A.b'
   #   # >> {:command=>"ast",
   #   # >>  :class_method=>{:class_name=>"A", :method_name=>"b"}}
@@ -37,8 +39,7 @@ module Yarr
   # @note We also accept % character anywhere to support like queries.
   class InputParser < Parslet::Parser
     rule(:input) do
-      command >> spaces? >> expression >> spaces? >> str(?,) >> stuff |
-        command >> spaces? >> expression
+      command >> spaces? >> expression >> (stuff_separator >> stuff).maybe
     end
 
     rule(:command) { (str('ri') | str('list') | str('ast')).as(:command) }
@@ -46,6 +47,8 @@ module Yarr
     rule(:stuff) { any.repeat.as(:stuff) }
 
     rule(:spaces?) { str(' ').repeat }
+
+    rule(:stuff_separator) { match('[, ]') >> spaces? }
 
     rule(:expression) do
       instance_method.as(:instance_method) |

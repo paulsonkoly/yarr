@@ -43,7 +43,7 @@ module Yarr
     end
 
     def post_process(response, stuff)
-      stuff.prepend(' ,') unless stuff.empty?
+      stuff.prepend(', ') unless stuff.empty?
       truncate(response) + truncate(stuff)
     end
 
