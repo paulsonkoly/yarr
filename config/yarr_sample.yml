@@ -3,4 +3,65 @@ password: '<freenode pass here>'
 nick: 'nick'
 channels:
   - '#ruby'
+evaluator:
+  :languages:
+    :default: "2.5.3"
+    "24": "2.4.1"
+    "23": "2.3.3"
+    "22": "2.2.4"
+    "21": "2.1.5"
+    "20": "2.0.0"
+  :url: "https://carc.in/run_requests"
+  :modes:
+    :default:
+      :escape: false
+      :output: :truncate
+      :format: |
+        p begin
+          %s
+        rescue Exception
+          puts "#{$!} (#{$!.class})"
+          $stdout.flush
+          raise $!
+        end
+    asm:
+      :escape: true
+      :output: :link
+      :verb: 'disassembled'
+      :format: |
+        begin
+          puts RubyVM::InstructionSequence.compile(%%q`%s`).disasm
+        rescue Exception
+          puts "#{$!} (#{$!.class})"
+          $stdout.flush
+          raise $!
+        end
+    ast:
+      :escape: true
+      :output: :link
+      :verb: 'parsed'
+      :format: |
+        require 'ripper'
+        require 'pp'
+        begin
+          pp Ripper.sexp(%%q`%s`)
+        rescue Exception
+          puts "#{$!} (#{$!.class})"
+          $stdout.flush
+          raise $!
+        end
+    tok:
+      :escape: true
+      :output: :link
+      :verb: 'tokenized'
+      :format: |
+        require 'ripper'
+        require 'pp'
+        begin
+          pp Ripper.lex(%%q`%s`)
+        rescue Exception
+          puts "#{$!} (#{$!.class})"
+          $stdout.flush
+          raise $!
+        end
 

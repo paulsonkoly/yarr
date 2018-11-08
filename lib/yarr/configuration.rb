@@ -43,7 +43,7 @@ module Yarr
     # Forwardable doesn't play along nicely with AppConfiguration as these are
     # implemented via method_missing, no respond_to_missing, and forwardable
     # checks that.
-    %i[test development username password nick channels].each do |sym|
+    %i[test development username password nick channels evaluator].each do |sym|
       define_method(sym) { @config.public_send(sym) }
     end
 

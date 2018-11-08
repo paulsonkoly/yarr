@@ -1,5 +1,6 @@
 require 'cinch'
 require 'yarr'
+require 'evaluator'
 
 
 bot = Cinch::Bot.new do
@@ -20,7 +21,11 @@ bot = Cinch::Bot.new do
     c.sasl.password = yconfig.password
   end
 
-  on :message, /\A&((ast|ri|list) +.*)\z/ do |m, match|
+  on :message, %r{\A&(?<override>[a-z0-9]+)?>>(?!>)(?<code>.*)} do |m, override, code|
+    m.reply Evaluator.evaluate_code(m, override, code)
+  end
+
+  on :message, /\A&((list|ri|ast)(?!>>) +.*)\z/ do |m, match|
     m.reply yarr.reply_to(match)
   end
 end

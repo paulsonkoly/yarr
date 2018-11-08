@@ -7,6 +7,7 @@ gem 'sequel'
 gem 'sqlite3'
 gem 'parslet'
 gem 'app_configuration'
+gem 'typhoeus'
 
 group :development do
   gem 'byebug'
