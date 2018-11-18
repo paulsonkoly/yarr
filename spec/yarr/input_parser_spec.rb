@@ -88,6 +88,10 @@ module Yarr
         it 'parses -@ as a method' do
           expect(subject.parse('ri -@')[:method_name]).to eq '-@'
         end
+
+        it 'parses ~ as a method' do
+          expect(subject.parse('ri ~')[:method_name]).to eq '~'
+        end
       end
 
       it 'parses "Array#size" as instance method' do
