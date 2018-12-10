@@ -32,7 +32,7 @@ namespace :db do
       sh 'ruby db/test_seed.rb'
     else
       libs = %w[ core abbrev base64 benchmark cgi cmath coverage csv date dbm
-                 delegate English expect extmk fcntl fiddle fileutils find
+                 delegate English erb expect extmk fcntl fiddle fileutils find
                  forwardable gdbm getoptlong ipaddr logger matrix mkmf monitor
                  mutex_m nkf objspace observer open3 openssl open-uri optparse
                  ostruct pathname prettyprint prime profile profiler pstore
