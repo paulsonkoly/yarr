@@ -20,7 +20,7 @@ bot = Cinch::Bot.new do
     c.sasl.password = yconfig.password
   end
 
-  on :message, /\A& *(.*)\z/ do |m, match|
+  on :message, /\A&((ast|ri|list) +.*)\z/ do |m, match|
     m.reply yarr.reply_to(match)
   end
 end
