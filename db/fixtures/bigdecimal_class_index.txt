@@ -1,6 +1,7 @@
 C%%BigDecimal.html%%BigDecimal
 C%%Float.html%%Float
 C%%Integer.html%%Integer
+C%%NilClass.html%%NilClass
 C%%Rational.html%%Rational
 C%%String.html%%String
 M%%BigMath.html%%BigMath

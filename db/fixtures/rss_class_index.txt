@@ -346,8 +346,8 @@ M%%RSS/BaseDublinCoreModel.html%%RSS::BaseDublinCoreModel
 M%%RSS/BaseModel.html%%RSS::BaseModel
 M%%RSS/BaseTrackBackModel.html%%RSS::BaseTrackBackModel
 M%%RSS/ContentModel.html%%RSS::ContentModel
-M%%RSS/DublinCoreModel.html%%RSS::DublinCoreModel
 M%%RSS/DublinCoreModel.html%%RSS::DublincoreModel
+M%%RSS/DublinCoreModel.html%%RSS::DublinCoreModel
 M%%RSS.html%%RSS
 M%%RSS/ImageFaviconModel.html%%RSS::ImageFaviconModel
 M%%RSS/ImageItemModel.html%%RSS::ImageItemModel

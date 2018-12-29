@@ -59,6 +59,7 @@ C%%REXML/Validation/ValidationException.html%%REXML::Validation::ValidationExcep
 C%%REXML/Validation/ZeroOrMore.html%%REXML::Validation::ZeroOrMore
 C%%REXML/XMLDecl.html%%REXML::XMLDecl
 C%%REXML/XPath.html%%REXML::XPath
+C%%REXML/XPathNode.html%%REXML::XPathNode
 C%%REXML/XPathParser.html%%REXML::XPathParser
 C%%Symbol.html%%Symbol
 M%%REXML/DTD.html%%REXML::DTD

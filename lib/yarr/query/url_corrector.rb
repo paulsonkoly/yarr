@@ -1,13 +1,16 @@
+require 'yarr/configuration'
+
 module Yarr
   module Query
     # Extends the from database url fragment to be a full url.
     module URLCorrector
       # @return [String] the ri url
       def url
+        version = Yarr.config.ruby_version
         if core?
-          "#{host}/core-2.5.3/#{super}"
+          "#{host}/core-#{version}/#{super}"
         else
-          "#{host}/stdlib-2.5.3/libdoc/#{origin.name}/rdoc/#{super}"
+          "#{host}/stdlib-#{version}/libdoc/#{origin.name}/rdoc/#{super}"
         end
       end
 

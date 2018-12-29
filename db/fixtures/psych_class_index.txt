@@ -33,6 +33,7 @@ C%%Psych/Visitors/NoAliasRuby.html%%Psych::Visitors::NoAliasRuby
 C%%Psych/Visitors/ToRuby.html%%Psych::Visitors::ToRuby
 C%%Psych/Visitors/Visitor.html%%Psych::Visitors::Visitor
 C%%Psych/Visitors/YAMLTree.html%%Psych::Visitors::YAMLTree
+M%%JRuby.html%%JRuby
 M%%Kernel.html%%Kernel
 M%%Psych/Handlers.html%%Psych::Handlers
 M%%Psych.html%%Psych

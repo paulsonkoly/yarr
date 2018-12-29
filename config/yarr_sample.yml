@@ -3,6 +3,7 @@ password: '<freenode pass here>'
 nick: 'nick'
 channels:
   - '#ruby'
+ruby_version: '2.6'
 evaluator:
   :languages:
     :default: "2.5.3"
@@ -64,4 +65,3 @@ evaluator:
           $stdout.flush
           raise $!
         end
-

@@ -31,6 +31,3 @@ Prime/TrialDivisionGenerator.html#method-i-next%%next (Prime::TrialDivisionGener
 Prime/TrialDivisionGenerator.html#method-i-rewind%%rewind (Prime::TrialDivisionGenerator)
 Prime/TrialDivisionGenerator.html#method-i-succ%%succ (Prime::TrialDivisionGenerator)
 Prime/TrialDivision.html#method-i-5B-5D%%[] (Prime::TrialDivision)
-Prime/TrialDivision.html#method-i-cache%%cache (Prime::TrialDivision)
-Prime/TrialDivision.html#method-i-primes%%primes (Prime::TrialDivision)
-Prime/TrialDivision.html#method-i-primes_so_far%%primes_so_far (Prime::TrialDivision)
