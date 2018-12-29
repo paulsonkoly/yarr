@@ -1,2 +1,1 @@
 C%%Tempfile.html%%Tempfile
-C%%Tempfile/Remover.html%%Tempfile::Remover

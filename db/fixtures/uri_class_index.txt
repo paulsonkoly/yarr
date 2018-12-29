@@ -1,5 +1,6 @@
 C%%URI/BadURIError.html%%URI::BadURIError
 C%%URI/Error.html%%URI::Error
+C%%URI/File.html%%URI::File
 C%%URI/FTP.html%%URI::FTP
 C%%URI/Generic.html%%URI::Generic
 C%%URI/HTTP.html%%URI::HTTP

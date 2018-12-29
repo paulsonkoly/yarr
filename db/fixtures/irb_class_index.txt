@@ -1,3 +1,4 @@
+C%%Binding.html%%Binding
 C%%IRB/Abort.html%%IRB::Abort
 C%%IRB/Context.html%%IRB::Context
 C%%IRB/ExtendCommand/ChangeWorkspace.html%%IRB::ExtendCommand::ChangeWorkspace

@@ -13,6 +13,7 @@ C%%Gem/Commands/EnvironmentCommand.html%%Gem::Commands::EnvironmentCommand
 C%%Gem/Commands/FetchCommand.html%%Gem::Commands::FetchCommand
 C%%Gem/Commands/GenerateIndexCommand.html%%Gem::Commands::GenerateIndexCommand
 C%%Gem/Commands/HelpCommand.html%%Gem::Commands::HelpCommand
+C%%Gem/Commands/InfoCommand.html%%Gem::Commands::InfoCommand
 C%%Gem/Commands/InstallCommand.html%%Gem::Commands::InstallCommand
 C%%Gem/Commands/ListCommand.html%%Gem::Commands::ListCommand
 C%%Gem/Commands/LockCommand.html%%Gem::Commands::LockCommand
@@ -183,12 +184,13 @@ C%%Gem/Source/SpecificFile.html%%Gem::Source::SpecificFile
 C%%Gem/Source/Vendor.html%%Gem::Source::Vendor
 C%%Gem/SpecFetcher.html%%Gem::SpecFetcher
 C%%Gem/Specification.html%%Gem::Specification
+C%%Gem/SpecificationPolicy.html%%Gem::SpecificationPolicy
 C%%Gem/SpecificGemNotFoundException.html%%Gem::SpecificGemNotFoundException
 C%%Gem/StreamUI.html%%Gem::StreamUI
 C%%Gem/StreamUI/SilentDownloadReporter.html%%Gem::StreamUI::SilentDownloadReporter
 C%%Gem/StreamUI/SilentProgressReporter.html%%Gem::StreamUI::SilentProgressReporter
 C%%Gem/StreamUI/SimpleProgressReporter.html%%Gem::StreamUI::SimpleProgressReporter
-C%%Gem/StreamUI/VerboseDownloadReporter.html%%Gem::StreamUI::VerboseDownloadReporter
+C%%Gem/StreamUI/ThreadedDownloadReporter.html%%Gem::StreamUI::ThreadedDownloadReporter
 C%%Gem/StreamUI/VerboseProgressReporter.html%%Gem::StreamUI::VerboseProgressReporter
 C%%Gem/StubSpecification.html%%Gem::StubSpecification
 C%%Gem/SystemExitException.html%%Gem::SystemExitException
@@ -196,6 +198,7 @@ C%%Gem/TestCase.html%%Gem::TestCase
 C%%Gem/TestCase/SpecFetcherSetup.html%%Gem::TestCase::SpecFetcherSetup
 C%%Gem/TestCase/StaticSet.html%%Gem::TestCase::StaticSet
 C%%Gem/Uninstaller.html%%Gem::Uninstaller
+C%%Gem/UninstallError.html%%Gem::UninstallError
 C%%Gem/UnsatisfiableDependencyError.html%%Gem::UnsatisfiableDependencyError
 C%%Gem/UriFormatter.html%%Gem::UriFormatter
 C%%Gem/Validator.html%%Gem::Validator
@@ -203,8 +206,10 @@ C%%Gem/VerificationError.html%%Gem::VerificationError
 C%%Gem/Version.html%%Gem::Version
 C%%Object.html%%Object
 C%%TempIO.html%%TempIO
+M%%Bundler.html%%Bundler
 M%%Gem/BundlerVersionFinder.html%%Gem::BundlerVersionFinder
 M%%Gem/Commands.html%%Gem::Commands
+M%%Gem/Commands/SetupCommand/MakeDirs.html%%Gem::Commands::SetupCommand::MakeDirs
 M%%Gem/DefaultUserInteraction.html%%Gem::DefaultUserInteraction
 M%%Gem/Deprecate.html%%Gem::Deprecate
 M%%Gem/Ext.html%%Gem::Ext

@@ -53,8 +53,8 @@ C%%RDoc/Markup/Parser.html%%RDoc::Markup::Parser
 C%%RDoc/Markup/Parser/ParseError.html%%RDoc::Markup::Parser::ParseError
 C%%RDoc/Markup/PreProcess.html%%RDoc::Markup::PreProcess
 C%%RDoc/Markup/Raw.html%%RDoc::Markup::Raw
+C%%RDoc/Markup/RegexpHandling.html%%RDoc::Markup::RegexpHandling
 C%%RDoc/Markup/Rule.html%%RDoc::Markup::Rule
-C%%RDoc/Markup/Special.html%%RDoc::Markup::Special
 C%%RDoc/Markup/TextFormatterTestCase.html%%RDoc::Markup::TextFormatterTestCase
 C%%RDoc/Markup/ToAnsi.html%%RDoc::Markup::ToAnsi
 C%%RDoc/Markup/ToBs.html%%RDoc::Markup::ToBs
@@ -80,6 +80,8 @@ C%%RDoc/Parser/C.html%%RDoc::Parser::C
 C%%RDoc/Parser.html%%RDoc::Parser
 C%%RDoc/Parser/Markdown.html%%RDoc::Parser::Markdown
 C%%RDoc/Parser/RD.html%%RDoc::Parser::RD
+C%%RDoc/Parser/RipperStateLex.html%%RDoc::Parser::RipperStateLex
+C%%RDoc/Parser/RipperStateLex/InnerStateLex.html%%RDoc::Parser::RipperStateLex::InnerStateLex
 C%%RDoc/Parser/Ruby.html%%RDoc::Parser::Ruby
 C%%RDoc/Parser/Simple.html%%RDoc::Parser::Simple
 C%%RDoc/RD/BlockParser.html%%RDoc::RD::BlockParser
@@ -92,8 +94,6 @@ C%%RDoc/RI/Driver/Error.html%%RDoc::RI::Driver::Error
 C%%RDoc/RI/Driver.html%%RDoc::RI::Driver
 C%%RDoc/RI/Driver/NotFoundError.html%%RDoc::RI::Driver::NotFoundError
 C%%RDoc/RI/Error.html%%RDoc::RI::Error
-C%%RDoc/RipperStateLex.html%%RDoc::RipperStateLex
-C%%RDoc/RipperStateLex/InnerStateLex.html%%RDoc::RipperStateLex::InnerStateLex
 C%%RDoc/RI/Task.html%%RDoc::RI::Task
 C%%RDoc/RubygemsHook.html%%RDoc::RubygemsHook
 C%%RDoc/Servlet.html%%RDoc::Servlet
@@ -107,7 +107,6 @@ C%%RDoc/Store.html%%RDoc::Store
 C%%RDoc/Store/MissingFileError.html%%RDoc::Store::MissingFileError
 C%%RDoc/Task.html%%RDoc::Task
 C%%RDocTask.html%%RDocTask
-C%%RDoc/TestCase.html%%RDoc::TestCase
 C%%RDoc/TomDoc.html%%RDoc::TomDoc
 C%%RDoc/TopLevel.html%%RDoc::TopLevel
 M%%Rake.html%%Rake
@@ -124,4 +123,3 @@ M%%RDoc/RI/Paths.html%%RDoc::RI::Paths
 M%%RDoc/RI/Paths/RbConfig.html%%RDoc::RI::Paths::RbConfig
 M%%RDoc/Text.html%%RDoc::Text
 M%%RDoc/TokenStream.html%%RDoc::TokenStream
-M%%Test.html%%Test

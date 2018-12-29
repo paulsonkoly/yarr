@@ -1,3 +1,4 @@
+Coverage.html#method-c-line_stub%%line_stub (Coverage)
 Coverage.html#method-c-peek_result%%peek_result (Coverage)
 Coverage.html#method-c-result%%result (Coverage)
 Coverage.html#method-c-running-3F%%running? (Coverage)

@@ -5,4 +5,5 @@ M%%FileUtils.html%%FileUtils
 M%%FileUtils/LowMethods.html%%FileUtils::LowMethods
 M%%FileUtils/NoWrite.html%%FileUtils::NoWrite
 M%%FileUtils/StreamUtils_.html%%FileUtils::StreamUtils_
+M%%FileUtils/StreamUtils_/RbConfig.html%%FileUtils::StreamUtils_::RbConfig
 M%%FileUtils/Verbose.html%%FileUtils::Verbose

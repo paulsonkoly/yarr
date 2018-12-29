@@ -1,5 +1,13 @@
+C%%CSV/FieldsConverter.html%%CSV::FieldsConverter
 C%%CSV.html%%CSV
 C%%CSV/MalformedCSVError.html%%CSV::MalformedCSVError
+C%%CSV/Parser.html%%CSV::Parser
+C%%CSV/Parser/InputsScanner.html%%CSV::Parser::InputsScanner
+C%%CSV/Parser/InvalidEncoding.html%%CSV::Parser::InvalidEncoding
+C%%CSV/Parser/Scanner.html%%CSV::Parser::Scanner
+C%%CSV/Parser/UnoptimizedStringIO.html%%CSV::Parser::UnoptimizedStringIO
 C%%CSV/Row.html%%CSV::Row
 C%%CSV/Table.html%%CSV::Table
+C%%CSV/Writer.html%%CSV::Writer
 C%%Object.html%%Object
+M%%CSV/MatchP.html%%CSV::MatchP

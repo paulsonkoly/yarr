@@ -3,4 +3,5 @@ password: '<freenode pass here>'
 nick: 'nick'
 channels:
   - '#ruby'
+ruby_version: '2.6'
 
