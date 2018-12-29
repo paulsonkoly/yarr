@@ -47,10 +47,13 @@ module Yarr
     # Forwardable doesn't play along nicely with AppConfiguration as these are
     # implemented via method_missing, no respond_to_missing, and forwardable
     # checks that.
-    forwarded_methods = %i[test development username password nick channels
-                           ruby_version]
+    forwarded_methods = %i[test development username password nick channels]
     forwarded_methods.each do |sym|
       define_method(sym) { @config.public_send(sym) }
+    end
+
+    def ruby_version
+      @config.public_send(__method__) || '2.6'
     end
 
     # :reek:UtilityFunction
