@@ -40,10 +40,6 @@ module Yarr
     # @!method channels
     #   @return [[String]] array of channel names where the bot will be active
 
-    # @!method ruby_version
-    #   @return [String] the ruby version that can be inserted in the ruby-doc
-    #   URLs.
-
     # Forwardable doesn't play along nicely with AppConfiguration as these are
     # implemented via method_missing, no respond_to_missing, and forwardable
     # checks that.
@@ -52,6 +48,8 @@ module Yarr
       define_method(sym) { @config.public_send(sym) }
     end
 
+    # @return [String] the ruby version that can be inserted in the ruby-doc
+    # URLs.
     def ruby_version
       @config.public_send(__method__) || '2.6'
     end
