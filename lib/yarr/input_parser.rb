@@ -37,7 +37,7 @@ module Yarr
   #   # >> {:command=>"ast",
   #   # >>  :class_method=>{:class_name=>"A", :method_name=>"b"}}
   #
-  # @note We also accept % character anywhere to support like queries.
+  # @note We also accept % character in names to support like queries.
   class InputParser < Parslet::Parser
     rule(:input) do
       command >> spaces? >> expression >> (stuff_separator >> stuff).maybe
