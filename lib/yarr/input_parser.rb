@@ -81,7 +81,7 @@ module Yarr
     # operator, and then fail to parse the rest.
     Operators = %w[[]= === <=>
                    !~ != [] >> >= =~ == <= << ** -@ +@
-                   ! ^ > < / - + * & ~]
+                   ! ^ > < / - + * & ~ `]
 
     rule(:operator) { Operators.map(&method(:str)).inject(:|) }
 
