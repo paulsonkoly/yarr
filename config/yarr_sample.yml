@@ -42,16 +42,30 @@ evaluator:
       :escape: true
       :output: :link
       :verb: 'parsed'
-      :format: |
-        require 'ripper'
-        require 'pp'
-        begin
-          pp Ripper.sexp(%%q`%s`)
-        rescue Exception
-          puts "#{$!} (#{$!.class})"
-          $stdout.flush
-          raise $!
-        end
+      :format:
+        :default: |
+          begin
+            pp RubyVM::AbstractSyntaxTree.parse(%%q`%s`)
+          rescue Exception
+            puts "#{$!} (#{$!.class})"
+            $stdout.flush
+            raise $!
+          end
+        "20": &old_ast |
+          require 'ripper'
+          require 'pp'
+          begin
+            pp Ripper.sexp(%%q`%s`)
+          rescue Exception
+            puts "#{$!} (#{$!.class})"
+            $stdout.flush
+            raise $!
+          end
+        "21": *old_ast
+        "22": *old_ast
+        "23": *old_ast
+        "24": *old_ast
+        "25": *old_ast
     tok:
       :escape: true
       :output: :link
