@@ -72,38 +72,16 @@ namespace :lint do
     puts 'looking for files with byebug'
     FileList['**/*.rb'].each do |f|
       File.open(f, 'r') do |io|
-        abort "byebug found in #{f}" if io.each_line.any? /byebug/
+        abort "byebug found in #{f}" if io.each_line.any?(/byebug/)
       end
     end
-  end
-
-  desc 'module coverage for file'
-  task :coverage_for, [:file] do |task, args|
-    target = args[:file]
-    basename = File.basename(target, '.rb')
-    dirname = File.dirname(target).sub(/\blib\b/, 'spec')
-    specname = "#{dirname}/#{basename}_spec.rb"
-    ENV['MODULE_COVERAGE_FILE'] = File.basename(target)
-    ENV['MODULE_COVERAGE_SPEC'] = specname
-    sh "rspec -r module_coverage #{specname}"
   end
 
   desc 'module level coverage'
   task :module_coverage do
     puts "Module coverage checks"
-    list = FileList['lib/**/*.rb']
-    list.exclude('lib/yarr.rb',
-                 'lib/yarr/bot.rb',
-                 'lib/yarr/command.rb',
-                 'lib/yarr/database.rb',
-                 'lib/yarr/query.rb',
-                 'lib/yarr/version.rb')
-    list.each do |f|
-      ENV['YARR_TEST'] = '1'
-      ENV['MODULE_COVERAGE_ASSERT'] = 'true'
-      Rake::Task['lint:coverage_for'].invoke(f)
-      Rake::Task['lint:coverage_for'].reenable
-    end
+    ENV['YARR_TEST'] = '1'
+    sh 'deep-cover exec rspec'
   end
 
   desc 'reek'

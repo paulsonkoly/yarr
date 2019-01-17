@@ -107,10 +107,7 @@ list %ile.%
 Bug reports and pull requests are welcome on GitHub at https://github.com/phaul/yarr.
 
 The `lint:all` rake task kicks of a bunch of checks on the project including
-module level coverage. This asserts that each module in the project is 100%
-covered by it's corresponding spec in isolation. For this to work you need to
-patch simplecov and simplecov-html with branch coverage support. `lint:all`
-should all pass.
+branch coverage.
 
 ### The ast command
 
