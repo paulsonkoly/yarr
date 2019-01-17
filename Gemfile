@@ -12,6 +12,8 @@ gem 'typhoeus'
 group :development do
   gem 'byebug'
   gem 'pry'
+  gem 'pry-nav'
+  gem 'pry-rescue'
   gem 'reek', '~> 5.2.0'
 end
 

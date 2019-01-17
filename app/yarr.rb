@@ -1,6 +1,5 @@
 require 'cinch'
 require 'yarr'
-require 'evaluator'
 
 
 bot = Cinch::Bot.new do
@@ -22,7 +21,12 @@ bot = Cinch::Bot.new do
   end
 
   on :message, %r{\A&(?<override>[a-z0-9]+)?>>(?!>)(?<code>.*)} do |m, override, code|
-    m.reply Evaluator.evaluate_code(m, override, code)
+    m.reply begin
+      evaluator = Yarr::Evaluator.new(override)
+      evaluator.evaluate(code)
+    rescue StandardError => e
+      "I'm terribly sorry, I could not evaluate your code because of an error: #{e.class}:#{e.message}"
+    end
   end
 
   on :message, /\A&((list|ri|ast)(?!>>) +.*)\z/ do |m, match|
