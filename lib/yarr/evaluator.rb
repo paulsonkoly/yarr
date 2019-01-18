@@ -56,10 +56,17 @@ module Yarr
 
       case @mode[:output]
       when :truncate
-        output = truncate(output, "...check link for more (#{url})")
-        "# => #{output} (#{url})"
+        output.prepend('# => ')
+        max_length = Message::Truncator::MAX_LENGTH - url.length - 3
+        output = truncate(output,
+                          omission: "... check link for more",
+                          max_length: max_length)
+        output << " (#{url})"
       when :link
         "I have #{@mode[:verb]} your code, the result is at #{url}"
+      else
+        raise RuntimeError,
+          'output mode is neither :truncate nor :link. config file error'
       end
     end
 

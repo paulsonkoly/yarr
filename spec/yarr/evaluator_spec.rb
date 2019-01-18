@@ -69,6 +69,19 @@ module Yarr
           expect(subject.evaluate('1 + 1')).to eq '# => 2 (http://fake.com/evaluated)'
         end
       end
+
+      context 'of an expression whose result needs truncating' do
+        it 'truncates to the right size with the url' do
+          allow(web_service).to receive(:post)
+            .and_return(response_double(Object.methods.to_s))
+
+          result = subject.evaluate('Object.methods')
+
+          expect(result.length).to be_within(20).of(Message::Truncator::MAX_LENGTH)
+          expect(result.length).to be <= Message::Truncator::MAX_LENGTH
+          expect(result).to end_with "... check link for more (http://fake.com/evaluated)"
+        end
+      end
     end
 
     describe '#evaluate ast' do
