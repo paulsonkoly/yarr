@@ -30,6 +30,19 @@ module Yarr
           it "doesn't change the original string" do
             expect { subject.truncate(long) }.not_to change { long }
           end
+
+          context 'if there is no natural break point' do
+            it 'cuts the message to max length' do
+              expect(subject.truncate('a' * 1000))
+                .to have_attributes(length: Truncator::MAX_LENGTH)
+            end
+          end
+        end
+
+        context 'with multi-line message' do
+          it 'truncates to first line' do
+            expect(subject.truncate("a\nb")).to eq 'a'
+          end
         end
       end
     end
