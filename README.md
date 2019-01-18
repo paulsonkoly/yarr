@@ -139,5 +139,13 @@ Expected one of [COMMAND SPACES? EXPRESSION SPACES? ',' STUFF, COMMAND SPACES? E
 
 The above can be useful in debugging parser issues.
 
+### Testing
+
+The environment variable `YARR_TEST` controls if the test database needs to be
+loaded. The Rake tasks take care of this variable before kicking tasks off like
+running rspec, or coverage. Without setting this variable the specs are allowed
+to fail. This isn't a bug, simply some tests are expecting certain fixtures in
+the database.
+
 API documentation can be found
 [rubydoc.info](https://www.rubydoc.info/github/phaul/yarr/master).
