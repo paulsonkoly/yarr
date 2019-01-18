@@ -76,7 +76,7 @@ module Yarr
     def massage_code(code)
       if @mode[:escape]
         code.gsub!("\\", "\\\\")
-        code.gsub!("`", "\\`")
+        code.gsub!('`', '\\\`')
       end
 
       sprintf @format, code.lstrip

@@ -34,9 +34,10 @@ module Yarr
               output: :truncate
             },
             'ast' => {
-              format: "%s",
+              format: "ast_of(%%q`%s`)",
               output: :link,
-              verb: 'cooked'
+              verb: 'cooked',
+              escape: true
             }
           }
         }
@@ -75,12 +76,12 @@ module Yarr
         described_class.new('ast22', web_service, configuration)
       end
 
-      context 'of 1 + 1' do
+      context 'of `1 + 1`' do
         it 'sends the right request to web_service' do
           expect(web_service).to receive(:post)
-            .with('http://fake.com', args('1 + 1', '2.2.2'))
+            .with('http://fake.com', args('ast_of(%q`\\\\`1 + 1\\\\``)', '2.2.2'))
           allow(web_service).to receive(:post).and_return(response_double('2'))
-          subject.evaluate('1 + 1')
+          subject.evaluate('`1 + 1`')
         end
 
         it 'returns the right result' do
