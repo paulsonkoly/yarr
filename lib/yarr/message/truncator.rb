@@ -9,13 +9,15 @@ module Yarr
       # :reek:UtilityFunction
 
       # Truncates the given string to the predefined maximum size.
-      def truncate(message)
+      def truncate(message, omission = OMISSION)
+        message = message.lines.first.strip
+
         return message if message.length <= MAX_LENGTH
 
-        split_length = MAX_LENGTH - OMISSION.length
-        split_point = message.rindex(SEPARATOR, split_length) || 0
+        split_length = MAX_LENGTH - omission.length
+        split_point = message.rindex(SEPARATOR, split_length) || split_length
 
-        "#{message[0, split_point]}#{OMISSION}"
+        "#{message[0, split_point]}#{omission}"
       end
     end
   end
