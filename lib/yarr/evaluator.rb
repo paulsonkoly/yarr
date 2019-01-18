@@ -1,10 +1,13 @@
 require 'json'
 require 'typhoeus'
 require 'yarr/configuration'
+require 'yarr/message/truncator'
 
 module Yarr
   # evaluates the user's message using an online evaluation service like carc.in
   class Evaluator
+    include Message::Truncator
+
     # @param override [String] the input fragment between & and >>
     # @param web_service [#post] A web client that can post
     # @param config [Configuration] Configuration loaded
@@ -14,7 +17,8 @@ module Yarr
      /\A(?<o_mode>[[:alpha:]]+)?(?<o_lang>\d{2})?/ =~ override
       config = config.evaluator
 
-      @lang = config[:languages][o_lang || :default]
+      o_lang ||= :default
+      @lang = config[:languages][o_lang]
       @mode = config[:modes][o_mode || :default]
       @format = format(@mode[:format], o_lang)
       @url = config[:url]
@@ -52,10 +56,8 @@ module Yarr
 
       case @mode[:output]
       when :truncate
-        if output.size > 100 or output.lines.count > 1
-          output = "#{output.lines.first.chomp[0, 100]} ...check link for more"
-        end
-        "# => #{output.strip} (#{url})"
+        output = truncate(output, "...check link for more (#{url})")
+        "# => #{output} (#{url})"
       when :link
         "I have #{@mode[:verb]} your code, the result is at #{url}"
       end
@@ -63,11 +65,11 @@ module Yarr
 
     def format(format, o_lang)
       case format
-      when Hash
-        format[o_lang || :default]
-      when String
-        format
-      else raise RuntimeError, 'format is not a hash nor a string. config file error'
+      when Hash then format[o_lang]
+      when String then format
+      else
+        raise RuntimeError,
+          'format is not a hash nor a string. config file error'
       end
     end
 

@@ -70,7 +70,6 @@ module Yarr
       end
     end
 
-
     describe '#evaluate ast' do
       subject do
         described_class.new('ast22', web_service, configuration)
