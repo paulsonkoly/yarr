@@ -3,6 +3,9 @@ require 'yarr/configuration'
 module Yarr
   module Query
     # Extends the from database url fragment to be a full url.
+    #
+    # Mixin that assumes an instance method +#origin+ to exist and return an
+    # {Yarr::Query::Origin}.
     module URLCorrector
       # @return [String] the ri url
       def url
