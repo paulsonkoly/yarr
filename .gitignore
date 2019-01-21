@@ -12,3 +12,4 @@ db/database
 db/test
 /log/log.txt
 config/yarr.yml
+/deep_cover/
