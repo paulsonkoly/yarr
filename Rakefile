@@ -1,7 +1,10 @@
 require "bundler/gem_tasks"
 require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:spec_no_db)
+RSpec::Core::RakeTask.new(:spec_no_db) do |task|
+  task.rspec_opts  = '--order rand'
+end
+
 task :spec do
   ENV['YARR_TEST'] = '1'
   Rake::Task['db:setup'].invoke
