@@ -3,8 +3,6 @@ require 'yarr/database'
 require 'yarr/query/method'
 require 'yarr/query/klass'
 
-require 'helpers/query_helper'
-
 module Yarr
   module Query
     RSpec.describe Method do
