@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'yarr/query/url_corrector'
-
+require 'yarr/query/origin'
 
 module Yarr
   module Query
@@ -22,7 +22,7 @@ module Yarr
 
     RSpec.describe URLCorrector do
       context 'when origin is "core"' do
-        subject { Fake.new(double('core', name: 'core')) }
+        subject { Fake.new(instance_double(Origin, name: 'core')) }
 
         describe '#core?' do
           it 'is true' do
@@ -38,7 +38,7 @@ module Yarr
       end
 
       context 'when origin is "gem"' do
-        subject { Fake.new(double('gem', name: 'gem')) }
+        subject { Fake.new(instance_double(Origin, name: 'gem')) }
 
         describe '#core?' do
           it 'is false' do
