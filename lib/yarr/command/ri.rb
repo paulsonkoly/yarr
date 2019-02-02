@@ -17,6 +17,12 @@ module Yarr
         options: { accept_many: false }
       )
 
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        ast[:command] == 'ri'
+      end
+
       private
 
       def query
@@ -52,6 +58,12 @@ module Yarr
       private def flavour
         'instance'
       end
+
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:instance_method)
+      end
     end
 
     # Handles 'ri Array.size' like commands
@@ -59,10 +71,22 @@ module Yarr
       private def flavour
         'class'
       end
+
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:class_method)
+      end
     end
 
     # Handles 'ri size' like commands
     class RiMethodName < Ri
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:method_name)
+      end
+
       private
 
       def query
@@ -80,6 +104,12 @@ module Yarr
 
     # Handles 'ri File' like commands
     class RiClassName < Ri
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:class_name)
+      end
+
       private
 
       def query

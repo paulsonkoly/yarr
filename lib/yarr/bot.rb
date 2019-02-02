@@ -1,4 +1,4 @@
-require 'yarr/command_dispatcher'
+require 'yarr/command'
 require 'yarr/input_parser'
 require 'yarr/message/truncator'
 require 'yarr/configuration'
@@ -8,7 +8,6 @@ require 'yarr/no_irc'
 module Yarr
   # Handles the incoming message string and returns a response string.
   class Bot
-    include CommandDispatcher
     include Message::Truncator
 
     # @param irc_provider [Cinch::Bot] IRC functionality provider.
@@ -28,7 +27,7 @@ module Yarr
     # @return [String] response string
     def reply_to(message)
       ast, stuff = parse_input(message)
-      response = dispatch(ast).handle
+      response = Command.for_ast(ast).handle
       post_process(response, stuff)
     rescue Parslet::ParseFailed => error
       handle_error(error)

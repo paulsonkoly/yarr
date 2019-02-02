@@ -15,6 +15,12 @@ module Yarr
         response(query)
       end
 
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        ast[:command] == 'list'
+      end
+
       private
 
       def query
@@ -52,6 +58,12 @@ module Yarr
       private def flavour
         'instance'
       end
+
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:instance_method)
+      end
     end
 
     # handles 'list Ar%.si%' like commands
@@ -59,10 +71,22 @@ module Yarr
       private def flavour
         'class'
       end
+
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:class_method)
+      end
     end
 
     # handles 'list Ar%' like commands
     class ListClassName < List
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:class_name)
+      end
+
       private
 
       def query
@@ -76,6 +100,12 @@ module Yarr
 
     # handles 'list si%' like commands
     class ListMethodName < List
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:method_name)
+      end
+
       private
 
       def query
