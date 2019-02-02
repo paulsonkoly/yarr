@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'yarr/command/base'
-require 'helpers/not_implemented_helper'
 
 module Yarr
   module Command

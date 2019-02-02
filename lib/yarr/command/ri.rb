@@ -22,16 +22,6 @@ module Yarr
       def self.match?(ast)
         ast[:command] == 'ri'
       end
-
-      private
-
-      def query
-        raise NotImplementedError
-      end
-
-      def target
-        raise NotImplementedError
-      end
     end
 
     # Base class for ri commands handling calls.
@@ -46,10 +36,6 @@ module Yarr
 
       def target
         "class #{klass} #{flavour} method #{method}"
-      end
-
-      def flavour
-        raise NotImplementedError
       end
     end
 

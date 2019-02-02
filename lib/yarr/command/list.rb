@@ -20,16 +20,6 @@ module Yarr
       def self.match?(ast)
         ast[:command] == 'list'
       end
-
-      private
-
-      def query
-        raise NotImplementedError
-      end
-
-      def target
-        raise NotImplementedError
-      end
     end
 
     # Base class for list commands handling calls.
@@ -46,10 +36,6 @@ module Yarr
 
       def target
         "#{flavour} method #{method} on #{klass}"
-      end
-
-      def flavour
-        raise NotImplementedError
       end
     end
 

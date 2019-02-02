@@ -1,24 +1,10 @@
 require 'spec_helper'
 require 'yarr/command/list'
-require 'helpers/not_implemented_helper'
 
 module Yarr
   module Command
     RSpec.describe 'list command' do
       let(:ast) { Yarr::AST.new(class_name: '%', method_name: '%') }
-
-      describe List do
-        subject { described_class.new(ast) }
-
-        does_not_implement :query
-        does_not_implement :target
-      end
-
-      describe ListCall do
-        subject { described_class.new(ast) }
-
-        does_not_implement :flavour
-      end
 
       describe ListInstanceMethod do
         describe '#handle' do
