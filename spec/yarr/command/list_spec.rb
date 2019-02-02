@@ -5,7 +5,7 @@ require 'helpers/not_implemented_helper'
 module Yarr
   module Command
     RSpec.describe 'list command' do
-      let(:ast) { { class_name: '%', method_name: '%' } }
+      let(:ast) { Yarr::AST.new(class_name: '%', method_name: '%') }
 
       describe List do
         subject { described_class.new(ast) }
@@ -36,9 +36,8 @@ module Yarr
 
       describe ListClassMethod do
         describe '#handle' do
-          subject do
-            described_class.new(class_name: 'Arr%', method_name: 'n%').handle
-          end
+          let(:ast) { Yarr::AST.new(class_name: 'Arr%', method_name: 'n%') }
+          subject { described_class.new(ast).handle }
 
           it { is_expected.to eq 'Array.new' }
         end
@@ -46,7 +45,8 @@ module Yarr
 
       describe ListClassName do
         describe '#handle' do
-          subject { described_class.new(class_name: 'Array').handle }
+          let(:ast) { Yarr::AST.new(class_name: 'Array') }
+          subject { described_class.new(ast).handle }
 
           it { is_expected.to eq 'Array, Array (abbrev)' }
         end
@@ -59,18 +59,18 @@ module Yarr
       end
 
       describe ListMethodName do
+
         describe '#handle' do
-          subject do
-            described_class.new(method_name: 'si%').handle
-          end
+          let(:ast) { Yarr::AST.new(method_name: 'si%') }
+          subject { described_class.new(ast).handle }
 
           it { is_expected.to eq 'Array#size' }
+        end
 
-          describe '#target' do
-            subject { described_class.new(ast).send :target }
+        describe '#target' do
+          subject { described_class.new(ast).send :target }
 
-            it { is_expected.to eq 'method %' }
-          end
+          it { is_expected.to eq 'method %' }
         end
       end
     end

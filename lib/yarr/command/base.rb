@@ -15,25 +15,13 @@ module Yarr
       private
 
       def self.digger(name, ast_name = :"#{name}_name")
-        define_method(name) { dig_deep(@ast, ast_name) }
+        define_method(name) { @ast.dig_deep(ast_name) }
       end
       private_class_method :digger
 
       digger :klass, :class_name
       digger :method
       digger :origin
-
-      # :reek:FeatureEnvy Hash is stdlib class.
-      # :reek:TooManyStatements
-      def dig_deep(hash, key)
-        return hash[key] if hash.key? key
-
-        hash.values.select { |value| value.is_a? Hash }.each do |value|
-          candidate = dig_deep(value, key)
-          return candidate if candidate
-        end
-        nil
-      end
     end
   end
 end

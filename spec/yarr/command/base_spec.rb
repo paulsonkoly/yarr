@@ -5,7 +5,9 @@ require 'helpers/not_implemented_helper'
 module Yarr
   module Command
     RSpec.describe Base do
-      let(:ast) { { a: {}, b: { class_name: 'class', method_name: 'method' } } }
+      let(:ast) do
+        Yarr::AST.new(a: {}, b: { class_name: 'class', method_name: 'method' })
+      end
       let(:command) { described_class.new(ast) }
 
       describe '.klass' do

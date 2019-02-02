@@ -1,4 +1,5 @@
 require 'parslet'
+require 'yarr/ast'
 
 module Yarr
   # Code parsing the user input. The user input contains 3 sections, 2
@@ -95,18 +96,7 @@ module Yarr
     # @param string [String] the input to parse
     # @return [Hash] AST
     def parse(string, *args)
-      stringify_hash_values(super)
-    end
-
-    private
-
-    def stringify_hash_values(hash)
-      hash.transform_values do |value|
-        case value
-        when Hash then stringify_hash_values(value)
-        else value.to_s
-        end
-      end
+      AST.new(super)
     end
   end
 end
