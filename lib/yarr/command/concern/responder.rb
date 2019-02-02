@@ -3,6 +3,7 @@ module Yarr
     module Concern
       # Writes a response instance method for your class.
       module Responder
+        # String appeneded to the output if we want to give advice to the user
         def advice
           ''
         end
@@ -59,6 +60,8 @@ module Yarr
         def self.included(klass)
           klass.extend(KlassMethods)
         end
+
+        private_class_method :included
       end
     end
   end

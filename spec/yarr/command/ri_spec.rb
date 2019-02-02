@@ -7,10 +7,8 @@ module Yarr
     RSpec.describe 'ri command' do
       describe Ri do
         subject do
-          described_class.new({
-            class_name: 'Array',
-            method_name: 'size'
-          })
+          described_class.new(class_name: 'Array',
+                              method_name: 'size')
         end
 
         does_not_implement :query
@@ -19,23 +17,18 @@ module Yarr
 
       describe RiCall do
         subject do
-          described_class.new({
-            class_name: 'Array',
-            method_name: 'size'
-          })
+          described_class.new(class_name: 'Array',
+                              method_name: 'size')
         end
 
         does_not_implement :flavour
       end
 
-
       describe RiInstanceMethod do
         describe '#handle' do
           subject do
-            described_class.new({
-              class_name: 'Array',
-              method_name: 'size'
-            }).handle
+            described_class.new(class_name: 'Array',
+                                method_name: 'size').handle
           end
 
           it { is_expected.to match %r{https://ruby-doc.org/.*Array.*size} }
@@ -45,10 +38,8 @@ module Yarr
       describe RiClassMethod do
         describe '#handle' do
           subject do
-            described_class.new({
-              class_name: 'Array',
-              method_name: 'new'
-            }).handle
+            described_class.new(class_name: 'Array',
+                                method_name: 'new').handle
           end
 
           it { is_expected.to match %r{https://ruby-doc.org/.*Array.*new} }
@@ -56,10 +47,8 @@ module Yarr
 
         describe '#target' do
           subject do
-            described_class.new({
-              class_name: 'Array',
-              method_name: 'new'
-            }).send :target
+            described_class.new(class_name: 'Array',
+                                method_name: 'new').send :target
           end
 
           it { is_expected.to eq 'class Array class method new' }
@@ -84,19 +73,19 @@ module Yarr
 
           context 'with an explicit origin' do
             subject do
-              described_class.new({
-                class_name: 'Array',
-                origin_name: 'abbrev'
-              }).handle
+              described_class.new(class_name: 'Array',
+                                  origin_name: 'abbrev').handle
             end
 
-            it { is_expected.to match %r{https://ruby-doc.org/.*abbrev.*/Array.html} }
+            let(:long_url) { %r{https://ruby-doc.org/.*abbrev.*/Array.html} }
+
+            it { is_expected.to match(long_url) }
           end
         end
 
         describe '#target' do
           subject do
-            described_class.new({ class_name: 'Array' }).send :target
+            described_class.new(class_name: 'Array').send :target
           end
 
           it { is_expected.to eq 'class Array' }
@@ -114,7 +103,7 @@ module Yarr
 
         describe '#target' do
           subject do
-            described_class.new({ method_name: 'new' }).send :target
+            described_class.new(method_name: 'new').send :target
           end
 
           it { is_expected.to eq 'method new' }
@@ -122,11 +111,12 @@ module Yarr
 
         describe '#advice' do
           subject do
-            described_class.new({ method_name: 'new' }).send :advice
+            described_class.new(method_name: 'new').send :advice
           end
 
-          it { is_expected.to eq \
-               'Use &list new if you would like to see a list' }
+          let(:advice) { 'Use &list new if you would like to see a list' }
+
+          it { is_expected.to eq advice }
         end
       end
     end

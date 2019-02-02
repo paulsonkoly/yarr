@@ -27,14 +27,11 @@ module Yarr
     # @param message [String] incoming message (without IRC command prefix)
     # @return [String] response string
     def reply_to(message)
-      begin
-        ast, stuff = parse_input(message)
-        response = dispatch(ast).handle
-        post_process(response, stuff)
-
-      rescue Parslet::ParseFailed => error
-        handle_error(error)
-      end
+      ast, stuff = parse_input(message)
+      response = dispatch(ast).handle
+      post_process(response, stuff)
+    rescue Parslet::ParseFailed => error
+      handle_error(error)
     end
 
     private
@@ -61,8 +58,9 @@ module Yarr
 
     def handle_error(error)
       cause = error.parse_failure_cause
+      position = cause.pos.charpos
       puts cause.ascii_tree if Yarr.config.development?
-      "did not understand that, parser error @ char position #{cause.pos.charpos}"
+      "did not understand that, parser error @ char position #{position}"
     end
   end
 end

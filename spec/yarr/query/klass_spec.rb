@@ -9,10 +9,10 @@ module Yarr
       describe '#full_name' do
         context 'when the class is from core' do
           subject do
-            described_class.where({
+            described_class.where(
               name: 'Array',
               origin: Origin.where(name: 'core')
-            }).first.full_name
+            ).first.full_name
           end
 
           it { is_expected.to eq 'Array' }
@@ -20,10 +20,10 @@ module Yarr
 
         context "when the class isn't from core" do
           subject do
-            described_class.where({
+            described_class.where(
               name: 'Array',
               origin: Origin.where(name: 'abbrev')
-            }).first.full_name
+            ).first.full_name
           end
 
           it { is_expected.to eq 'Array (abbrev)' }

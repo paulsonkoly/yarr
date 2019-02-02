@@ -1,4 +1,4 @@
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec_no_db) do |task|
@@ -53,12 +53,12 @@ namespace :db do
   end
 
   desc 'Sets up a new database'
-  task :setup => [:drop, :create, :seed]
+  task :setup => %i[drop create seed]
 end
 
 namespace :lint do
   desc 'all lints'
-  task :all => [:spec_helper_check, :no_byebug, :reek, :spec, :module_coverage]
+  task :all => %i[spec_helper_check no_byebug reek spec module_coverage]
 
   desc 'Check for require spec_helper in spec files'
   task :spec_helper_check do
@@ -82,7 +82,7 @@ namespace :lint do
 
   desc 'module level coverage'
   task :module_coverage do
-    puts "Module coverage checks"
+    puts 'Module coverage checks'
     ENV['YARR_TEST'] = '1'
     sh 'deep-cover exec rspec'
   end

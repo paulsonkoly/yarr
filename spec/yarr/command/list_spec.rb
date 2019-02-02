@@ -24,7 +24,7 @@ module Yarr
         describe '#handle' do
           subject { described_class.new(ast).handle }
 
-          it { is_expected.to eq  'Array#size, Array#abbrev' }
+          it { is_expected.to eq 'Array#size, Array#abbrev' }
         end
 
         describe '#target' do
@@ -40,7 +40,7 @@ module Yarr
             described_class.new(class_name: 'Arr%', method_name: 'n%').handle
           end
 
-          it { is_expected.to eq  'Array.new' }
+          it { is_expected.to eq 'Array.new' }
         end
       end
 
@@ -48,7 +48,7 @@ module Yarr
         describe '#handle' do
           subject { described_class.new(class_name: 'Array').handle }
 
-          it { is_expected.to eq  'Array, Array (abbrev)' }
+          it { is_expected.to eq 'Array, Array (abbrev)' }
         end
 
         describe '#target' do
@@ -64,7 +64,7 @@ module Yarr
             described_class.new(method_name: 'si%').handle
           end
 
-          it { is_expected.to eq  'Array#size' }
+          it { is_expected.to eq 'Array#size' }
 
           describe '#target' do
             subject { described_class.new(ast).send :target }

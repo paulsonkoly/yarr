@@ -16,7 +16,8 @@ module Yarr
     #    klass.name # => "Array"
     #    klass.flavour # => "C"
     #    klass.url # => "https://ruby-doc.org/core-2.6/Array.html"
-    #    klass.origin # => #<Yarr::Query::Origin @values={:id=>1, :name=>"core"}>
+    #    klass.origin
+    #      # => #<Yarr::Query::Origin @values={:id=>1, :name=>"core"}>
     class Klass < Sequel::Model
       prepend URLCorrector
 

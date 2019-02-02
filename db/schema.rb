@@ -8,7 +8,7 @@ end
 DB.create_table(:klasses) do
   primary_key :id
   foreign_key :origin_id, :origins, null: false
-  index [:name, :flavour, :origin_id], unique: true
+  index %i[name flavour origin_id], unique: true
 
   String :name, null: false
   String :flavour, size: 50, null: false # class or module
@@ -19,7 +19,7 @@ DB.create_table(:methods) do
   primary_key :id
   foreign_key :klass_id, :klasses, null: false
   foreign_key :origin_id, :origins, null: false
-  index [:name, :flavour, :klass_id], unique: true
+  index %i[name flavour klass_id], unique: true
 
   String :name, null: false
   String :flavour, size: 50, null: false # class or instance

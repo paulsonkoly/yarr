@@ -7,6 +7,7 @@ module Yarr
   class Database
     extend Forwardable
 
+    # @param connector [symbol] the database connector
     def initialize(connector = :sqlite)
       @db_dir = File.join(PROJECT_ROOT, 'db')
       @db_path = File.join(@db_dir, Yarr.config.test? ? 'test' : 'database')

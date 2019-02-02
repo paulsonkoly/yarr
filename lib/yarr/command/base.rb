@@ -13,16 +13,12 @@ module Yarr
 
       attr_reader :ast
 
-      # Responds to a command received
-      def handle
-        raise NotImplementedError
-      end
-
       private
 
       def self.digger(name, ast_name = :"#{name}_name")
         define_method(name) { dig_deep(@ast, ast_name) }
       end
+      private_class_method :digger
 
       digger :klass, :class_name
       digger :method
@@ -32,7 +28,8 @@ module Yarr
       # :reek:TooManyStatements
       def dig_deep(hash, key)
         return hash[key] if hash.key? key
-        hash.values.select { |value| value.kind_of? Hash }.each do |value|
+
+        hash.values.select { |value| value.is_a? Hash }.each do |value|
           candidate = dig_deep(value, key)
           return candidate if candidate
         end

@@ -13,9 +13,9 @@ module Yarr
       end
 
       respond_with(
-        response: -> result { result.first.url },
-        options: { accept_many: false })
-
+        response: ->(result) { result.first.url },
+        options: { accept_many: false }
+      )
 
       private
 
@@ -84,7 +84,7 @@ module Yarr
 
       def query
         constraints = { name: klass }
-        constraints.merge!(origin: Query::Origin.where(name: origin)) if origin
+        constraints[:origin] = Query::Origin.where(name: origin) if origin
         Query::Klass.where(constraints)
       end
 

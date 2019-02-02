@@ -6,19 +6,17 @@ module Yarr
   module Command
     RSpec.describe Base do
       let(:ast) { { a: {}, b: { class_name: 'class', method_name: 'method' } } }
-      subject { described_class.new(ast) }
-
-      does_not_implement :handle
+      let(:command) { described_class.new(ast) }
 
       describe '.klass' do
         it 'returns the klass from the ast' do
-          expect(subject.send(:klass)).to eql 'class'
+          expect(command.send(:klass)).to eql 'class'
         end
       end
 
       describe '.method' do
         it 'returns the method from the ast' do
-          expect(subject.send(:method)).to eql 'method'
+          expect(command.send(:method)).to eql 'method'
         end
       end
     end

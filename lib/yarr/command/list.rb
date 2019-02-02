@@ -8,8 +8,9 @@ module Yarr
     class List < Base
       include Concern::Responder
 
-      respond_with response: -> result { result.map(&:full_name).join(', ') }
+      respond_with response: ->(result) { result.map(&:full_name).join(', ') }
 
+      # Command handler
       def handle
         response(query)
       end
@@ -30,9 +31,11 @@ module Yarr
       private
 
       def query
-        Query::Method.where(Sequel.like(:name, method) &
-                            { klass: Query::Klass.where(Sequel.like(:name, klass)),
-                              flavour: flavour })
+        Query::Method.where(
+          Sequel.like(:name, method) &
+          { klass: Query::Klass.where(Sequel.like(:name, klass)),
+            flavour: flavour }
+        )
       end
 
       def target
@@ -63,7 +66,7 @@ module Yarr
       private
 
       def query
-        Query::Klass::where(Sequel.like(:name, klass))
+        Query::Klass.where(Sequel.like(:name, klass))
       end
 
       def target
