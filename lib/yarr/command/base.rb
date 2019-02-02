@@ -2,9 +2,8 @@ module Yarr
   module Command
     # Generic base class for command handling.
     #
-    # Sub classes should implement +query+ and +response+.+query+ should send a
-    # query to the DB, and response is supposed to process the result of that
-    # query.
+    # A command receives a parsed AST from the bot and responds with some
+    # string to it.
     class Base
       # @param ast The parsed AST of a command target
       def initialize(ast)
