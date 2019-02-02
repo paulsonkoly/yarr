@@ -17,9 +17,10 @@ module Yarr
 
     # @return [Yarr::Command] the command handler for the incoming command / AST
     def self.for_ast(ast)
+      # TODO change to .then once we migrated to 2.6
       COMMANDS
         .find { |handler| handler.match?(ast) }
-        .then { |handler| handler.new(ast) }
+        .yield_self { |handler| handler.new(ast) }
     end
   end
 end
