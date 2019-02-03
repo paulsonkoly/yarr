@@ -2,6 +2,10 @@ module Yarr
   module Command
     module Concern
       # Writes a response instance method for your class.
+      #
+      # +target+ has to be implemented in the including class and has to return
+      # a textual description of the object that will be included in response
+      # messages.
       module Responder
         # String appeneded to the output if we want to give advice to the user
         def advice
@@ -20,15 +24,29 @@ module Yarr
           response
         end
 
+        # @!parse
+        #  # @!macro [attach] define_responder
+        #  #   @!method response(dataset)
+        #  #   Responds with a string for the dataset. This method was defined
+        #  #   by {KlassMethods#define_responder define_responder}
+        #  #   @param dataset [Array] the dataset we respond to
+        #  #   @return [String] message to the user
+        #  def self.define_responder(*) end
+        #  private_class_method :define_responder
+
         # DSL to define response method
-        # @private
         module KlassMethods
-          def respond_with(response:, options: {})
-            accept_many = options.fetch(:accept_many, true)
+          # Defines the response instance method.
+          # @param accept_many [Boolean] true for responders that can handle
+          #   multiple results
+          # @param block [Proc] user hook to transform the dataset to response
+          #   string
+          # @yieldparam dataset [Array] query result
+          def define_responder(accept_many: true, &block)
             if accept_many
-              define_binary_responder(response)
+              define_binary_responder(block)
             else
-              define_trinary_responder(response)
+              define_trinary_responder(block)
             end
 
             private :response

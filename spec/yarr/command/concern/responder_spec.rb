@@ -14,7 +14,7 @@ module Yarr
                 'test'
               end
 
-              respond_with response: ->(result) { result.map(&:upcase) }
+              define_responder { |result| result.map(&:upcase) }
             end.new
           end
 
@@ -42,8 +42,9 @@ module Yarr
                 'test'
               end
 
-              respond_with(response: ->(result) { result.first.upcase },
-                           options: { accept_many: false })
+              define_responder(accept_many: false) do |result|
+                result.first.upcase
+              end
             end.new
           end
 
@@ -82,8 +83,9 @@ module Yarr
                 'Go do something else.'
               end
 
-              respond_with(response: ->(result) { result.first.upcase },
-                           options: { accept_many: false })
+              define_responder(accept_many: false) do |result|
+                result.first.upcase
+              end
             end.new
           end
 

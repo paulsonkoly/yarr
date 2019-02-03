@@ -8,7 +8,7 @@ module Yarr
     class List < Base
       include Concern::Responder
 
-      respond_with response: ->(result) { result.map(&:full_name).join(', ') }
+      define_responder { |result| result.map(&:full_name).join(', ') }
 
       # Command handler
       def handle
