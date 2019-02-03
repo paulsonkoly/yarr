@@ -25,51 +25,67 @@ module Yarr
         end
 
         # @!parse
-        #  # @!macro [attach] define_responder
+        #  # @!macro [attach] define_single_item_responder
         #  #   @!method response(dataset)
-        #  #   Responds with a string for the dataset. This method was defined
-        #  #   by {KlassMethods#define_responder define_responder}
+        #  #   Responds with a string for the dataset.
+        #  #   When the dataset is empty or has many items our response would
+        #  #   report back that to the user, otherwise the client code defines
+        #  #   what the response should be.
+        #  #   This method was defined by
+        #  #   {KlassMethods#define_single_item_responder
+        #  #   define_single_item_responder}
         #  #   @param dataset [Array] the dataset we respond to
         #  #   @return [String] message to the user
-        #  def self.define_responder(*) end
-        #  private_class_method :define_responder
+        #  def self.define_single_item_responder(*) end
+        #  private_class_method :define_single_item_responder
+        #  # @!macro [attach] define_multi_item_responder
+        #  #   @!method response(dataset)
+        #  #   Responds with a string for the dataset.
+        #  #   When the dataset is empty our response would report back that to
+        #  #   the user, otherwise the client code defines what the response
+        #  #   should be.
+        #  #   This method was defined
+        #  #   by {KlassMethods#define_multi_item_responder
+        #  #   define_multi_item_responder}
+        #  #   @param dataset [Array] the dataset we respond to
+        #  #   @return [String] message to the user
+        #  def self.define_multi_item_responder(*) end
+        #  private_class_method :define_multi_item_responder
 
         # DSL to define response method
         module KlassMethods
-          # Defines the response instance method.
-          # @param accept_many [Boolean] true for responders that can handle
-          #   multiple results
+          # Defines a single item dataset responder
+          #
+          # When the dataset is empty or has many items our response would
+          # report back that to the user, otherwise the client code defines
+          # what the response should be.
           # @param block [Proc] user hook to transform the dataset to response
           #   string
           # @yieldparam dataset [Array] query result
-          def define_responder(accept_many: true, &block)
-            if accept_many
-              define_binary_responder(block)
-            else
-              define_trinary_responder(block)
-            end
-
-            private :response
-          end
-
-          private
-
-          def define_binary_responder(handler)
-            define_method(:response) do |dataset|
-              case dataset.count
-              when 0 then zero_response
-              else handler[dataset]
-              end
-            end
-          end
-
-          def define_trinary_responder(handler)
+          def define_single_item_responder(&block)
             define_method(:response) do |dataset|
               count = dataset.count
               case count
               when 0 then zero_response
-              when 1 then handler[dataset]
+              when 1 then block[dataset]
               else multi_response(count)
+              end
+            end
+          end
+
+          # Defines multi item dataset responder
+          #
+          # When the dataset is empty our response would report back that to
+          # the user, otherwise the client code defines what the response
+          # should be.
+          # @param block [Proc] user hook to transform the dataset to response
+          #   string
+          # @yieldparam dataset [Array] query result
+          def define_multi_item_responder(&block)
+            define_method(:response) do |dataset|
+              case dataset.count
+              when 0 then zero_response
+              else block[dataset]
               end
             end
           end

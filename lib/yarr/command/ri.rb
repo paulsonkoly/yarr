@@ -12,7 +12,7 @@ module Yarr
         response(query)
       end
 
-      define_responder(accept_many: false) { |result| result.first.url }
+      define_single_item_responder { |result| result.first.url }
 
       # Can we handle the given AST?
       # @param ast [hash] parsed AST

@@ -4,7 +4,7 @@ module Yarr
   module Command
     module Concern
       RSpec.describe Responder do
-        context 'with accept_many: true' do
+        describe '.define_multi_item_responder' do
           let(:responder) do
             klass = described_class
             Class.new do
@@ -14,7 +14,7 @@ module Yarr
                 'test'
               end
 
-              define_responder { |result| result.map(&:upcase) }
+              define_multi_item_responder { |result| result.map(&:upcase) }
             end.new
           end
 
@@ -32,7 +32,7 @@ module Yarr
           end
         end
 
-        context 'with accept_many: false' do
+        describe '.define_single_item_responder' do
           let(:responder) do
             klass = described_class
             Class.new do
@@ -42,9 +42,7 @@ module Yarr
                 'test'
               end
 
-              define_responder(accept_many: false) do |result|
-                result.first.upcase
-              end
+              define_single_item_responder { |result| result.first.upcase }
             end.new
           end
 
@@ -67,32 +65,30 @@ module Yarr
                 .to eq 'I found 3 entries matching test.'
             end
           end
-        end
 
-        context 'with non-empty advice' do
-          let(:responder) do
-            klass = described_class
-            Class.new do
-              include klass
+          context 'with non-empty advice' do
+            let(:responder) do
+              klass = described_class
+              Class.new do
+                include klass
 
-              def target
-                'test'
+                def target
+                  'test'
+                end
+
+                def advice
+                  'Go do something else.'
+                end
+
+                define_single_item_responder { |result| result.first.upcase }
+              end.new
+            end
+
+            context 'with multiple results' do
+              it 'includes the advice in the result' do
+                expect(responder.send(:response, %w[a b c]))
+                  .to eq 'I found 3 entries matching test. Go do something else.'
               end
-
-              def advice
-                'Go do something else.'
-              end
-
-              define_responder(accept_many: false) do |result|
-                result.first.upcase
-              end
-            end.new
-          end
-
-          context 'with multiple results' do
-            it 'includes the advice in the result' do
-              expect(responder.send(:response, %w[a b c]))
-                .to eq 'I found 3 entries matching test. Go do something else.'
             end
           end
         end
