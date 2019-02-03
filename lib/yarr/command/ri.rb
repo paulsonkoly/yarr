@@ -98,23 +98,21 @@ module Yarr
       def query
         constraints = { name: klass }
         constraints[:origin] = Query::Origin.where(name: origin) if origin
-        Query::Klass.where(constraints)
+        result = Query::Klass.where(constraints)
+        select_core(result)
       end
 
       def target
         "class #{klass}"
       end
 
-      # TODO
-      # :reek:FeatureEnvy I cannot find a good way to fix this.
-
-      def response(result)
-        core = result.find(&:core?)
-        if result.count > 1 && core
-          core.url
-        else
-          super
+      def select_core(result)
+        if result.count > 1
+          core = result.find(&:core?)
+          return [core] if core
         end
+
+        result
       end
     end
   end
