@@ -6,8 +6,6 @@ module Yarr
       OMISSION = '...'.freeze # use ... if truncated
       SEPARATOR = ' '.freeze  # natural break point
 
-      # :reek:UtilityFunction
-
       # Truncates the given string to the predefined maximum size.
       # @param omission [String] The string that indiciates the message was
       #                          truncated
@@ -22,6 +20,8 @@ module Yarr
 
         "#{message[0, split_point]}#{omission}"
       end
+
+      module_function :truncate
     end
   end
 end

@@ -4,10 +4,7 @@ require 'yarr/message/truncator'
 module Yarr
   module Message
     RSpec.describe Truncator do
-      let(:truncator) do
-        truncator = described_class
-        Class.new { include truncator }.new
-      end
+      let(:truncator) { described_class }
 
       let(:short) do
         Faker::Lorem.paragraph_by_chars(Truncator::MAX_LENGTH - 10)
