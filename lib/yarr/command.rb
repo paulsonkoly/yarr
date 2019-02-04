@@ -1,6 +1,8 @@
 require 'yarr/command/ast'
 require 'yarr/command/ri'
 require 'yarr/command/list'
+require 'yarr/command/fake'
+require 'yarr/command/null'
 
 module Yarr
   # Handles the specific commands after dispatch
@@ -13,13 +15,14 @@ module Yarr
                 ListInstanceMethod,
                 ListClassMethod,
                 ListMethodName,
-                ListClassName].freeze
+                ListClassName,
+                Fake].freeze
 
     # @return [Yarr::Command] the command handler for the incoming command / AST
     def self.for_ast(ast)
       # TODO change to .then once we migrated to 2.6
       COMMANDS
-        .find { |handler| handler.match?(ast) }
+        .find(-> { Null }) { |handler| handler.match?(ast) }
         .yield_self { |handler| handler.new(ast) }
     end
   end

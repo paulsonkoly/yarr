@@ -62,5 +62,29 @@ module Yarr
         expect(handler).to be_a Command::ListClassMethod
       end
     end
+
+    context 'with fake command' do
+      it 'handles class methods' do
+        handler = dispatcher.for_ast(command: 'fake', class_method: 'Aa')
+
+        expect(handler).to be_a Command::Fake
+      end
+
+      context 'with invalid content' do
+        it 'rejects it' do
+          handler = dispatcher.for_ast(command: 'fake')
+
+          expect(handler).not_to be_a Command::Fake
+        end
+      end
+    end
+
+    context 'with no matching real command' do
+      it 'defaults to Null' do
+        handler = dispatcher.for_ast(command: 'xxx')
+
+        expect(handler).to be_a Command::Null
+      end
+    end
   end
 end

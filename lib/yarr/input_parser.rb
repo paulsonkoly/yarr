@@ -44,7 +44,9 @@ module Yarr
       command >> spaces? >> expression >> (stuff_separator >> stuff).maybe
     end
 
-    rule(:command) { (str('ri') | str('list') | str('ast')).as(:command) }
+    rule(:command) do
+      (str('ri') | str('list') | str('ast') | str('fake')).as(:command)
+    end
 
     rule(:stuff) { any.repeat.as(:stuff) }
 
