@@ -1,13 +1,17 @@
 require 'spec_helper'
 require 'yarr/no_irc'
+require 'faker'
 
 module Yarr
   RSpec.describe NoIRC do
     let(:no_irc) { subject }
 
     describe '#user_list' do
-      it 'is an empty Array' do
-        expect(no_irc.user_list).to eq []
+      let(:user_list) {  no_irc.user_list }
+      describe '#find' do
+        it 'returns nil' do
+          expect(user_list.find(Faker::StarWars.character)).to be_nil
+        end
       end
     end
   end
