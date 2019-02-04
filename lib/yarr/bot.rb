@@ -30,7 +30,7 @@ module Yarr
       response = Command.for_ast(ast).handle
       post_process(response, stuff)
     rescue Parslet::ParseFailed => error
-      handle_error(error)
+      handle_error(error, message)
     end
 
     private
@@ -55,11 +55,11 @@ module Yarr
 
     # :reek:FeatureEnvy
 
-    def handle_error(error)
+    def handle_error(error, message)
       cause = error.parse_failure_cause
       position = cause.pos.charpos
       puts cause.ascii_tree if Yarr.config.development?
-      "did not understand that, parser error @ char position #{position}"
+      "parser error at position #{position} around `#{message[position]}'"
     end
   end
 end
