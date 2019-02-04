@@ -28,7 +28,7 @@ bot = Cinch::Bot.new do
     end
   end
 
-  on :message, /\A&((list|ri|ast)(?!>>) +.*)\z/ do |m, match|
+  on :message, /\A&((list|ri|ast|fake)(?!>>) +.*)\z/ do |m, match|
     m.reply yarr.reply_to(match)
   end
 end
