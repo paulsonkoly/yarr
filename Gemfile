@@ -4,6 +4,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'app_configuration'
 gem 'cinch', '~> 2.3.4'
+gem 'faker'
 gem 'parslet'
 gem 'sequel'
 gem 'sqlite3'
@@ -18,7 +19,6 @@ end
 
 group :test do
   gem 'deep-cover'
-  gem 'faker'
   gem 'rspec'
 end
 

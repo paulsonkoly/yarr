@@ -1,6 +1,7 @@
 require 'yarr/command/ast'
 require 'yarr/command/ri'
 require 'yarr/command/list'
+require 'yarr/command/fake'
 require 'yarr/command/null'
 
 module Yarr
@@ -14,7 +15,8 @@ module Yarr
                 ListInstanceMethod,
                 ListClassMethod,
                 ListMethodName,
-                ListClassName].freeze
+                ListClassName,
+                Fake].freeze
 
     # @return [Yarr::Command] the command handler for the incoming command / AST
     def self.for_ast(ast)
