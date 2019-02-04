@@ -1,7 +1,7 @@
 require_relative 'db_helper'
 
 origin = ARGV[0]
-origin_file, origin_dir  = origin.split('/').reverse
+origin_file, origin_dir = origin.split('/').reverse
 basedir = File.join(* ['db', 'fixtures', origin_dir].compact)
 klasses_path = File.join(basedir, "#{origin_file}_class_index.txt")
 methods_path = File.join(basedir, "#{origin_file}_method_index.txt")
@@ -37,7 +37,8 @@ DB.transaction do
                 when /-c-/ then 'class'
                 when /-i-/ then 'instance'
                 end
-      if /(\S*) *\((.*)\)/ === name
+      case name
+      when /(\S*) *\((.*)\)/
         name = $1
         klass_name = $2
 
@@ -46,12 +47,11 @@ DB.transaction do
           .get(:id)
 
         begin
-          DB[:methods].insert(
-            name: name,
-            url: url,
-            flavour: flavour,
-            klass_id: klass_id,
-            origin_id: origin_id)
+          DB[:methods].insert(name: name,
+                              url: url,
+                              flavour: flavour,
+                              klass_id: klass_id,
+                              origin_id: origin_id)
         rescue Sequel::Error => e
           report_io(methods_path, io)
           abort e.to_s

@@ -1,133 +1,91 @@
 require 'spec_helper'
 require 'yarr/command/ri'
-require 'helpers/not_implemented_helper'
 
 module Yarr
   module Command
-    RSpec.describe 'ri command' do
-      describe Ri do
-        subject do
-          described_class.new({
-            class_name: 'Array',
-            method_name: 'size'
-          })
-        end
+    RSpec.describe RiInstanceMethod do
+      describe '#handle' do
+        let(:ast) { Yarr::AST.new(class_name: 'Array',
+                                  method_name: 'size') }
+        subject { described_class.new(ast).handle }
 
-        does_not_implement :query
-        does_not_implement :target
+        it { is_expected.to match %r{https://ruby-doc.org/.*Array.*size} }
+      end
+    end
+
+    describe RiClassMethod do
+      describe '#handle' do
+        let(:ast) { Yarr::AST.new(class_name: 'Array',
+                                  method_name: 'new')  }
+        subject { described_class.new(ast).handle }
+
+        it { is_expected.to match %r{https://ruby-doc.org/.*Array.*new} }
       end
 
-      describe RiCall do
-        subject do
-          described_class.new({
-            class_name: 'Array',
-            method_name: 'size'
-          })
-        end
+      describe '#target' do
+        let(:ast) { Yarr::AST.new(class_name: 'Array',
+                                  method_name: 'new') }
+        subject { described_class.new(ast).send :target }
 
-        does_not_implement :flavour
+        it { is_expected.to eq 'class Array class method new' }
       end
+    end
 
+    describe RiClassName do
+      describe '#handle' do
+        let(:ast) { Yarr::AST.new(class_name: 'Abbrev') }
+        subject { described_class.new(ast).handle }
 
-      describe RiInstanceMethod do
-        describe '#handle' do
-          subject do
-            described_class.new({
-              class_name: 'Array',
-              method_name: 'size'
-            }).handle
-          end
+        it { is_expected.to match %r{https://ruby-doc.org/.*abbrev} }
 
-          it { is_expected.to match %r{https://ruby-doc.org/.*Array.*size} }
-        end
-      end
+        context 'when there is a hit from core' do
+          let(:ast) { Yarr::AST.new(class_name: 'Array') }
+          subject { described_class.new(ast).handle }
 
-      describe RiClassMethod do
-        describe '#handle' do
-          subject do
-            described_class.new({
-              class_name: 'Array',
-              method_name: 'new'
-            }).handle
-          end
-
-          it { is_expected.to match %r{https://ruby-doc.org/.*Array.*new} }
+          it { is_expected.to match %r{https://ruby-doc.org/.*Array} }
         end
 
-        describe '#target' do
-          subject do
-            described_class.new({
-              class_name: 'Array',
-              method_name: 'new'
-            }).send :target
-          end
+        context 'with an explicit origin' do
+          let(:ast) { Yarr::AST.new(class_name: 'Array',
+                                    origin_name: 'abbrev') }
+          subject { described_class.new(ast).handle }
 
-          it { is_expected.to eq 'class Array class method new' }
+          let(:long_url) { %r{https://ruby-doc.org/.*abbrev.*/Array.html} }
+
+          it { is_expected.to match(long_url) }
         end
       end
 
-      describe RiClassName do
-        describe '#handle' do
-          subject do
-            described_class.new(class_name: 'Abbrev').handle
-          end
+      describe '#target' do
+        let(:ast) { Yarr::AST.new(class_name: 'Array') }
+        subject { described_class.new(ast).send :target }
 
-          it { is_expected.to match %r{https://ruby-doc.org/.*abbrev} }
+        it { is_expected.to eq 'class Array' }
+      end
+    end
 
-          context 'when there is a hit from core' do
-            subject do
-              described_class.new(class_name: 'Array').handle
-            end
+    describe RiMethodName do
+      describe '#handle' do
+        let(:ast) { Yarr::AST.new(method_name: 'size') }
+        subject { described_class.new(ast).handle }
 
-            it { is_expected.to match %r{https://ruby-doc.org/.*Array} }
-          end
-
-          context 'with an explicit origin' do
-            subject do
-              described_class.new({
-                class_name: 'Array',
-                origin_name: 'abbrev'
-              }).handle
-            end
-
-            it { is_expected.to match %r{https://ruby-doc.org/.*abbrev.*/Array.html} }
-          end
-        end
-
-        describe '#target' do
-          subject do
-            described_class.new({ class_name: 'Array' }).send :target
-          end
-
-          it { is_expected.to eq 'class Array' }
-        end
+        it { is_expected.to match %r{https://ruby-doc.org/.*Array.*size} }
       end
 
-      describe RiMethodName do
-        describe '#handle' do
-          subject do
-            described_class.new(method_name: 'size').handle
-          end
+      describe '#target' do
+        let(:ast) { Yarr::AST.new(method_name: 'new') }
+        subject { described_class.new(ast).send :target }
 
-          it { is_expected.to match %r{https://ruby-doc.org/.*Array.*size} }
-        end
+        it { is_expected.to eq 'method new' }
+      end
 
-        describe '#target' do
-          subject do
-            described_class.new({ method_name: 'new' }).send :target
-          end
+      describe '#advice' do
+        let(:ast) { Yarr::AST.new(method_name: 'new')  }
+        subject { described_class.new(ast).send :advice }
 
-          it { is_expected.to eq 'method new' }
-        end
+        let(:advice) { 'Use &list new if you would like to see a list' }
 
-        describe '#advice' do
-          subject do
-            described_class.new({ method_name: 'new' }).send :advice
-          end
-
-          it { is_expected.to eq \
-               'Use &list new if you would like to see a list' }
-        end
+        it { is_expected.to eq advice }
       end
     end
   end

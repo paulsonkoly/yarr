@@ -1,7 +1,6 @@
 require 'cinch'
 require 'yarr'
 
-
 bot = Cinch::Bot.new do
   yarr = Yarr::Bot.new(self)
   yconfig = Yarr.config
@@ -38,7 +37,8 @@ if Yarr.config.development?
   bot.loggers.level = :debug
 else
   bot.loggers.clear
-  bot.loggers << Cinch::Logger::FormattedLogger.new(File.open("log/log.txt", "a"))
+  logger = Cinch::Logger::FormattedLogger.new(File.open('log/log.txt', 'a'))
+  bot.loggers << logger
   bot.loggers.level = :info
 
   Process.daemon(true)

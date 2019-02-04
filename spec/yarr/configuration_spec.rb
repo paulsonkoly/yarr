@@ -24,19 +24,15 @@ module Yarr
     end
 
     context 'with YARR_DEVELOPMENT unset' do
-      environment_variable('YARR_DEVELOPMENT') { ENV.delete('YARR_DEVELOPMENT') }
+      environment_variable('YARR_DEVELOPMENT') do
+        ENV.delete('YARR_DEVELOPMENT')
+      end
 
       it { is_expected.not_to be_development }
     end
 
     describe 'file based configuration' do
-      let(:username) { Faker::Internet.username }
-      let(:password) { Faker::Internet.password }
-
-      let(:tmpdir) { Dir.mktmpdir }
-      let(:tmpfile) { File.join(tmpdir, 'yarr.yml') }
-
-      subject do
+      let(:config) do
         dir = tmpdir
         app_config = AppConfiguration.new do
           config_file_name 'yarr.yml'
@@ -46,6 +42,12 @@ module Yarr
         end
         described_class.new(app_config)
       end
+
+      let(:username) { Faker::Internet.username }
+      let(:password) { Faker::Internet.password }
+
+      let(:tmpdir) { Dir.mktmpdir }
+      let(:tmpfile) { File.join(tmpdir, 'yarr.yml') }
 
       before do
         File.open(tmpfile, 'w') do |f|
@@ -60,13 +62,13 @@ module Yarr
 
       describe '#username' do
         it 'matches the username from the configuration file' do
-          expect(subject.username).to eq username
+          expect(config.username).to eq username
         end
       end
 
       describe '#password' do
         it 'matches the password from the configuration file' do
-          expect(subject.password).to eq password
+          expect(config.password).to eq password
         end
       end
     end

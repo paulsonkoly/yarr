@@ -3,10 +3,8 @@ module Yarr
     # Flood protection.
     module Truncator
       MAX_LENGTH = 160 # max message length.
-      OMISSION = '...' # use ... if truncated
-      SEPARATOR = ' '  # natural break point
-
-      # :reek:UtilityFunction
+      OMISSION = '...'.freeze # use ... if truncated
+      SEPARATOR = ' '.freeze  # natural break point
 
       # Truncates the given string to the predefined maximum size.
       # @param omission [String] The string that indiciates the message was
@@ -22,6 +20,8 @@ module Yarr
 
         "#{message[0, split_point]}#{omission}"
       end
+
+      module_function :truncate
     end
   end
 end

@@ -8,6 +8,12 @@ module Yarr
       def handle
         ast.inspect
       end
+
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        ast[:command] == 'ast'
+      end
     end
   end
 end

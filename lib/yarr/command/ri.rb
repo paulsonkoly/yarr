@@ -12,19 +12,12 @@ module Yarr
         response(query)
       end
 
-      respond_with(
-        response: -> result { result.first.url },
-        options: { accept_many: false })
+      define_single_item_responder { |result| result.first.url }
 
-
-      private
-
-      def query
-        raise NotImplementedError
-      end
-
-      def target
-        raise NotImplementedError
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        ast[:command] == 'ri'
       end
     end
 
@@ -41,16 +34,18 @@ module Yarr
       def target
         "class #{klass} #{flavour} method #{method}"
       end
-
-      def flavour
-        raise NotImplementedError
-      end
     end
 
     # Handles 'ri Array#size' like commands
     class RiInstanceMethod < RiCall
       private def flavour
         'instance'
+      end
+
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:instance_method)
       end
     end
 
@@ -59,10 +54,22 @@ module Yarr
       private def flavour
         'class'
       end
+
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:class_method)
+      end
     end
 
     # Handles 'ri size' like commands
     class RiMethodName < Ri
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:method_name)
+      end
+
       private
 
       def query
@@ -80,28 +87,32 @@ module Yarr
 
     # Handles 'ri File' like commands
     class RiClassName < Ri
+      # Can we handle the given AST?
+      # @param ast [hash] parsed AST
+      def self.match?(ast)
+        super && ast.key?(:class_name)
+      end
+
       private
 
       def query
         constraints = { name: klass }
-        constraints.merge!(origin: Query::Origin.where(name: origin)) if origin
-        Query::Klass.where(constraints)
+        constraints[:origin] = Query::Origin.where(name: origin) if origin
+        result = Query::Klass.where(constraints)
+        select_core(result)
       end
 
       def target
         "class #{klass}"
       end
 
-      # TODO
-      # :reek:FeatureEnvy I cannot find a good way to fix this.
-
-      def response(result)
-        core = result.find(&:core?)
-        if result.count > 1 && core
-          core.url
-        else
-          super
+      def select_core(result)
+        if result.count > 1
+          core = result.find(&:core?)
+          return [core] if core
         end
+
+        result
       end
     end
   end

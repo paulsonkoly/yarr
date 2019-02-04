@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'yarr/query/url_corrector'
-
+require 'yarr/query/origin'
 
 module Yarr
   module Query
@@ -11,9 +11,7 @@ module Yarr
         @origin = origin
       end
 
-      def origin
-        @origin
-      end
+      attr_reader :origin
 
       def url
         'xxx'
@@ -22,34 +20,34 @@ module Yarr
 
     RSpec.describe URLCorrector do
       context 'when origin is "core"' do
-        subject { Fake.new(double('core', name: 'core')) }
+        let(:corrector) { Fake.new(instance_double(Origin, name: 'core')) }
 
         describe '#core?' do
           it 'is true' do
-            expect(subject.core?).to be true
+            expect(corrector.core?).to be true
           end
         end
 
         describe '#url' do
           it 'is the core url' do
-            expect(subject.url).to match(/core-\d.\d(.\d)?\/xxx/)
+            expect(corrector.url).to match(%r{core-\d.\d(.\d)?/xxx})
           end
         end
       end
 
       context 'when origin is "gem"' do
-        subject { Fake.new(double('gem', name: 'gem')) }
+        let(:corrector) { Fake.new(instance_double(Origin, name: 'gem')) }
 
         describe '#core?' do
           it 'is false' do
-            expect(subject.core?).to be false
+            expect(corrector.core?).to be false
           end
         end
 
         describe '#url' do
           it 'is the stdlib url url' do
             rexp = %r{stdlib-\d.\d(.\d)?/libdoc/gem/rdoc/xxx}
-            expect(subject.url).to match rexp
+            expect(corrector.url).to match rexp
           end
         end
       end

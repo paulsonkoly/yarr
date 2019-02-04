@@ -1,4 +1,4 @@
-require 'yarr/command_dispatcher'
+require 'yarr/command'
 require 'yarr/input_parser'
 require 'yarr/message/truncator'
 require 'yarr/configuration'
@@ -8,7 +8,6 @@ require 'yarr/no_irc'
 module Yarr
   # Handles the incoming message string and returns a response string.
   class Bot
-    include CommandDispatcher
     include Message::Truncator
 
     # @param irc_provider [Cinch::Bot] IRC functionality provider.
@@ -27,14 +26,11 @@ module Yarr
     # @param message [String] incoming message (without IRC command prefix)
     # @return [String] response string
     def reply_to(message)
-      begin
-        ast, stuff = parse_input(message)
-        response = dispatch(ast).handle
-        post_process(response, stuff)
-
-      rescue Parslet::ParseFailed => error
-        handle_error(error)
-      end
+      ast, stuff = parse_input(message)
+      response = Command.for_ast(ast).handle
+      post_process(response, stuff)
+    rescue Parslet::ParseFailed => error
+      handle_error(error, message)
     end
 
     private
@@ -59,10 +55,11 @@ module Yarr
 
     # :reek:FeatureEnvy
 
-    def handle_error(error)
+    def handle_error(error, message)
       cause = error.parse_failure_cause
+      position = cause.pos.charpos
       puts cause.ascii_tree if Yarr.config.development?
-      "did not understand that, parser error @ char position #{cause.pos.charpos}"
+      "parser error at position #{position} around `#{message[position]}'"
     end
   end
 end
