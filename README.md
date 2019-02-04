@@ -106,7 +106,7 @@ list %ile.%
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/phaul/yarr.
 
-The `lint:all` rake task kicks of a bunch of checks on the project including
+The `lint:all` rake task kicks off a bunch of checks on the project including
 branch coverage.
 
 ### The ast command
