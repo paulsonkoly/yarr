@@ -1,6 +1,8 @@
 module Yarr
   # Null object for no IRC connection
   class NoIRC
+    # :reek:UtilityFunction
+
     # Returns a user list on which find always returns nil
     # @return [#find] empty user list
     def user_list
