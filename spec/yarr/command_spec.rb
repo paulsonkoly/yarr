@@ -62,5 +62,12 @@ module Yarr
         expect(handler).to be_a Command::ListClassMethod
       end
     end
+    context 'with no matching real command' do
+      it 'defaults to Null' do
+        handler = dispatcher.for_ast(command: 'xxx')
+
+        expect(handler).to be_a Command::Null
+      end
+    end
   end
 end
