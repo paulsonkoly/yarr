@@ -54,14 +54,10 @@ module Yarr
       @config.public_send(__method__) || '2.6'
     end
 
-    # :reek:UtilityFunction
-
     # @return [Bool] Yarr running in test environment
     def test?
       test == '1'
     end
-
-    # :reek:UtilityFunction
 
     # @return [Bool] Yarr running in development environment
     def development?
