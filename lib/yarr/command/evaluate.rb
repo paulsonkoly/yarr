@@ -11,7 +11,7 @@ module Yarr
     class Evaluate < Base
       extend Concern::ASTDigger
       digger(:mode) { |mode| @config[:modes][mode || :default] }
-      digger(:lang) { |lang| @config[:languages][lang || :default] }
+      digger(:lang) { |lang| lang || :default }
       digger(:code) { |code| preprocess(code.dup) }
 
       def self.match?(ast)
@@ -39,7 +39,11 @@ module Yarr
       end
 
       def payload
-        { run_request: { language: 'ruby', version: lang, code: code } }
+        { run_request: {
+          language: 'ruby',
+          version: @config[:languages][lang],
+          code: code
+        } }
       end
 
       def headers

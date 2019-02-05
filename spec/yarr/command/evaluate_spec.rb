@@ -37,7 +37,10 @@ module Yarr
               },
               'ast' => {
                 filter: {'\\' => '\\\\', '`' => '\\\`'},
-                format: "ast_of(%%q`%s`)",
+                format: {
+                  default: 'new ast of(%%q`%s`)',
+                  '22' => 'ast of(%%q`%s`)'
+                },
                 output: :link,
                 verb: 'cooked',
                 escape: true
@@ -109,7 +112,7 @@ module Yarr
           it 'sends the right request to web_service' do
             expect(web_service).to receive(:post)
               .with('http://fake.com',
-                    args('ast_of(%q`\\\\`1 + 1\\\\``)', '2.2.2'))
+                    args('ast of(%q`\\\\`1 + 1\\\\``)', '2.2.2'))
             allow(web_service).to receive(:post).and_return(response_double('2'))
             command.handle
           end
@@ -118,6 +121,25 @@ module Yarr
             allow(web_service).to receive(:post).and_return(response_double('2'))
             expect(command.handle)
               .to eq 'I have cooked your code, the result is at http://fake.com/evaluated'
+          end
+
+          context 'with default lang' do
+            let(:ast) do
+              Yarr::AST.new(evaluate:
+                            { mode: 'ast', code: '`1 + 1`' })
+            end
+            let(:command) do
+              described_class.new(ast, web_service, configuration)
+            end
+
+            it 'sends the right request to web_service' do
+              expect(web_service).to receive(:post)
+                .with('http://fake.com',
+                      args('new ast of(%q`\\\\`1 + 1\\\\``)', '2.6.0'))
+              allow(web_service)
+                .to receive(:post).and_return(response_double('2'))
+              command.handle
+            end
           end
         end
       end
