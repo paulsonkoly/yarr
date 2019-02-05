@@ -8,7 +8,7 @@ module Yarr
     class Fake < Base
       extend Concern::ASTDigger
       digger :klass, :class_name
-      digger :method
+      digger :method, :method_name
 
       def self.match?(ast)
         ast[:command] == 'fake' && ast.key?(:class_method)

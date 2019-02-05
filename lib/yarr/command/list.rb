@@ -11,8 +11,8 @@ module Yarr
       extend Concern::ASTDigger
 
       digger :klass, :class_name
-      digger :method
-      digger :origin
+      digger :method, :method_name
+      digger :origin, :origin_name
 
       define_multi_item_responder do |result|
         result.map(&:full_name).join(', ')

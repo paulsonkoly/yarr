@@ -40,7 +40,19 @@ module Yarr
   #
   # @note We also accept % character in names to support like queries.
   class InputParser < Parslet::Parser
-    rule(:input) do
+    rule(:input) { evaluate | ast_examiner }
+
+    rule(:evaluate) { override >> str('>>') >> code }
+
+    rule(:override) { (mode.maybe >> lang.maybe).as(:evaluate) }
+
+    rule(:mode) { (str('asm') | str('ast') | str('tok')).as(:mode) }
+
+    rule(:lang) { match('[0-9]').repeat(2).as(:lang) }
+
+    rule(:code) { any.repeat.as(:code) }
+
+    rule(:ast_examiner) do
       command >> spaces? >> expression >> (stuff_separator >> stuff).maybe
     end
 

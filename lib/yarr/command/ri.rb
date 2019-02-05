@@ -11,8 +11,8 @@ module Yarr
       extend Concern::ASTDigger
 
       digger :klass, :class_name
-      digger :method
-      digger :origin
+      digger :method, :method_name
+      digger :origin, :origin_name
 
       define_single_item_responder { |result| result.first.url }
 

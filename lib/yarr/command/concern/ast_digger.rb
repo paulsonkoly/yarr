@@ -7,8 +7,19 @@ module Yarr
         # Defines a new digger method
         # @param name [Symbol] name of the digger
         # @param ast_name [String] AST key
-        def digger(name, ast_name = :"#{name}_name")
-          define_method(name) { ast.dig_deep(ast_name) }
+        # @param block [block] An optional transformation block applied to the
+        #   digged value
+        # @yieldparam value [Object] the value digged
+        def digger(name, ast_name = name, &block)
+          define_method(name) do
+            @digger ||= {}
+
+            @digger[name] ||=
+              begin
+                block = -> x { x } unless block_given?
+                instance_exec(ast.dig_deep(ast_name), &block)
+              end
+          end
         end
       end
     end
