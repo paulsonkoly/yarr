@@ -1,10 +1,15 @@
 require 'faker'
 require 'yarr/command/base'
+require 'yarr/command/concern/ast_digger'
 
 module Yarr
   module Command
     # Exposing the faker gem as a bot command
     class Fake < Base
+      extend Concern::ASTDigger
+      digger :klass, :class_name
+      digger :method
+
       def self.match?(ast)
         ast[:command] == 'fake' && ast.key?(:class_method)
       end
