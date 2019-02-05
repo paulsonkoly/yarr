@@ -29,7 +29,7 @@ module Yarr
 
         describe '#handle' do
           it 'complains' do
-            expect(command.handle).to eq 'No suitable faker found'
+            expect(command.handle).to start_with 'No suitable faker found'
           end
         end
       end

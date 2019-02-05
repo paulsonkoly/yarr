@@ -12,7 +12,9 @@ module Yarr
       def handle
         Faker.const_get(klass).send(method).to_s
       rescue NameError
-        'No suitable faker found'
+        'No suitable faker found. The list is at ' \
+        'https://github.com/stympy/faker with the restriction that I need ' \
+        'Classname.methodname.'
       end
     end
   end
