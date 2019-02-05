@@ -6,7 +6,8 @@ require 'yarr/message/truncator'
 
 module Yarr
   module Command
-    # evaluates the user's message using an online evaluation service like carc.in
+    # evaluates the user's message using an online evaluation service like
+    # carc.in
     class Evaluate < Base
       extend Concern::ASTDigger
       digger(:mode) { |mode| @config[:modes][mode || :default] }
@@ -38,11 +39,11 @@ module Yarr
       end
 
       def payload
-        {run_request: {language: 'ruby', version: lang, code: code}}
+        { run_request: { language: 'ruby', version: lang, code: code } }
       end
 
       def headers
-        {'Content-Type': 'application/json; charset=utf-8'}
+        { 'Content-Type': 'application/json; charset=utf-8' }
       end
 
       def filter(code)
@@ -52,10 +53,10 @@ module Yarr
 
       def preprocess(code)
         code = filter(code)
-        sprintf format, code.lstrip
+        format(template, code.lstrip)
       end
 
-      def format
+      def template
         format = mode[:format]
         case format
         when Hash then format[lang]
@@ -64,10 +65,10 @@ module Yarr
       end
 
       def request_evaluation
-        response = @service.post(url, {
+        response = @service.post(url,
           body: payload.to_json,
           headers: headers
-        }).response_body
+        ).response_body
 
         JSON.parse(response)
       end
@@ -77,8 +78,7 @@ module Yarr
         when :truncate then truncate(response)
         when :link then link(response)
         else
-          raise RuntimeError,
-            'output mode is neither :truncate nor :link. config file error'
+          raise 'output mode is neither :truncate nor :link. config file error'
         end
       end
 
@@ -94,15 +94,16 @@ module Yarr
         output = output(response)
         url = html_url(response)
         output.prepend('# => ')
-        output = Message::Truncator.truncate(
+        Message::Truncator.truncate(
           output,
-          omission: "... check link for more",
+          omission: '... check link for more',
           suffix: " (#{url})"
         )
       end
 
       def link(response)
-        "I have #{mode[:verb]} your code, the result is at #{html_url(response)}"
+        "I have #{mode[:verb]} your code, "\
+          "the result is at #{html_url(response)}"
       end
     end
   end
