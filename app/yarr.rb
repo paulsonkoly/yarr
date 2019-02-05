@@ -19,16 +19,7 @@ bot = Cinch::Bot.new do
     c.sasl.password = yconfig.password
   end
 
-  on :message, %r{\A&(?<override>[a-z0-9]+)?>>(?!>)(?<code>.*)} do |m, override, code|
-    m.reply begin
-      evaluator = Yarr::Evaluator.new(override)
-      evaluator.evaluate(code)
-    rescue StandardError => e
-      "I'm terribly sorry, I could not evaluate your code because of an error: #{e.class}:#{e.message}"
-    end
-  end
-
-  on :message, /\A&((list|ri|ast|fake)(?!>>) +.*)\z/ do |m, match|
+  on :message, /\A&(.*)\z/ do |m, match|
     m.reply yarr.reply_to(match)
   end
 end
