@@ -31,10 +31,12 @@ module Yarr
             },
             modes: {
               default: {
+                filter: [],
                 format: "%s",
                 output: :truncate
               },
               'ast' => {
+                filter: {'\\' => '\\\\', '`' => '\\\`'},
                 format: "ast_of(%%q`%s`)",
                 output: :link,
                 verb: 'cooked',

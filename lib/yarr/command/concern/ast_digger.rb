@@ -16,7 +16,7 @@ module Yarr
 
             @digger[name] ||=
               begin
-                block = -> x { x } unless block_given?
+                block = -> value { value } unless block_given?
                 instance_exec(ast.dig_deep(ast_name), &block)
               end
           end

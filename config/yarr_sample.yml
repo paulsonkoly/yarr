@@ -16,7 +16,7 @@ evaluator:
   :url: "https://carc.in/run_requests"
   :modes:
     :default:
-      :escape: false
+      :filter: []
       :output: :truncate
       :format: |
         p begin
@@ -27,7 +27,9 @@ evaluator:
           raise $!
         end
     asm:
-      :escape: true
+      :filter:
+        '\\': '\\\\'
+        '`': '\\\`'
       :output: :link
       :verb: 'disassembled'
       :format: |
@@ -39,7 +41,9 @@ evaluator:
           raise $!
         end
     ast:
-      :escape: true
+      :filter:
+        '\\': '\\\\'
+        '`': '\\\`'
       :output: :link
       :verb: 'parsed'
       :format:
@@ -67,7 +71,9 @@ evaluator:
         "24": *old_ast
         "25": *old_ast
     tok:
-      :escape: true
+      :filter:
+        '\\': '\\\\'
+        '`': '\\\`'
       :output: :link
       :verb: 'tokenized'
       :format: |

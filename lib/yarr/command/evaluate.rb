@@ -11,7 +11,7 @@ module Yarr
       extend Concern::ASTDigger
       digger(:mode) { |mode| @config[:modes][mode || :default] }
       digger(:lang) { |lang| @config[:languages][lang || :default] }
-      digger(:code) { |code| massage_code(code) }
+      digger(:code) { |code| preprocess(code.dup) }
 
       def self.match?(ast)
         ast.key? :evaluate
@@ -45,13 +45,13 @@ module Yarr
         {'Content-Type': 'application/json; charset=utf-8'}
       end
 
-      def massage_code(code)
-        code = code.dup
-        if mode[:escape]
-          code.gsub!("\\", "\\\\")
-          code.gsub!('`', '\\\`')
-        end
+      def filter(code)
+        mode[:filter].each { |from, to| code.gsub!(from, to) }
+        code
+      end
 
+      def preprocess(code)
+        code = filter(code)
         sprintf format, code.lstrip
       end
 
@@ -73,25 +73,36 @@ module Yarr
       end
 
       def respond_with(response)
-        url = response['run_request']['run']['html_url']
-        output = response['run_request']['run']['stdout']
-
         case mode[:output]
-        when :truncate
-          output.prepend('# => ')
-          max_length = Message::Truncator::MAX_LENGTH - url.length - 3
-          output = Message::Truncator.truncate(
-            output,
-            omission: "... check link for more",
-            max_length: max_length
-          )
-          output << " (#{url})"
-        when :link
-          "I have #{mode[:verb]} your code, the result is at #{url}"
+        when :truncate then truncate(response)
+        when :link then link(response)
         else
           raise RuntimeError,
             'output mode is neither :truncate nor :link. config file error'
         end
+      end
+
+      def html_url(response)
+        response['run_request']['run']['html_url']
+      end
+
+      def output(response)
+        response['run_request']['run']['stdout']
+      end
+
+      def truncate(response)
+        output = output(response)
+        url = html_url(response)
+        output.prepend('# => ')
+        output = Message::Truncator.truncate(
+          output,
+          omission: "... check link for more",
+          suffix: " (#{url})"
+        )
+      end
+
+      def link(response)
+        "I have #{mode[:verb]} your code, the result is at #{html_url(response)}"
       end
     end
   end
