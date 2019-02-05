@@ -1,18 +1,24 @@
 require 'yarr/command/base'
 require 'yarr/query'
 require 'yarr/command/concern/responder'
+require 'yarr/command/concern/ast_digger'
 
 module Yarr
   module Command
     # Base class for all ri commands
     class Ri < Base
       include Concern::Responder
+      extend Concern::ASTDigger
+
+      digger :klass, :class_name
+      digger :method
+      digger :origin
+
+      define_single_item_responder { |result| result.first.url }
 
       def handle
         response(query)
       end
-
-      define_single_item_responder { |result| result.first.url }
 
       # Can we handle the given AST?
       # @param ast [hash] parsed AST

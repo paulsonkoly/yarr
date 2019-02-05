@@ -1,12 +1,18 @@
 require 'yarr/query'
 require 'yarr/command/base'
 require 'yarr/command/concern/responder'
+require 'yarr/command/concern/ast_digger'
 
 module Yarr
   module Command
     # Base class for all list commands
     class List < Base
       include Concern::Responder
+      extend Concern::ASTDigger
+
+      digger :klass, :class_name
+      digger :method
+      digger :origin
 
       define_multi_item_responder do |result|
         result.map(&:full_name).join(', ')

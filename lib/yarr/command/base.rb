@@ -11,17 +11,6 @@ module Yarr
       end
 
       attr_reader :ast
-
-      private
-
-      def self.digger(name, ast_name = :"#{name}_name")
-        define_method(name) { @ast.dig_deep(ast_name) }
-      end
-      private_class_method :digger
-
-      digger :klass, :class_name
-      digger :method
-      digger :origin
     end
   end
 end
