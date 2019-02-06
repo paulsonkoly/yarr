@@ -28,8 +28,8 @@ evaluator:
         end
     asm:
       :filter:
-        '\\': '\\\\'
-        '`': '\\\`'
+        '\': '\\'
+        '`': '\\`'
       :output: :link
       :verb: 'disassembled'
       :format: |
@@ -42,8 +42,8 @@ evaluator:
         end
     ast:
       :filter:
-        '\\': '\\\\'
-        '`': '\\\`'
+        '\': '\\'
+        '`': '\\`'
       :output: :link
       :verb: 'parsed'
       :format:
@@ -72,8 +72,8 @@ evaluator:
         "25": *old_ast
     tok:
       :filter:
-        '\\': '\\\\'
-        '`': '\\\`'
+        '\': '\\'
+        '`': '\\`'
       :output: :link
       :verb: 'tokenized'
       :format: |
