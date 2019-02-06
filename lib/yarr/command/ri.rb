@@ -10,9 +10,9 @@ module Yarr
       include Concern::Responder
       extend Concern::ASTDigger
 
-      digger :klass, :class_name
-      digger :method, :method_name
-      digger :origin, :origin_name
+      digger :class_name
+      digger :method_name
+      digger :origin_name
 
       define_single_item_responder { |result| result.first.url }
 
@@ -32,13 +32,13 @@ module Yarr
       private
 
       def query
-        Query::Method.where(name: method,
+        Query::Method.where(name: method_name,
                             flavour: flavour,
-                            klass: Query::Klass.where(name: klass))
+                            klass: Query::Klass.where(name: class_name))
       end
 
       def target
-        "class #{klass} #{flavour} method #{method}"
+        "class #{class_name} #{flavour} method #{method_name}"
       end
     end
 
@@ -79,15 +79,15 @@ module Yarr
       private
 
       def query
-        Query::Method.where(name: method)
+        Query::Method.where(name: method_name)
       end
 
       def target
-        "method #{method}"
+        "method #{method_name}"
       end
 
       def advice
-        "Use &list #{method} if you would like to see a list"
+        "Use &list #{method_name} if you would like to see a list"
       end
     end
 
@@ -102,14 +102,16 @@ module Yarr
       private
 
       def query
-        constraints = { name: klass }
-        constraints[:origin] = Query::Origin.where(name: origin) if origin
+        constraints = { name: class_name }
+        if origin_name
+          constraints[:origin] = Query::Origin.where(name: origin_name)
+        end
         result = Query::Klass.where(constraints)
         select_core(result)
       end
 
       def target
-        "class #{klass}"
+        "class #{class_name}"
       end
 
       def select_core(result)

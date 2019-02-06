@@ -10,9 +10,9 @@ module Yarr
       include Concern::Responder
       extend Concern::ASTDigger
 
-      digger :klass, :class_name
-      digger :method, :method_name
-      digger :origin, :origin_name
+      digger :class_name
+      digger :method_name
+      digger :origin_name
 
       define_multi_item_responder do |result|
         result.map(&:full_name).join(', ')
@@ -36,14 +36,14 @@ module Yarr
 
       def query
         Query::Method.where(
-          Sequel.like(:name, method) &
-          { klass: Query::Klass.where(Sequel.like(:name, klass)),
+          Sequel.like(:name, method_name) &
+          { klass: Query::Klass.where(Sequel.like(:name, class_name)),
             flavour: flavour }
         )
       end
 
       def target
-        "#{flavour} method #{method} on #{klass}"
+        "#{flavour} method #{method_name} on #{class_name}"
       end
     end
 
@@ -84,11 +84,11 @@ module Yarr
       private
 
       def query
-        Query::Klass.where(Sequel.like(:name, klass))
+        Query::Klass.where(Sequel.like(:name, class_name))
       end
 
       def target
-        "class #{klass}"
+        "class #{class_name}"
       end
     end
 
@@ -103,11 +103,11 @@ module Yarr
       private
 
       def query
-        Query::Method.where(Sequel.like(:name, method))
+        Query::Method.where(Sequel.like(:name, method_name))
       end
 
       def target
-        "method #{method}"
+        "method #{method_name}"
       end
     end
   end
