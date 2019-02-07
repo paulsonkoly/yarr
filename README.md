@@ -38,6 +38,21 @@ $ bundle exec ruby bin/console # run console mode.
 $ bundle exec ruby app/yarr # run bot mode.
 ```
 
+### >>
+
+Evaluates arbitrary ruby code by posting it to carc.in and then links the
+result. Ruby version can be specified by prepending it to >>, like 20>>, 21>>
+etc. The command can be modified to send a disassembly, tokenisation, or parse
+request on the code to carc.in. These modifiers can also be combined with the
+ruby version, action modifier comes first.
+
+```
+>> 1 + 1
+>>> => 2 (http://...)
+asm20>> 1 + 1
+>>> I have disassembled your code, the result is at http://...
+```
+
 ### ri
 
 ri looks up the documentation of a class name, a method name, an instance
@@ -102,6 +117,11 @@ list %ile.%
 >>> File.absolute_path, File.atime, File.basename, File.birthtime, File.blockdev?, File.chardev?, File.chmod, File.chown, File.ctime, File.delete,...
 ```
 
+### fake
+
+An easter egg command, using Classname.methodname ri notation. It responds with
+the result of Faker::Classname.methodname from the faker gem.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/phaul/yarr.
@@ -109,19 +129,9 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/phaul/
 The `lint:all` rake task kicks off a bunch of checks on the project including
 branch coverage.
 
-### The ast command
-
-The bot responds to the ast command which should output the parsed AST form of
-the input.
-
-```
-ast Array#si%, phaul
->>> {:command=>"ast", :instance_method=>{:class_name=>"Array", :method_name=>"si%"}, :stuff=>" phaul"} , phaul
-```
-
-Further debug can be enabled by running the app in development environment. The
-token `@@` is not valid, we can also print why. The print out is somewhat
-lengthy and assumes familiarity with the grammar.
+Debug can be enabled by running the app in development environment. The token
+`@@` is not valid, we can also print why. The print out is somewhat lengthy and
+assumes familiarity with the grammar.
 
 ```
 $ env YARR_DEVELOPMENT=1 bin/console
@@ -137,7 +147,8 @@ Expected one of [COMMAND SPACES? EXPRESSION SPACES? ',' STUFF, COMMAND SPACES? E
 [...]
 ```
 
-The above can be useful in debugging parser issues.
+Also in development mode the bot doesn't daemonize itself, and outputs more
+verbose logs to the console.
 
 ### Testing
 
