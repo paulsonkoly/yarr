@@ -38,6 +38,8 @@ $ bundle exec ruby bin/console # run console mode.
 $ bundle exec ruby app/yarr # run bot mode.
 ```
 
+In irc mode all commands have to be prefixed with `&'.
+
 ### >>
 
 Evaluates arbitrary ruby code by posting it to carc.in and then links the
@@ -47,9 +49,9 @@ request on the code to carc.in. These modifiers can also be combined with the
 ruby version, action modifier comes first.
 
 ```
->> 1 + 1
+&>> 1 + 1
 >>> => 2 (http://...)
-asm20>> 1 + 1
+&asm20>> 1 + 1
 >>> I have disassembled your code, the result is at http://...
 ```
 
@@ -60,9 +62,9 @@ method call (in the form of `ri Array#size`) and a class method call (in the
 form of `ri File.size`). If the query is ambiguous the bot will tell you that.
 
 ```
-ri instance_methods
+&ri instance_methods
 >>> https://ruby-doc.org/core-2.5.1/Module.html#method-i-instance_methods
-ri puts
+&ri puts
 >>> I found 3 entries matching with method: puts. Use &list puts if you would like to see a list
 ```
 
@@ -73,11 +75,11 @@ there is a definition in core. We can list all names, or be explicit in the
 query.
 
 ```
-ri Array
+&ri Array
 >>> https://ruby-doc.org/core-2.5.1/Array.html
-list Array
+&list Array
 >>> Array, Array (abbrev), Array (mkmf), Array (rexml), Array (shellwords)
-ri Array (mkmf)
+&ri Array (mkmf)
 >>> https://ruby-doc.org/stdlib-2.5.1/libdoc/mkmf/rdoc/Array.html
 ```
 
@@ -88,16 +90,16 @@ list lists the matching names. % is taken as a wildcard character that can
 match any string fragment.
 
 ```
-list puts
+&list puts
 >>> ARGF#puts, IO#puts, Kernel#puts
-list %!
+&list %!
 >>> BasicObject#!, String#capitalize!, String#chomp!, String#chop!, Array#collect!, Array#compact!, Hash#compact!, String#delete!, String#delete_prefix!,...
 ```
 
 For ambiguous method names we simply call list:
 
 ```
-list size
+&list size
 >>> ENV.size, File.size, Array#size, Enumerator#size, File#size, File::Stat#size, FileTest#size, Hash#size, Integer#size, MatchData#size,...
 ```
 
@@ -106,14 +108,14 @@ if the first character is upcase. Therefore we can't list the File class this
 way:
 
 ```
-list %ile
+&list %ile
 >>> Enumerable#chunk_while, Enumerator::Lazy#chunk_while, Regexp.compile, RubyVM::InstructionSequence.compile, RubyVM::InstructionSequence.compile_file,...
 ```
 
 However it is possible to force it to be part of a class or module name by this trick:
 
 ```
-list %ile.% 
+&list %ile.% 
 >>> File.absolute_path, File.atime, File.basename, File.birthtime, File.blockdev?, File.chardev?, File.chmod, File.chown, File.ctime, File.delete,...
 ```
 
