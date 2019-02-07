@@ -9,7 +9,6 @@ module Yarr
       # Truncates the given string to the predefined maximum size.
       # @param omission [String] The string that indiciates the message was
       #   truncated
-      # @param max_length [Integer] the maximum length after truncation
       # @param suffix [String] a suffix that's always appended after the string
       #   regardless of whether it was truncated or not. The truncation length
       #   however takes it into account.

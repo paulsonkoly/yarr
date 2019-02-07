@@ -2,10 +2,40 @@ require 'parslet'
 require 'yarr/ast'
 
 module Yarr
-  # Code parsing the user input. The user input contains 3 sections, 2
-  # required and 1 optional. The sesctions are separated by white spaces.
-  # Between the second and third section an optional comma is allowed.
-  # A usual user input might look like:
+  # == User input parser
+  #
+  # Recognised commands:
+  # +ast{lang}>>+, +tok{lang}>>+, +asm{lang}>>+, +{lang}>>+, +asm+, +ri+,
+  # +list+, +fake+
+  #
+  # The +lang+ part is optional and it stands for a 2 digit ruby version
+  # specifier, like 21 for 2.1. The rest of the input is context specific, and
+  # parsed based on the command.
+  #
+  # == Evaluate commands
+  #
+  # The command is followed by an arbitrary ruby expression which is
+  # subsequently sent to the evaluator. The AST always has a key :evaluate
+  # which can be used to identify the command type. If +ast>>+, +tok>>+,
+  # +asm>>+is used the sub part of AST will contain a +:mode+ set to +'ast'+,
+  # +'tok'+ or +'asm'+. It can also contain a +:lang+ which is set to the
+  # optional ruby version. The ast always contains a top level +:code+ that
+  # contains the code to evaluate.
+  #
+  #   p = Yarr::InputParser.new
+  #   p.parse('>> 1+1')
+  #   # => #<Yarr::AST @hash={:evaluate=>"", :code=>" 1+1"}>
+  #   p.parse('ast>> 1+1')
+  #   # => #<Yarr::AST @hash={:evaluate=>{:mode=>"ast"}, :code=>" 1+1"}>
+  #   p.parse('ast12>> 1+1')
+  #   # => #<Yarr::AST @hash={:evaluate=>{:mode=>"ast", :lang=>"12"},
+  #   #                                   :code=>" 1+1"}>
+  #
+  # == Non-evaluate commands
+  #
+  # The user input contains 3 sections, 2 required and 1 optional. The
+  # sections are separated by white spaces.  Between the second and third
+  # section an optional comma is allowed.  A usual user input might look like:
   #
   #    list Array phaul
   #    ri Set, phaul
@@ -26,7 +56,8 @@ module Yarr
   # - instance method calls
   # - class method calls
   #
-  # @example
+  # Examples
+  #
   #   p = Yarr::InputParser.new
   #   p.parse 'ri a' # => {:command=>"ri", :method_name=>"a"}
   #   p.parse 'list B' # => {:command=>"list", :class_name=>"B"}
@@ -108,7 +139,7 @@ module Yarr
 
     # Same as Parslet::Parser#parse, except we return string hash values
     # @param string [String] the input to parse
-    # @return [Hash] AST
+    # @return [AST] abstract syntax tree of user input
     def parse(string, *args)
       AST.new(super)
     end
