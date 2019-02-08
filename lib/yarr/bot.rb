@@ -29,7 +29,7 @@ module Yarr
       response = Command.for_ast(ast).handle
       post_process(response, stuff)
     rescue InputParser::ParseError => error
-      error.report
+      error.report(message)
     end
 
     private

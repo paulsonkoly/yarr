@@ -78,7 +78,10 @@ module Yarr
         @parslet_error = parslet_error
       end
 
-      def report
+      # Reports the parse error occurred
+      # @param message [String] original message of the bot
+      # @return [String] bot response
+      def report(message)
         cause = @parslet_error.parse_failure_cause
         position = cause.pos.charpos
         puts cause.ascii_tree if Yarr.config.development?

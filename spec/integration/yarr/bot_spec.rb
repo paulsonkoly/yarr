@@ -31,4 +31,8 @@ RSpec.describe Yarr::Bot do
   it 'reports error for targets it can\'t parse' do
     expect(bot.reply_to('xxx @@')).to start_with('parser error')
   end
+
+  it 'points to the right place of the error' do
+    expect(bot.reply_to('ri @@@')).to match('around `r\'')
+  end
 end
