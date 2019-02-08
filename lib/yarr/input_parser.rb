@@ -1,5 +1,6 @@
 require 'parslet'
 require 'yarr/ast'
+require 'yarr/configuration'
 
 module Yarr
   # == User input parser
@@ -71,6 +72,20 @@ module Yarr
   #
   # @note We also accept % character in names to support like queries.
   class InputParser < Parslet::Parser
+    # Error raised when parsing fails
+    class ParseError < RuntimeError
+      def initialize(parslet_error)
+        @parslet_error = parslet_error
+      end
+
+      def report
+        cause = @parslet_error.parse_failure_cause
+        position = cause.pos.charpos
+        puts cause.ascii_tree if Yarr.config.development?
+        "parser error at position #{position} around `#{message[position]}'"
+      end
+    end
+
     rule(:input) { evaluate | ast_examiner }
 
     rule(:evaluate) { override >> str('>>') >> code }
@@ -142,6 +157,8 @@ module Yarr
     # @return [AST] abstract syntax tree of user input
     def parse(string, *args)
       AST.new(super)
+    rescue Parslet::ParseFailed => error
+      raise ParseError.new(error)
     end
   end
 end

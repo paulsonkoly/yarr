@@ -7,11 +7,11 @@ module Yarr
 
     describe 'command' do
       it 'raises error on empty command' do
-        expect { parser.parse('') }.to raise_error Parslet::ParseFailed
+        expect { parser.parse('') }.to raise_error InputParser::ParseError
       end
 
       it 'raises error on invalid command' do
-        expect { parser.parse('xxx') }.to raise_error Parslet::ParseFailed
+        expect { parser.parse('xxx') }.to raise_error InputParser::ParseError
       end
 
       it 'parses ri' do
@@ -29,12 +29,12 @@ module Yarr
 
     describe 'target' do
       it 'raises errror on empty target' do
-        expect { parser.parse('ri') }.to raise_error Parslet::ParseFailed
+        expect { parser.parse('ri') }.to raise_error InputParser::ParseError
       end
 
       %w[@@ .. // ' " a$ {}].each do |w|
         it "raises error for #{w}" do
-          expect { parser.parse("ri #{w}") }.to raise_error Parslet::ParseFailed
+          expect { parser.parse("ri #{w}") }.to raise_error InputParser::ParseError
         end
       end
 
@@ -77,7 +77,7 @@ module Yarr
       it 'raises error for upper case inside a method name' do
         expect do
           parser.parse('ri mEtHoD')
-        end.to raise_error Parslet::ParseFailed
+        end.to raise_error InputParser::ParseError
       end
 
       it 'parses % as a method' do

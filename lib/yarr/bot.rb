@@ -1,7 +1,6 @@
 require 'yarr/command'
 require 'yarr/input_parser'
 require 'yarr/message/truncator'
-require 'yarr/configuration'
 require 'yarr/no_irc'
 
 # Responds to rdoc documentation queries with links and more.
@@ -29,8 +28,8 @@ module Yarr
       ast, stuff = parse_input(message)
       response = Command.for_ast(ast).handle
       post_process(response, stuff)
-    rescue Parslet::ParseFailed => error
-      handle_error(error, message)
+    rescue InputParser::ParseError => error
+      error.report
     end
 
     private
@@ -51,15 +50,6 @@ module Yarr
         else response << ', ' << truncate(stuff)
         end
       end
-    end
-
-    # :reek:FeatureEnvy
-
-    def handle_error(error, message)
-      cause = error.parse_failure_cause
-      position = cause.pos.charpos
-      puts cause.ascii_tree if Yarr.config.development?
-      "parser error at position #{position} around `#{message[position]}'"
     end
   end
 end
