@@ -8,10 +8,6 @@ puts "Yarr Version #{Yarr::VERSION}"
 
 loop do
   request = gets
-  begin
-    puts bot.reply_to(request)
-    STDOUT.flush
-  rescue Parslet::ParseFailed => e
-    puts e
-  end
+  puts bot.reply_to(request)
+  STDOUT.flush
 end
