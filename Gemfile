@@ -11,7 +11,6 @@ gem 'sqlite3'
 gem 'typhoeus'
 
 group :development do
-  gem 'byebug'
   gem 'pry'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
