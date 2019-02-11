@@ -4,6 +4,7 @@ This application is the workhorse behind the rubydoc bot on freenode.net #ruby.
 
 [![Build Status](https://travis-ci.org/phaul/yarr.svg?branch=master)](https://travis-ci.org/phaul/yarr)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4a48c3a34babe2af4e8f/maintainability)](https://codeclimate.com/github/phaul/yarr/maintainability)
+[![Inline docs](http://inch-ci.org/github/phaul/yarr.svg?branch=master)](http://inch-ci.org/github/phaul/yarr)
 
 ## Installation
 
