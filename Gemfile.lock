@@ -15,7 +15,6 @@ GEM
     backports (3.11.4)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    byebug (10.0.2)
     cinch (2.3.4)
     codeclimate-engine-rb (0.4.1)
       virtus (~> 1.0)
@@ -111,7 +110,6 @@ PLATFORMS
 DEPENDENCIES
   app_configuration
   bundler
-  byebug
   cinch (~> 2.3.4)
   deep-cover
   faker
