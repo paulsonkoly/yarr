@@ -123,7 +123,8 @@ However it is possible to force it to be part of a class or module name by this 
 ### fake
 
 An easter egg command, using Classname.methodname ri notation. It responds with
-the result of Faker::Classname.methodname from the faker gem.
+the result of Faker::Classname.methodname from the
+[faker](https://github.com/stympy/faker) gem.
 
 ## Contributing
 
