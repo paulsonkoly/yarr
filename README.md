@@ -116,7 +116,7 @@ way:
 However it is possible to force it to be part of a class or module name by this trick:
 
 ```
-&list %ile.% 
+&list %ile.%
 >>> File.absolute_path, File.atime, File.basename, File.birthtime, File.blockdev?, File.chardev?, File.chmod, File.chown, File.ctime, File.delete,...
 ```
 
