@@ -5,12 +5,6 @@ module Yarr
   RSpec.describe Command do
     let(:dispatcher) { subject }
 
-    it 'handles "ast aa"' do
-      handler = dispatcher.for_ast(command: 'ast', method_name: 'aa')
-
-      expect(handler).to be_a Command::AST
-    end
-
     context 'with ri command' do
       it 'handles method names' do
         handler = dispatcher.for_ast(command: 'ri', method_name: 'aa')
