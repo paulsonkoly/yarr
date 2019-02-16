@@ -9,6 +9,7 @@ module Yarr
   class Bot
     include Message::Truncator
 
+    # The YARR IRC bot
     # @param irc_provider [Cinch::Bot] IRC functionality provider.
     def initialize(irc_provider = NoIRC)
       @parser = InputParser.new

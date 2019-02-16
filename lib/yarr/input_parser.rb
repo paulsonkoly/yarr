@@ -74,6 +74,8 @@ module Yarr
   class InputParser < Parslet::Parser
     # Error raised when parsing fails
     class ParseError < RuntimeError
+      # @api private
+      # This class should be only instantiated from within the {InputParser}
       def initialize(parslet_error)
         @parslet_error = parslet_error
       end

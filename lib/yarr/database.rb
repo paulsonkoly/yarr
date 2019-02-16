@@ -7,6 +7,7 @@ module Yarr
   class Database
     extend Forwardable
 
+    # Connection to the database
     # @param connector [symbol] the database connector
     def initialize(connector = :sqlite)
       @db_dir = File.join(PROJECT_ROOT, 'db')
@@ -21,6 +22,10 @@ module Yarr
       end
     end
 
+    # @!attribute [r] db_path
+    #   @return [String] path to the database file
+    # @!attribute [r] db_dir
+    #   @return [String] directory containing the database file
     attr_reader :db_path, :db_dir
   end
 

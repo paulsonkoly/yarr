@@ -22,6 +22,7 @@ module Yarr
       prefix 'yarr'
     end
 
+    # Configuration including environment variables and configuration files
     # @param config [AppConfiguration::Config] DEFAULT_CONFIG is good in almost
     #               all cases
     def initialize(config = DEFAULT_CONFIG)

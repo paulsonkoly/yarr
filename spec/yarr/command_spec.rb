@@ -74,10 +74,10 @@ module Yarr
     end
 
     context 'with no matching real command' do
-      it 'defaults to Null' do
+      it 'defaults to Base' do
         handler = dispatcher.for_ast(command: 'xxx')
 
-        expect(handler).to be_a Command::Null
+        expect(handler).to be_a Command::Base
       end
     end
   end
