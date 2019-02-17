@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
+require 'readline'
 require 'yarr'
 
 bot = Yarr::Bot.new
 puts "Yarr Version #{Yarr::VERSION}"
 
-loop do
-  request = gets
-  puts bot.reply_to(request)
+while line = Readline.readline('> ', true)
+  puts bot.reply_to(line)
   STDOUT.flush
 end
