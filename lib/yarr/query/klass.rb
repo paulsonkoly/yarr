@@ -37,6 +37,10 @@ module Yarr
       def full_name
         name + (core? ? '' : " (#{origin.name})")
       end
+
+      def same_origin?
+        origin.name == name.downcase
+      end
     end
   end
 end

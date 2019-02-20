@@ -99,6 +99,35 @@ module Yarr
         super && ast.key?(:class_name)
       end
 
+      # @private
+      # Wraps the Sequel::Dataset for class names with the logic that prefers
+      # cores and origins with same name
+      class QueryResult
+        def initialize(dataset)
+          @dataset = dataset.all
+        end
+
+        def appropriate
+          if @dataset.count > 1
+            with_core { |core| return [core] }
+            with_same_origin { |klass| return [klass] }
+          end
+
+          @dataset
+        end
+
+        private
+
+        def with_core(&block)
+          @dataset.select(&:core?).each(&block)
+        end
+
+        def with_same_origin(&block)
+          @dataset.select(&:same_origin?).each(&block)
+        end
+      end
+      private_constant :QueryResult
+
       private
 
       def query
@@ -106,26 +135,12 @@ module Yarr
         if origin_name
           constraints[:origin] = Query::Origin.where(name: origin_name)
         end
-        result = Query::Klass.where(constraints)
-        select_appropriate(result)
+        result = QueryResult.new(Query::Klass.where(constraints))
+        result.appropriate
       end
 
       def target
         "class #{class_name}"
-      end
-
-      def select_appropriate(result)
-        if result.count > 1
-          core = result.find(&:core?)
-          return [core] if core
-
-          default = result.find do |candidate|
-            candidate.origin.name == class_name.downcase
-          end
-          return [default] if default
-        end
-
-        result
       end
     end
   end
