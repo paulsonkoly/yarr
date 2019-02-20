@@ -72,8 +72,10 @@ form of `ri File.size`). If the query is ambiguous the bot will tell you that.
 #### Class or module name ambiguity
 
 In case of class or module names ri implicitly resolves ambiguous names if
-there is a definition in core. We can list all names, or be explicit in the
-query.
+there is a definition in core (no file needs to be required to use the class)
+or if the required file matches the class name. This helps when classes are
+patched in multiple places and we just want to get the url of the main
+documentation. We can list all names, or be explicit in the query.
 
 ```
 &ri Array
