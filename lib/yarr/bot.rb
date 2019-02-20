@@ -42,7 +42,6 @@ module Yarr
     end
 
     def post_process(response, stuff)
-      response = truncate(response)
       if stuff.empty?
         response
       else
