@@ -61,4 +61,17 @@ DB.transaction do
                       flavour: 'class',
                       klass_id: klass_id,
                       origin_id: origin_id)
+
+  origin_id = DB[:origins].insert(name: 'bigdecimal')
+  DB[:klasses].insert(name: 'BigDecimal',
+                      url: 'BigDecimal.html',
+                      flavour: 'class',
+                      origin_id: origin_id)
+
+  origin_id = DB[:origins].insert(name: 'json')
+  DB[:klasses].insert(name: 'BigDecimal',
+                      url: 'JSON/BigDecimal.html',
+                      flavour: 'class',
+                      origin_id: origin_id)
+
 end

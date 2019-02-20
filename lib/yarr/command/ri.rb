@@ -107,17 +107,22 @@ module Yarr
           constraints[:origin] = Query::Origin.where(name: origin_name)
         end
         result = Query::Klass.where(constraints)
-        select_core(result)
+        select_appropriate(result)
       end
 
       def target
         "class #{class_name}"
       end
 
-      def select_core(result)
+      def select_appropriate(result)
         if result.count > 1
           core = result.find(&:core?)
           return [core] if core
+
+          default = result.find do |candidate|
+            candidate.origin.name == class_name.downcase
+          end
+          return [default] if default
         end
 
         result

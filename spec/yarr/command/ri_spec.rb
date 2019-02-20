@@ -54,6 +54,16 @@ module Yarr
 
           it { is_expected.to match(long_url) }
         end
+
+        context 'when there are multiple choices but origin name is the lower case class name' do
+          let(:ast) { Yarr::AST.new(class_name: 'BigDecimal' ) }
+
+          subject { described_class.new(ast).handle }
+
+          let(:long_url) { %r{https://ruby-doc.org/.*/BigDecimal.html} }
+
+          it { is_expected.to match(long_url) }
+        end
       end
 
       describe '#target' do
