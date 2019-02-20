@@ -7,7 +7,7 @@ module Yarr
       context 'with Starwars.character' do
         let(:ast) do
           AST.new(command: 'fake',
-                  class_method: { class_name: 'StarWars',
+                  class_method: { class_name: 'Movies::StarWars',
                                   method_name: 'character' })
         end
         let(:command) { Fake.new(ast) }

@@ -10,7 +10,7 @@ module Yarr
       let(:user_list) {  no_irc.user_list }
       describe '#find' do
         it 'returns nil' do
-          expect(user_list.find(Faker::StarWars.character)).to be_nil
+          expect(user_list.find(Faker::Movies::StarWars.character)).to be_nil
         end
       end
     end
