@@ -32,6 +32,32 @@ module Yarr
         respond_with(response)
       end
 
+      # @private
+      # The http response body
+      class Response
+        def initialize(data)
+          @data = JSON.parse(data)
+        end
+
+        def html_url
+          @data['run_request']['run']['html_url']
+        end
+
+        def output
+          @data['run_request']['run']['stdout']
+        end
+
+        def truncate
+          output.prepend('# => ')
+          Message::Truncator.truncate(
+            output,
+            omission: '... check link for more',
+            suffix: " (#{html_url})"
+          )
+        end
+      end
+      private_constant :Response
+
       private
 
       def url
@@ -69,45 +95,27 @@ module Yarr
       end
 
       def request_evaluation
-        response = @service.post(url,
+        response_body = @service.post(
+          url,
           body: payload.to_json,
           headers: headers
         ).response_body
 
-        JSON.parse(response)
+        Response.new(response_body)
       end
 
       def respond_with(response)
         case mode[:output]
-        when :truncate then truncate(response)
+        when :truncate then response.truncate
         when :link then link(response)
         else
           raise 'output mode is neither :truncate nor :link. config file error'
         end
       end
 
-      def html_url(response)
-        response['run_request']['run']['html_url']
-      end
-
-      def output(response)
-        response['run_request']['run']['stdout']
-      end
-
-      def truncate(response)
-        output = output(response)
-        url = html_url(response)
-        output.prepend('# => ')
-        Message::Truncator.truncate(
-          output,
-          omission: '... check link for more',
-          suffix: " (#{url})"
-        )
-      end
-
       def link(response)
         "I have #{mode[:verb]} your code, "\
-          "the result is at #{html_url(response)}"
+          "the result is at #{response.html_url}"
       end
     end
   end
