@@ -28,10 +28,9 @@ module Yarr
     #   ast = AST.new(command: 'ri', method_name: 'method')
     #   Command.for_ast(ast).class # => Yarr::Command::RiMethodName
     def self.for_ast(ast)
-      # TODO: change to .then once we migrated to 2.6
       COMMANDS
         .find(-> { Base }) { |handler| handler.match?(ast) }
-        .yield_self { |handler| handler.new(ast) }
+        .new(ast)
     end
   end
 end
