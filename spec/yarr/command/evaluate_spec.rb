@@ -14,7 +14,8 @@ module Yarr
             { 'run' =>
               {
                 'html_url' => 'http://fake.com/evaluated',
-                'stdout' => output
+                'stdout' => output,
+                'stderr' => ''
               }
             }
           }.to_json

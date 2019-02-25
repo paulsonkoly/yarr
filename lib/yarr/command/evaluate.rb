@@ -44,16 +44,32 @@ module Yarr
         end
 
         def output
-          @data['run_request']['run']['stdout']
+          if stderr.empty?
+            stdout.prepend '# => '
+          else
+            stderr.prepend 'stderr: '
+          end
         end
 
         def truncate
-          output.prepend('# => ')
           Message::Truncator.truncate(
             output,
             omission: '... check link for more',
             suffix: " (#{html_url})"
           )
+        end
+        private
+
+        def results
+          @data['run_request']['run']
+        end
+
+        def stderr
+          results['stderr']
+        end
+
+        def stdout
+          results['stdout']
         end
       end
       private_constant :Response
