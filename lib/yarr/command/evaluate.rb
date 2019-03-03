@@ -1,5 +1,4 @@
-require 'json'
-require 'typhoeus'
+require 'yarr/evaluator_service'
 require 'yarr/configuration'
 require 'yarr/command/concern/ast_digger'
 require 'yarr/message/truncator'
@@ -20,7 +19,9 @@ module Yarr
 
       # @param web_service [#post] A web client that can post
       # @param config [Configuration] Configuration loaded
-      def initialize(ast, web_service = Typhoeus, config = Yarr.config)
+      def initialize(ast,
+                     web_service = EvaluatorService.new,
+                     config = Yarr.config)
         super(ast)
 
         @service = web_service
@@ -28,69 +29,12 @@ module Yarr
       end
 
       def handle
-        response = request_evaluation
+        response = @service.request(
+          EvaluatorService::Request.new(code, service_lang))
         respond_with(response)
       end
 
-      # @private
-      # The http response body
-      class Response
-        def initialize(data)
-          @data = JSON.parse(data)
-        end
-
-        def html_url
-          @data['run_request']['run']['html_url']
-        end
-
-        def output
-          if stderr.empty?
-            stdout.prepend '# => '
-          else
-            stderr.prepend 'stderr: '
-          end
-        end
-
-        def truncate
-          Message::Truncator.truncate(
-            output,
-            omission: '... check link for more',
-            suffix: " (#{html_url})"
-          )
-        end
-        private
-
-        def results
-          @data['run_request']['run']
-        end
-
-        def stderr
-          results['stderr']
-        end
-
-        def stdout
-          results['stdout']
-        end
-      end
-      private_constant :Response
-
       private
-
-      def url
-        @config[:url]
-      end
-
-      def payload
-        { run_request: {
-          language: 'ruby',
-          version: @config[:languages][lang],
-          code: code
-        } }
-      end
-
-      def headers
-        { 'Content-Type': 'application/json; charset=utf-8' }
-      end
 
       def filter(code)
         mode[:filter].each { |from, to| code.gsub!(from, to) }
@@ -110,28 +54,24 @@ module Yarr
         end
       end
 
-      def request_evaluation
-        response_body = @service.post(
-          url,
-          body: payload.to_json,
-          headers: headers
-        ).response_body
-
-        Response.new(response_body)
-      end
-
       def respond_with(response)
+        url = response.url
         case mode[:output]
-        when :truncate then response.truncate
-        when :link then link(response)
+        when :truncate
+          Message::Truncator.truncate(
+            response.output,
+            omission: '... check link for more',
+            suffix: " (#{url})"
+          )
+        when :link
+          "I have #{mode[:verb]} your code, the result is at #{url}"
         else
           raise 'output mode is neither :truncate nor :link. config file error'
         end
       end
 
-      def link(response)
-        "I have #{mode[:verb]} your code, "\
-          "the result is at #{response.html_url}"
+      def service_lang
+        @config[:languages][lang]
       end
     end
   end

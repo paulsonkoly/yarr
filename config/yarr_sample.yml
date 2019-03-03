@@ -13,7 +13,6 @@ evaluator:
     "22": "2.2.4"
     "21": "2.1.5"
     "20": "2.0.0"
-  :url: "https://carc.in/run_requests"
   :modes:
     :default:
       :filter: []

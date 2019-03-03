@@ -5,21 +5,13 @@ require 'json'
 module Yarr
   module Command
     RSpec.describe Evaluate do
-      let(:web_service) { double('web-service') }
+      let(:web_service) { instance_double(EvaluatorService) }
 
       def response_double(output)
-        double('response', {
-          response_body: {
-            'run_request' =>
-            { 'run' =>
-              {
-                'html_url' => 'http://fake.com/evaluated',
-                'stdout' => output,
-                'stderr' => ''
-              }
-            }
-          }.to_json
-        })
+        instance_double(
+          EvaluatorService::Response,
+          output: output,
+          url: 'http://fake.com/evaluated')
       end
 
       let(:configuration) do
@@ -51,32 +43,24 @@ module Yarr
         }
       end
 
-      def args(code, language = '2.6.0')
-        {
-          body: '{"run_request":' \
-          '{"language":"ruby",' \
-          "\"version\":\"#{language}\"," \
-          "\"code\":\"#{code}\"}}",
-          headers: {:"Content-Type"=>"application/json; charset=utf-8"}
-        }
-      end
-
       describe '#evaluate normal expression' do
         context 'of 1 + 1' do
           let(:ast) {  Yarr::AST.new(evaluate: { code: '1 + 1' }) }
           let(:command) { described_class.new(ast, web_service, configuration) }
 
           it 'sends the right request to web_service' do
-            expect(web_service).to receive(:post)
-              .with('http://fake.com', args('1 + 1'))
+            expect(web_service).to receive(:request)
+              .with(EvaluatorService::Request.new('1 + 1'))
+
             allow(web_service)
-              .to receive(:post).and_return(response_double('2'))
+              .to receive(:request).and_return(response_double('# => 2'))
+
             command.handle
           end
 
           it 'returns the right result' do
             allow(web_service)
-              .to receive(:post).and_return(response_double('2'))
+              .to receive(:request).and_return(response_double('# => 2'))
 
             expect(command.handle)
               .to eq '# => 2 (http://fake.com/evaluated)'
@@ -88,8 +72,8 @@ module Yarr
           let(:command) { described_class.new(ast, web_service, configuration) }
 
           it 'truncates to the right size with the url' do
-            allow(web_service).to receive(:post)
-              .and_return(response_double(Object.methods.to_s))
+            allow(web_service).to receive(:request)
+              .and_return(response_double("# => #{Object.methods}"))
 
             result = command.handle
 
@@ -111,15 +95,15 @@ module Yarr
           let(:command) { described_class.new(ast, web_service, configuration) }
 
           it 'sends the right request to web_service' do
-            expect(web_service).to receive(:post)
-              .with('http://fake.com',
-                    args('ast of(%q`\\\\`1 + 1\\\\``)', '2.2.2'))
-            allow(web_service).to receive(:post).and_return(response_double('2'))
+            expect(web_service).to receive(:request)
+              .with(EvaluatorService::Request.new('ast of(%q`\\`1 + 1\\``)', '2.2.2'))
+
+            allow(web_service).to receive(:request).and_return(response_double('2'))
             command.handle
           end
 
           it 'returns the right result' do
-            allow(web_service).to receive(:post).and_return(response_double('2'))
+            allow(web_service).to receive(:request).and_return(response_double('2'))
             expect(command.handle)
               .to eq 'I have cooked your code, the result is at http://fake.com/evaluated'
           end
@@ -134,11 +118,11 @@ module Yarr
             end
 
             it 'sends the right request to web_service' do
-              expect(web_service).to receive(:post)
-                .with('http://fake.com',
-                      args('new ast of(%q`\\\\`1 + 1\\\\``)', '2.6.0'))
+              expect(web_service).to receive(:request)
+                .with(EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)', '2.6.0'))
+
               allow(web_service)
-                .to receive(:post).and_return(response_double('2'))
+                .to receive(:request).and_return(response_double('2'))
               command.handle
             end
           end
