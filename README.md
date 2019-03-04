@@ -56,6 +56,17 @@ ruby version, action modifier comes first.
 >>> I have disassembled your code, the result is at http://...
 ```
 
+### url
+
+The url command fetches the source that is sent to the evaluation service from
+a user specified url. This is useful if we want to evaluate for instance a gist
+with the bot.
+
+```
+&url http://somegist.raw/gist.rb
+>>> # => 13 (http://...)
+```
+
 ### ri
 
 ri looks up the documentation of a class name, a method name, an instance
