@@ -36,10 +36,11 @@ module Yarr
         }
       end
 
-      describe '#evaluate normal expression' do
+      let(:command) { described_class.new(ast, web_service, configuration) }
+
+      describe '#handle' do
         context 'of 1 + 1' do
           let(:ast) {  Yarr::AST.new(evaluate: { code: '1 + 1' }) }
-          let(:command) { described_class.new(ast, web_service, configuration) }
 
           it 'sends the right request to web_service' do
             expect(web_service).to receive(:request)
@@ -61,15 +62,12 @@ module Yarr
               .to eq '# => 2 (http://fake.com/evaluated)'
           end
         end
-      end
 
-      describe '#evaluate ast' do
-        context 'of `1 + 1`' do
+        context 'with mode ast and lang 22' do
           let(:ast) do
             Yarr::AST.new(evaluate:
                           { mode: 'ast', lang: '22', code: '`1 + 1`' })
           end
-          let(:command) { described_class.new(ast, web_service, configuration) }
 
           it 'sends the right request to web_service' do
             expect(web_service).to receive(:request)
@@ -88,25 +86,22 @@ module Yarr
             expect(command.handle)
               .to eq 'I have cooked your code, the result is at http://fake.com/evaluated'
           end
+        end
 
-          context 'with default lang' do
-            let(:ast) do
-              Yarr::AST.new(evaluate:
-                            { mode: 'ast', code: '`1 + 1`' })
-            end
-            let(:command) do
-              described_class.new(ast, web_service, configuration)
-            end
+        context 'with default lang' do
+          let(:ast) do
+            Yarr::AST.new(evaluate:
+                          { mode: 'ast', code: '`1 + 1`' })
+          end
 
-            it 'sends the right request to web_service' do
-              expect(web_service).to receive(:request)
-                .with(EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)', '2.6.0'))
+          it 'sends the right request to web_service' do
+            expect(web_service).to receive(:request)
+              .with(EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)', '2.6.0'))
 
-              allow(web_service)
-                .to receive(:request)
-                .and_return(evaluator_response_double(stdout: '2'))
-              command.handle
-            end
+            allow(web_service)
+              .to receive(:request)
+              .and_return(evaluator_response_double(stdout: '2'))
+            command.handle
           end
         end
       end

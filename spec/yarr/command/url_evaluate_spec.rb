@@ -25,7 +25,6 @@ module Yarr
         it 'sends the right requests out' do
           expect(fetch_service).to receive(:get).with('fakegist.com')
 
-
           allow(fetch_service).to receive(:get).and_return(fetch_response)
 
           expect(evaluator_service).to receive(:request)
