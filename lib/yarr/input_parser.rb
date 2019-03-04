@@ -91,7 +91,7 @@ module Yarr
       end
     end
 
-    rule(:input) { evaluate | ast_examiner }
+    rule(:input) { evaluate | ast_examiner | url_evaluate }
 
     rule(:evaluate) { override >> str('>>') >> code }
 
@@ -154,6 +154,10 @@ module Yarr
     rule(:suffixed) { normal_name >> match('[?!=]') }
 
     rule(:normal_name) { match('[a-z%_]').repeat(1) }
+
+    rule(:url_evaluate) { (str('url') >> spaces? >> url).as(:url_evaluate) }
+
+    rule(:url) { any.repeat.as(:url) }
 
     root(:input)
 

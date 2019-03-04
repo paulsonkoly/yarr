@@ -7,13 +7,6 @@ module Yarr
     RSpec.describe Evaluate do
       let(:web_service) { instance_double(EvaluatorService) }
 
-      def response_double(output)
-        instance_double(
-          EvaluatorService::Response,
-          output: output,
-          url: 'http://fake.com/evaluated')
-      end
-
       let(:configuration) do
         double 'configuration', {
           evaluator: {
@@ -53,35 +46,19 @@ module Yarr
               .with(EvaluatorService::Request.new('1 + 1'))
 
             allow(web_service)
-              .to receive(:request).and_return(response_double('# => 2'))
+              .to receive(:request)
+              .and_return(evaluator_response_double(stdout: '2'))
 
             command.handle
           end
 
           it 'returns the right result' do
             allow(web_service)
-              .to receive(:request).and_return(response_double('# => 2'))
+              .to receive(:request)
+              .and_return(evaluator_response_double(stdout: '2'))
 
             expect(command.handle)
               .to eq '# => 2 (http://fake.com/evaluated)'
-          end
-        end
-
-        context 'of an expression whose result needs truncating' do
-          let(:ast) {  Yarr::AST.new(evaluate: { code: 'Object.methods' }) }
-          let(:command) { described_class.new(ast, web_service, configuration) }
-
-          it 'truncates to the right size with the url' do
-            allow(web_service).to receive(:request)
-              .and_return(response_double("# => #{Object.methods}"))
-
-            result = command.handle
-
-            expect(result.length)
-              .to be_within(20).of(Message::Truncator::MAX_LENGTH)
-            expect(result.length).to be <= Message::Truncator::MAX_LENGTH
-            expect(result)
-              .to end_with "... check link for more (http://fake.com/evaluated)"
           end
         end
       end
@@ -98,12 +75,16 @@ module Yarr
             expect(web_service).to receive(:request)
               .with(EvaluatorService::Request.new('ast of(%q`\\`1 + 1\\``)', '2.2.2'))
 
-            allow(web_service).to receive(:request).and_return(response_double('2'))
+            allow(web_service)
+              .to receive(:request)
+              .and_return(evaluator_response_double(stdout: '2'))
             command.handle
           end
 
           it 'returns the right result' do
-            allow(web_service).to receive(:request).and_return(response_double('2'))
+            allow(web_service)
+              .to receive(:request)
+              .and_return(evaluator_response_double(stdout: '2'))
             expect(command.handle)
               .to eq 'I have cooked your code, the result is at http://fake.com/evaluated'
           end
@@ -122,7 +103,8 @@ module Yarr
                 .with(EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)', '2.6.0'))
 
               allow(web_service)
-                .to receive(:request).and_return(response_double('2'))
+                .to receive(:request)
+                .and_return(evaluator_response_double(stdout: '2'))
               command.handle
             end
           end

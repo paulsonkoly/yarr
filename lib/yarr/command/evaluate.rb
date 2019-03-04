@@ -58,11 +58,7 @@ module Yarr
         url = response.url
         case mode[:output]
         when :truncate
-          Message::Truncator.truncate(
-            response.output,
-            omission: '... check link for more',
-            suffix: " (#{url})"
-          )
+          response.output
         when :link
           "I have #{mode[:verb]} your code, the result is at #{url}"
         else

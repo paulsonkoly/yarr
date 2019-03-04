@@ -2,6 +2,8 @@ require 'json'
 require 'typhoeus'
 require 'dry-equalizer'
 
+require 'yarr/message/truncator'
+
 module Yarr
   # A wrapper on a web request that uses carc.in
   class EvaluatorService
@@ -60,11 +62,11 @@ module Yarr
 
       # unified stdout / stderr with appropriate rocket / stderr prefix
       def output
-        if stderr.empty?
-          stdout.prepend '# => '
-        else
-          stderr.prepend 'stderr: '
-        end
+        Message::Truncator.truncate(
+          stderr.empty? ? stdout.prepend('# => ') : stderr.prepend('stderr: '),
+          omission: '... check link for more',
+          suffix: " (#{url})"
+        )
       end
 
       private

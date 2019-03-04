@@ -3,6 +3,7 @@ require 'yarr/command/ri'
 require 'yarr/command/list'
 require 'yarr/command/fake'
 require 'yarr/command/evaluate'
+require 'yarr/command/url_evaluate'
 
 module Yarr
   # Handles the specific commands after dispatch
@@ -17,7 +18,8 @@ module Yarr
                 ListMethodName,
                 ListClassName,
                 Fake,
-                Evaluate].freeze
+                Evaluate,
+                URLEvaluate].freeze
 
     # Selects the appropriate handler for the AST
     #
