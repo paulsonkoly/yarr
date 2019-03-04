@@ -15,7 +15,7 @@ group :development do
   gem 'pry'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
-  gem 'reek', '~> 5.2.0'
+  gem 'reek'
 end
 
 group :test do
