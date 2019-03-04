@@ -146,26 +146,9 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/phaul/
 The `lint:all` rake task kicks off a bunch of checks on the project including
 branch coverage.
 
-Debug can be enabled by running the app in development environment. The token
-`@@` is not valid, we can also print why. The print out is somewhat lengthy and
-assumes familiarity with the grammar.
-
-```
-$ env YARR_DEVELOPMENT=1 bin/console
-Yarr Version 0.1.0
-ast @@
-Expected one of [COMMAND SPACES? EXPRESSION SPACES? ',' STUFF, COMMAND SPACES? EXPRESSION] at line 1 char 1.
-|- Failed to match sequence (COMMAND SPACES? EXPRESSION SPACES? ',' STUFF) at line 1 char 5.
-|  `- Expected one of [instance_method:INSTANCE_METHOD, class_method:CLASS_METHOD, METHOD_, KLASS] at line 1 char 5.
-|     |- Failed to match sequence (KLASS '#' METHOD_) at line 1 char 5.
-|     |  `- Failed to match sequence ([A-Z%] [a-zA-Z:%]{0, }) at line 1 char 5.
-|     |     `- Failed to match [A-Z%] at line 1 char 5.
-
-[...]
-```
-
-Also in development mode the bot doesn't daemonize itself, and outputs more
-verbose logs to the console.
+Debug can be enabled by running the app in development environment by setting
+the YARR_DEVELOPMENT=1 environment variable. In development mode the bot doesn't
+daemonize itself, and outputs more verbose logs to the console.
 
 ### Testing
 
