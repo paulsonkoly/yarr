@@ -113,20 +113,20 @@ PLATFORMS
 DEPENDENCIES
   app_configuration
   bundler
-  cinch (~> 2.3.4)
+  cinch (~> 2.3)
   deep-cover
-  dry-equalizer
-  faker (~> 1.9.3)
-  parslet
+  dry-equalizer (~> 0.2)
+  faker (~> 1.9)
+  parslet (~> 1.8)
   pry
   pry-rescue
   pry-stack_explorer
   rake (~> 10.0)
   reek
   rspec
-  sequel
-  sqlite3
-  typhoeus
+  sequel (~> 5.18)
+  sqlite3 (~> 1.4)
+  typhoeus (~> 1.3)
   yarr!
 
 BUNDLED WITH

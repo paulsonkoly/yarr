@@ -3,13 +3,13 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'app_configuration'
-gem 'cinch', '~> 2.3.4'
-gem 'dry-equalizer'
-gem 'faker', '~> 1.9.3'
-gem 'parslet'
-gem 'sequel'
-gem 'sqlite3'
-gem 'typhoeus'
+gem 'cinch', '~> 2.3'
+gem 'dry-equalizer', '~> 0.2'
+gem 'faker', '~> 1.9'
+gem 'parslet', '~> 1.8'
+gem 'sequel', '~> 5.18'
+gem 'sqlite3', '~> 1.4'
+gem 'typhoeus', '~> 1.3'
 
 group :development do
   gem 'pry'
