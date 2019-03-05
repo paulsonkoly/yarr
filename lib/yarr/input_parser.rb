@@ -91,11 +91,11 @@ module Yarr
       end
     end
 
-    rule(:input) { evaluate | ast_examiner | url_evaluate }
+    rule(:input) { evaluate | ri_notation | url_evaluate }
 
-    rule(:evaluate) { override >> str('>>') >> code }
+    rule(:evaluate) { (override >> str('>>') >> code).as(:evaluate) }
 
-    rule(:override) { (mode.maybe >> lang.maybe).as(:evaluate) }
+    rule(:override) { (mode.maybe >> lang.maybe) }
 
     rule(:mode) { (str('asm') | str('ast') | str('tok')).as(:mode) }
 
@@ -103,19 +103,19 @@ module Yarr
 
     rule(:code) { any.repeat.as(:code) }
 
-    rule(:ast_examiner) do
-      command >> spaces? >> expression >> (stuff_separator >> stuff).maybe
+    rule(:ri_notation) do
+      ri_command >> spaces? >> expression >> stuff
     end
 
-    rule(:command) do
-      (str('ri') | str('list') | str('ast') | str('fake')).as(:command)
+    rule(:ri_command) do
+      (str('ri') | str('list') | str('fake')).as(:command)
     end
-
-    rule(:stuff) { any.repeat.as(:stuff) }
-
-    rule(:spaces?) { str(' ').repeat }
 
     rule(:stuff_separator) { match('[, ]') >> spaces? }
+
+    rule(:stuff) { (stuff_separator >> any.repeat.as(:stuff)).maybe }
+
+    rule(:spaces?) { str(' ').repeat }
 
     rule(:expression) do
       instance_method.as(:instance_method) |
@@ -155,9 +155,11 @@ module Yarr
 
     rule(:normal_name) { match('[a-z%_]').repeat(1) }
 
-    rule(:url_evaluate) { (str('url') >> spaces? >> url).as(:url_evaluate) }
+    rule(:url_evaluate) do
+      (str('url') >> spaces? >> url).as(:url_evaluate) >> stuff
+    end
 
-    rule(:url) { any.repeat.as(:url) }
+    rule(:url) { match('[^\s,]').repeat.as(:url) }
 
     root(:input)
 
