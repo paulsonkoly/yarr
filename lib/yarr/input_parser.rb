@@ -131,7 +131,7 @@ module Yarr
     rule(:class_method) { klass >> str('.') >> method_ }
 
     rule(:klass) do
-      (match('[A-Z%]') >> match('[a-zA-Z:%]').repeat).as(:class_name)
+      (match('[A-Z%]') >> match('[a-zA-Z0-9:%]').repeat).as(:class_name)
     end
 
     rule(:method_) { (operator | suffixed | normal_name).as(:method_name) }

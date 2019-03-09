@@ -113,9 +113,14 @@ module Yarr
           )
         end
 
-        it 'uspports stuff, anything$%^&*' do
+        it 'supports stuff, anything$%^&*' do
           ast = parser.parse('ri [],anything$%^&*')
           expect(ast[:stuff]).to eq 'anything$%^&*'
+        end
+
+        it 'parses numbers in class names' do
+          ast = parser.parse('ri SHA256')
+          expect(ast[:class_name]).to eq 'SHA256'
         end
       end
 
