@@ -153,7 +153,7 @@ module Yarr
 
     rule(:suffixed) { normal_name >> match('[?!=]') }
 
-    rule(:normal_name) { match('[a-z%_]').repeat(1) }
+    rule(:normal_name) { match('[a-z%_]') >> match('[a-z0-9%_]').repeat }
 
     rule(:url_evaluate) do
       (str('url') >> spaces? >> url).as(:url_evaluate) >> stuff

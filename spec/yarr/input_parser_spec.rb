@@ -122,6 +122,20 @@ module Yarr
           ast = parser.parse('ri SHA256')
           expect(ast[:class_name]).to eq 'SHA256'
         end
+
+        it 'parses numbers in method names' do
+          ast = parser.parse('ri md5')
+          expect(ast[:method_name]).to eq 'md5'
+        end
+
+        it 'parses single letter method names' do
+          ast = parser.parse('ri x')
+          expect(ast[:method_name]).to eq 'x'
+        end
+
+        it 'raises parse error for single number method name' do
+          expect { parser.parse('ri 5') }.to raise_error InputParser::ParseError
+        end
       end
 
       context 'evaluate type commands' do
