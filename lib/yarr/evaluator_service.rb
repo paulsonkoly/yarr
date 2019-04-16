@@ -62,8 +62,13 @@ module Yarr
 
       # unified stdout / stderr with appropriate rocket / stderr prefix
       def output
+        out = stdout
+        out.prepend('# => ') unless out.empty?
+        err = stderr
+        err.prepend('stderr: ') unless err.empty?
+
         Message::Truncator.truncate(
-          stderr.empty? ? stdout.prepend('# => ') : stderr.prepend('stderr: '),
+          out << ' ' << err,
           omission: '... check link for more',
           suffix: " (#{url})"
         )
