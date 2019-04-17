@@ -62,7 +62,7 @@ module Yarr
 
       # unified stdout / stderr with appropriate rocket / stderr prefix
       def output
-        out = stdout
+        out = stdout.chomp # truncator outputs max one line
         out.prepend('# => ') unless out.empty?
         err = stderr
         err.prepend('stderr: ') unless err.empty?

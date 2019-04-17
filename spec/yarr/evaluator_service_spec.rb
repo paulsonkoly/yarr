@@ -86,8 +86,8 @@ module Yarr
               { 'run' =>
                 {
                   'html_url' => 'http://fake.com/evaluated',
-                  'stdout' => '1',
-                  'stderr' => 'error occured'
+                  'stdout' => "1\n",
+                  'stderr' => "error occured\n"
                 }
               }
             }.to_json
