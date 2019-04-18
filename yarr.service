@@ -1,0 +1,17 @@
+[Unit]
+Description = "Yarr (rubydoc) server"
+
+[Service]
+Type = simple
+# Create a system user
+User = yarr
+Group = yarr
+# Set to your apps location
+WorkingDirectory = /srv/yarr/yarr
+ExecStart=/usr/bin/bash -lc 'bundle exec ruby app/yarr.rb'
+TimeoutSec=30
+RestartSec=15s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

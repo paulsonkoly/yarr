@@ -147,8 +147,7 @@ The `lint:all` rake task kicks off a bunch of checks on the project including
 branch coverage.
 
 Debug can be enabled by running the app in development environment by setting
-the YARR_DEVELOPMENT=1 environment variable. In development mode the bot doesn't
-daemonize itself, and outputs more verbose logs to the console.
+the YARR_DEVELOPMENT=1 environment variable. In development mode the bot outputs more verbose logs to the console.
 
 ### Testing
 
