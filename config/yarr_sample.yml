@@ -3,7 +3,7 @@ password: '<freenode pass here>'
 nick: 'nick'
 channels:
   - '#ruby'
-ruby_version: '2.6'
+ruby_version: '2.6.3'
 evaluator:
   :languages:
     :default: "2.6.0"

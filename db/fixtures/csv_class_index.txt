@@ -10,4 +10,5 @@ C%%CSV/Row.html%%CSV::Row
 C%%CSV/Table.html%%CSV::Table
 C%%CSV/Writer.html%%CSV::Writer
 C%%Object.html%%Object
+M%%CSV/DeleteSuffix.html%%CSV::DeleteSuffix
 M%%CSV/MatchP.html%%CSV::MatchP
