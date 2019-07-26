@@ -34,19 +34,9 @@ namespace :db do
     if ENV['YARR_TEST']
       sh 'ruby db/test_seed.rb'
     else
-      libs = %w[ core abbrev base64 benchmark bigdecimal cgi cmath coverage csv
-                 date dbm debug delegate English digest drb e2mmap erb etc
-                 expect extmk fcntl fiddle fileutils find forwardable gdbm
-                 getoptlong ipaddr irb json logger matrix mkmf monitor mutex_m
-                 nkf objspace observer open3 openssl open-uri optparse ostruct
-                 pathname prettyprint prime profile profiler pstore psych pty
-                 racc rake rdoc readline resolv resolv-replace rexml rinda
-                 ripper rss rubygems scanf sdbm securerandom set shell
-                 shellwords singleton socket stringio strscan sync syslog
-                 tempfile thwait time timeout tmpdir tracer tsort un
-                 unicode_normalize uri weakref webrick win32ole yaml zlib
-                 io/console io/nonblock io/wait net/ftp net/http net/imap
-                 net/pop net/smtp net/telnet]
+      libs = Dir['db/fixtures/**/*class_index.txt'].map do |fn|
+        fn.delete_prefix('db/fixtures/').delete_suffix('_class_index.txt')
+      end
 
       libs.each { |lib| sh "ruby db/seed.rb #{lib}" }
     end
