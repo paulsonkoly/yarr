@@ -20,10 +20,6 @@ evaluator:
       :format: |
         p begin
           %s
-        rescue Exception
-          puts "#{$!} (#{$!.class})"
-          $stdout.flush
-          raise $!
         end
     asm:
       :filter:
