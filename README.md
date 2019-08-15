@@ -49,6 +49,13 @@ etc. The command can be modified to send a disassembly, tokenisation, or parse
 request on the code to carc.in. These modifiers can also be combined with the
 ruby version, action modifier comes first.
 
+ |          |                                        |
+ | :------- | :------------------------------------- |
+ | `asm`    | dissassemble                           |
+ | `tok`    | lexer output                           |
+ | `ast`    | parser output                          |
+ | `bare`   | bare code (no implicit p or begin/end) |
+
 ```
 &>> 1 + 1
 >>> => 2 (http://...)

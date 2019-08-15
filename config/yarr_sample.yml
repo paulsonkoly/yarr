@@ -21,6 +21,11 @@ evaluator:
         p begin
           %s
         end
+    bare:
+      :filter: []
+      :output: :truncate
+      :format: |
+        %s
     asm:
       :filter:
         '\': '\\'

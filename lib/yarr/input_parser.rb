@@ -97,7 +97,9 @@ module Yarr
 
     rule(:override) { (mode.maybe >> lang.maybe) }
 
-    rule(:mode) { (str('asm') | str('ast') | str('tok')).as(:mode) }
+    rule(:mode) do
+      (str('asm') | str('ast') | str('tok') | str('bare')).as(:mode)
+    end
 
     rule(:lang) { match('[0-9]').repeat(2).as(:lang) }
 
