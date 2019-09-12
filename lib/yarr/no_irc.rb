@@ -8,5 +8,8 @@ module Yarr
         obj.singleton_class.define_method(:find) { |*args| }
       end
     end
+
+    def self.nick=(*)
+    end
   end
 end

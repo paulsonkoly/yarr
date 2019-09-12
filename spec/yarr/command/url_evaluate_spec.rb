@@ -19,7 +19,9 @@ module Yarr
         end
 
         let(:command) do
-          described_class.new(ast, fetch_service, evaluator_service)
+          described_class.new(ast: ast,
+                              fetch_service: fetch_service,
+                              evaluator_service: evaluator_service)
         end
 
         it 'sends the right requests out' do

@@ -73,6 +73,14 @@ module Yarr
       end
     end
 
+    context 'with renick command' do
+      it 'is a Rencik' do
+        handler = dispatcher.for_ast(command: 'renick')
+
+        expect(handler).to be_a Command::Renick
+      end
+    end
+
     context 'with no matching real command' do
       it 'defaults to Base' do
         handler = dispatcher.for_ast(command: 'xxx')

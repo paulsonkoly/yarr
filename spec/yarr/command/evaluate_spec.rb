@@ -36,7 +36,11 @@ module Yarr
         }
       end
 
-      let(:command) { described_class.new(ast, web_service, configuration) }
+      let(:command) do
+        described_class.new(ast: ast,
+                            web_service: web_service,
+                            configuration: configuration)
+      end
 
       describe '#handle' do
         context 'of 1 + 1' do

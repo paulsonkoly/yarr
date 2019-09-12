@@ -1,3 +1,5 @@
+require 'yarr/no_irc'
+
 module Yarr
   module Command
     # Generic base class for command handling.
@@ -7,9 +9,15 @@ module Yarr
     class Base
       # Creates a command that handles the parsed input
       # @param ast [Yarr:AST] the parsed input
-      def initialize(ast)
+      # @param irc [Cinch::Bot|Yarr::NoIRC] irc provider
+      def initialize(ast, irc = NoIRC)
         @ast = ast
+        @irc = irc
       end
+
+      # @!attribute [r] irc
+      #   @return [Cinch::Bot|Yarr::NoIRC] irc provider
+      attr_reader :irc
 
       # @!attribute [r] ast
       #   @return [Yarr::AST] the handled ast structure

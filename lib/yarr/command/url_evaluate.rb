@@ -13,13 +13,14 @@ module Yarr
         ast.key? :url_evaluate
       end
 
-      # @param ast [Yarr::AST] user input
       # @param fetch_service [#get] A web service that can get
       # @param evaluator_service [Yarr::EvaluatorService] the evaluator
-      def initialize(ast,
-                     fetch_service = Typhoeus,
-                     evaluator_service = EvaluatorService.new)
-        super(ast)
+      # @see {Yarr::Base} for the rest of the arguments
+      def initialize(ast:,
+                     irc: NoIRC,
+                     fetch_service: Typhoeus,
+                     evaluator_service: EvaluatorService.new)
+        super(ast, irc)
 
         @fetch_service = fetch_service
         @evaluator_service = evaluator_service

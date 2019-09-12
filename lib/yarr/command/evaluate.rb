@@ -18,14 +18,16 @@ module Yarr
       end
 
       # @param web_service [#post] A web client that can post
-      # @param config [Configuration] Configuration loaded
-      def initialize(ast,
-                     web_service = EvaluatorService.new,
-                     config = Yarr.config)
-        super(ast)
+      # @param configuration [Configuration] Configuration loaded
+      # @see {Yarr::Base} for the rest of the arguments
+      def initialize(ast:,
+                     irc: NoIRC,
+                     web_service: EvaluatorService.new,
+                     configuration: Yarr.config)
+        super(ast, irc)
 
         @service = web_service
-        @config = config.evaluator
+        @config = configuration.evaluator
       end
 
       def handle

@@ -27,7 +27,7 @@ module Yarr
     # @return [String] response string
     def reply_to(message)
       ast, stuff = parse_input(message)
-      response = Command.for_ast(ast).handle
+      response = Command.for_ast(ast, @irc).handle
       post_process(response, stuff)
     rescue InputParser::ParseError => error
       error.report(message)

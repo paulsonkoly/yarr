@@ -7,7 +7,7 @@ module Yarr
   #
   # Recognised commands:
   # +ast{lang}>>+, +tok{lang}>>+, +asm{lang}>>+, +bare{lang}>>+, +{lang}>>+,
-  # +asm+, +ri+, +list+, +fake+
+  # +asm+, +ri+, +list+, +fake+, +renick+
   #
   # The +lang+ part is optional and it stands for a 2 digit ruby version
   # specifier, like 21 for 2.1. The rest of the input is context specific, and
@@ -71,6 +71,12 @@ module Yarr
   #   # >>  :class_method=>{:class_name=>"A", :method_name=>"b"}}
   #
   # @note We also accept % character in names to support like queries.
+  #
+  # == No argument commands
+  #
+  # Simple word commands
+  #
+  #  - renick
   class InputParser < Parslet::Parser
     # Error raised when parsing fails
     class ParseError < RuntimeError
@@ -91,7 +97,9 @@ module Yarr
       end
     end
 
-    rule(:input) { evaluate | ri_notation | url_evaluate }
+    rule(:input) { evaluate | ri_notation | url_evaluate | no_arg }
+
+    rule(:no_arg) { str('renick').as(:command) }
 
     rule(:evaluate) { (override >> str('>>') >> code).as(:evaluate) }
 

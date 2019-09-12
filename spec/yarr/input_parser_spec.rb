@@ -177,6 +177,12 @@ module Yarr
           expect(parser.parse('url something, phaul')[:stuff]).to eq 'phaul'
         end
       end
+
+      context 'no argument commands' do
+        it 'parses renick' do
+          expect(parser.parse('renick')[:command]).to eq('renick')
+        end
+      end
     end
   end
 end
