@@ -19,6 +19,7 @@ module Yarr
 
     def_delegator :@hash, :[]
     def_delegator :@hash, :key?
+    def_delegator :@hash, :to_s
 
     # Looks up a key traversing the AST recursively
     # @param key [Symbol] AST key
