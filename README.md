@@ -140,6 +140,10 @@ However it is possible to force it to be part of a class or module name by this 
 >>> File.absolute_path, File.atime, File.basename, File.birthtime, File.blockdev?, File.chardev?, File.chmod, File.chown, File.ctime, File.delete,...
 ```
 
+### renick
+
+If during a reconnect the bot lost its default nick, this command will try to regain it.
+
 ### fake
 
 An easter egg command, using Classname.methodname ri notation. It responds with
