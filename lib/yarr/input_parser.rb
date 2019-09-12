@@ -6,8 +6,8 @@ module Yarr
   # == User input parser
   #
   # Recognised commands:
-  # +ast{lang}>>+, +tok{lang}>>+, +asm{lang}>>+, +{lang}>>+, +asm+, +ri+,
-  # +list+, +fake+
+  # +ast{lang}>>+, +tok{lang}>>+, +asm{lang}>>+, +bare{lang}>>+, +{lang}>>+,
+  # +asm+, +ri+, +list+, +fake+
   #
   # The +lang+ part is optional and it stands for a 2 digit ruby version
   # specifier, like 21 for 2.1. The rest of the input is context specific, and
