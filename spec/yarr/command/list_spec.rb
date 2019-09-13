@@ -8,13 +8,13 @@ module Yarr
 
       describe ListInstanceMethod do
         describe '#handle' do
-          subject { described_class.new(ast).handle }
+          subject { described_class.new(ast: ast).handle }
 
           it { is_expected.to eq 'Array#size, Array#abbrev' }
         end
 
         describe '#target' do
-          subject { described_class.new(ast).send :target }
+          subject { described_class.new(ast: ast).send :target }
 
           it { is_expected.to eq 'instance method % on %' }
         end
@@ -23,7 +23,7 @@ module Yarr
       describe ListClassMethod do
         describe '#handle' do
           let(:ast) { Yarr::AST.new(class_name: 'Arr%', method_name: 'n%') }
-          subject { described_class.new(ast).handle }
+          subject { described_class.new(ast: ast).handle }
 
           it { is_expected.to eq 'Array.new' }
         end
@@ -32,13 +32,13 @@ module Yarr
       describe ListClassName do
         describe '#handle' do
           let(:ast) { Yarr::AST.new(class_name: 'Array') }
-          subject { described_class.new(ast).handle }
+          subject { described_class.new(ast: ast).handle }
 
           it { is_expected.to eq 'Array, Array (abbrev)' }
         end
 
         describe '#target' do
-          subject { described_class.new(ast).send :target }
+          subject { described_class.new(ast: ast).send :target }
 
           it { is_expected.to eq 'class %' }
         end
@@ -48,13 +48,13 @@ module Yarr
 
         describe '#handle' do
           let(:ast) { Yarr::AST.new(method_name: 'si%') }
-          subject { described_class.new(ast).handle }
+          subject { described_class.new(ast: ast).handle }
 
           it { is_expected.to eq 'Array#size' }
         end
 
         describe '#target' do
-          subject { described_class.new(ast).send :target }
+          subject { described_class.new(ast: ast).send :target }
 
           it { is_expected.to eq 'method %' }
         end

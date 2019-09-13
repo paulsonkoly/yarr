@@ -35,7 +35,7 @@ module Yarr
     def self.for_ast(ast, irc = NoIRC)
       COMMANDS
         .find(-> { Base }) { |handler| handler.match?(ast) }
-        .new(ast, irc)
+        .new(ast: ast, irc: irc)
     end
   end
 end

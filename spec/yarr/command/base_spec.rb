@@ -7,7 +7,7 @@ module Yarr
       let(:ast) { 'invalid' }
 
       describe '#handle' do
-        let(:command) { described_class.new(ast) }
+        let(:command) { described_class.new(ast: ast) }
 
         it 'handles everything' do
           expect(command.handle)

@@ -24,7 +24,7 @@ module Yarr
                      irc: NoIRC,
                      web_service: EvaluatorService.new,
                      configuration: Yarr.config)
-        super(ast, irc)
+        super(ast: ast, irc: irc)
 
         @service = web_service
         @config = configuration.evaluator

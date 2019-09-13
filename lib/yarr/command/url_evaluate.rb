@@ -20,7 +20,7 @@ module Yarr
                      irc: NoIRC,
                      fetch_service: Typhoeus,
                      evaluator_service: EvaluatorService.new)
-        super(ast, irc)
+        super(ast: ast, irc: irc)
 
         @fetch_service = fetch_service
         @evaluator_service = evaluator_service

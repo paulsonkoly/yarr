@@ -6,7 +6,7 @@ module Yarr
     RSpec.describe Renick do
       let(:ast) { AST.new(command: 'renick') }
       let(:irc) { spy('irc') }
-      let(:command) { described_class.new(ast, irc) }
+      let(:command) { described_class.new(ast: ast, irc: irc) }
 
       describe '#handle' do
         it 'invokes #nick= on the irc provider' do

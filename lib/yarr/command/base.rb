@@ -10,7 +10,7 @@ module Yarr
       # Creates a command that handles the parsed input
       # @param ast [Yarr:AST] the parsed input
       # @param irc [Cinch::Bot|Yarr::NoIRC] irc provider
-      def initialize(ast, irc = NoIRC)
+      def initialize(ast:, irc: NoIRC)
         @ast = ast
         @irc = irc
       end

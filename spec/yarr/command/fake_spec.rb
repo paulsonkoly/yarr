@@ -10,7 +10,7 @@ module Yarr
                   class_method: { class_name: 'Movies::StarWars',
                                   method_name: 'character' })
         end
-        let(:command) { Fake.new(ast) }
+        let(:command) { described_class.new(ast: ast) }
 
         describe '#handle' do
           it 'gives some star wars characters' do
@@ -25,7 +25,7 @@ module Yarr
                   class_method: { class_name: 'XXX',
                                   method_name: 'blah' })
         end
-        let(:command) { Fake.new(ast) }
+        let(:command) { described_class.new(ast: ast) }
 
         describe '#handle' do
           it 'complains' do
