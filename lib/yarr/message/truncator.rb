@@ -32,9 +32,10 @@ module Yarr
       def truncate(message,
                    omission: OMISSION,
                    suffix: '')
+        multiline = message.lines.count > 1
         message = message.lines.first.strip
         suffixed = message + suffix
-        return suffixed if suffixed.length <= MAX_LENGTH
+        return suffixed if suffixed.length <= MAX_LENGTH && ! multiline
 
         split_point = split_point(message, omission, suffix)
         "#{message[0, split_point]}#{omission}#{suffix}"
@@ -47,6 +48,9 @@ module Yarr
       # @api private
       def split_point(message, omission, suffix)
         split_length = MAX_LENGTH - omission.length - suffix.length
+        # If the message doesn't end with separator but shorter than allowed
+        # length we don't want to chop of the last section of it
+        message = message + SEPARATOR
         message.rindex(SEPARATOR, split_length) || split_length
       end
 

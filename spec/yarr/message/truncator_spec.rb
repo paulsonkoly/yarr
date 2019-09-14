@@ -43,21 +43,23 @@ module Yarr
         end
 
         context 'with multi-line message' do
-          it 'truncates to first line' do
-            expect(truncator.truncate("a\nb")).to eq 'a'
+          it 'starts with the first line' do
+            expect(truncator.truncate("a\nb")).to start_with 'a'
+          end
+
+          it 'drops content from the end of the first line' do
+            expect(truncator.truncate("a\nb")).not_to include "\n"
           end
 
           context 'if there is no natural break point' do
             it 'cuts the message to max length' do
-              expect(subject.truncate('a' * 1000))
+              expect(truncator.truncate('a' * 1000))
                 .to have_attributes(length: Truncator::MAX_LENGTH)
             end
           end
-        end
 
-        context 'with multi-line message' do
-          it 'truncates to first line' do
-            expect(subject.truncate("a\nb")).to eq 'a'
+          it 'ends with ...' do
+            expect(truncator.truncate("a\nb")).to end_with('...')
           end
         end
       end
