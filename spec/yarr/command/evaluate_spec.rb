@@ -8,31 +8,30 @@ module Yarr
       let(:web_service) { instance_double(EvaluatorService) }
 
       let(:configuration) do
-        double 'configuration', {
-          evaluator: {
-            url: 'http://fake.com',
-            languages: {
-              '22' => '2.2.2'
-            },
-            modes: {
-              default: {
-                filter: [],
-                format: "%s",
-                output: :truncate
-              },
-              'ast' => {
-                filter: {'\\' => '\\\\', '`' => '\\\`'},
-                format: {
-                  default: 'new ast of(%%q`%s`)',
-                  '22' => 'ast of(%%q`%s`)'
-                },
-                output: :link,
-                verb: 'cooked',
-                escape: true
-              }
-            }
-          }
-        }
+        double 'configuration',
+               evaluator: {
+                 url: 'http://fake.com',
+                 languages: {
+                   '22' => '2.2.2'
+                 },
+                 modes: {
+                   default: {
+                     filter: [],
+                     format: '%s',
+                     output: :truncate
+                   },
+                   'ast' => {
+                     filter: { '\\' => '\\\\', '`' => '\\\`' },
+                     format: {
+                       default: 'new ast of(%%q`%s`)',
+                       '22' => 'ast of(%%q`%s`)'
+                     },
+                     output: :link,
+                     verb: 'cooked',
+                     escape: true
+                   }
+                 }
+               }
       end
 
       let(:command) do
@@ -43,7 +42,7 @@ module Yarr
 
       describe '#handle' do
         context 'of 1 + 1' do
-          let(:ast) {  Yarr::AST.new(evaluate: { code: '1 + 1' }) }
+          let(:ast) { Yarr::AST.new(evaluate: { code: '1 + 1' }) }
 
           it 'sends the right request to web_service' do
             expect(web_service).to receive(:request)

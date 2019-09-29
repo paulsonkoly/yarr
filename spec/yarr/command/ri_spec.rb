@@ -5,9 +5,12 @@ module Yarr
   module Command
     RSpec.describe RiInstanceMethod do
       describe '#handle' do
-        let(:ast) { Yarr::AST.new(class_name: 'Array',
-                                  method_name: 'size') }
         subject { described_class.new(ast: ast).handle }
+
+        let(:ast) do
+          Yarr::AST.new(class_name: 'Array',
+                        method_name: 'size')
+        end
 
         it { is_expected.to match %r{https://ruby-doc.org/.*Array.*size} }
       end
@@ -15,17 +18,23 @@ module Yarr
 
     describe RiClassMethod do
       describe '#handle' do
-        let(:ast) { Yarr::AST.new(class_name: 'Array',
-                                  method_name: 'new')  }
         subject { described_class.new(ast: ast).handle }
+
+        let(:ast) do
+          Yarr::AST.new(class_name: 'Array',
+                        method_name: 'new')
+        end
 
         it { is_expected.to match %r{https://ruby-doc.org/.*Array.*new} }
       end
 
       describe '#target' do
-        let(:ast) { Yarr::AST.new(class_name: 'Array',
-                                  method_name: 'new') }
         subject { described_class.new(ast: ast).send :target }
+
+        let(:ast) do
+          Yarr::AST.new(class_name: 'Array',
+                        method_name: 'new')
+        end
 
         it { is_expected.to eq 'class Array class method new' }
       end
@@ -33,22 +42,27 @@ module Yarr
 
     describe RiClassName do
       describe '#handle' do
-        let(:ast) { Yarr::AST.new(class_name: 'Abbrev') }
         subject { described_class.new(ast: ast).handle }
+
+        let(:ast) { Yarr::AST.new(class_name: 'Abbrev') }
 
         it { is_expected.to match %r{https://ruby-doc.org/.*abbrev} }
 
         context 'when there is a hit from core' do
-          let(:ast) { Yarr::AST.new(class_name: 'Array') }
           subject { described_class.new(ast: ast).handle }
+
+          let(:ast) { Yarr::AST.new(class_name: 'Array') }
 
           it { is_expected.to match %r{https://ruby-doc.org/.*Array} }
         end
 
         context 'with an explicit origin' do
-          let(:ast) { Yarr::AST.new(class_name: 'Array',
-                                    origin_name: 'abbrev') }
           subject { described_class.new(ast: ast).handle }
+
+          let(:ast) do
+            Yarr::AST.new(class_name: 'Array',
+                          origin_name: 'abbrev')
+          end
 
           let(:long_url) { %r{https://ruby-doc.org/.*abbrev.*/Array.html} }
 
@@ -56,9 +70,9 @@ module Yarr
         end
 
         context 'when there are multiple choices but origin name is the lower case class name' do
-          let(:ast) { Yarr::AST.new(class_name: 'BigDecimal' ) }
-
           subject { described_class.new(ast: ast).handle }
+
+          let(:ast) { Yarr::AST.new(class_name: 'BigDecimal') }
 
           let(:long_url) { %r{https://ruby-doc.org/.*/BigDecimal.html} }
 
@@ -67,8 +81,9 @@ module Yarr
       end
 
       describe '#target' do
-        let(:ast) { Yarr::AST.new(class_name: 'Array') }
         subject { described_class.new(ast: ast).send :target }
+
+        let(:ast) { Yarr::AST.new(class_name: 'Array') }
 
         it { is_expected.to eq 'class Array' }
       end
@@ -76,22 +91,25 @@ module Yarr
 
     describe RiMethodName do
       describe '#handle' do
-        let(:ast) { Yarr::AST.new(method_name: 'size') }
         subject { described_class.new(ast: ast).handle }
+
+        let(:ast) { Yarr::AST.new(method_name: 'size') }
 
         it { is_expected.to match %r{https://ruby-doc.org/.*Array.*size} }
       end
 
       describe '#target' do
-        let(:ast) { Yarr::AST.new(method_name: 'new') }
         subject { described_class.new(ast: ast).send :target }
+
+        let(:ast) { Yarr::AST.new(method_name: 'new') }
 
         it { is_expected.to eq 'method new' }
       end
 
       describe '#advice' do
-        let(:ast) { Yarr::AST.new(method_name: 'new')  }
         subject { described_class.new(ast: ast).send :advice }
+
+        let(:ast) { Yarr::AST.new(method_name: 'new') }
 
         let(:advice) { 'Use &list new if you would like to see a list' }
 

@@ -22,8 +22,9 @@ module Yarr
 
       describe ListClassMethod do
         describe '#handle' do
-          let(:ast) { Yarr::AST.new(class_name: 'Arr%', method_name: 'n%') }
           subject { described_class.new(ast: ast).handle }
+
+          let(:ast) { Yarr::AST.new(class_name: 'Arr%', method_name: 'n%') }
 
           it { is_expected.to eq 'Array.new' }
         end
@@ -31,8 +32,9 @@ module Yarr
 
       describe ListClassName do
         describe '#handle' do
-          let(:ast) { Yarr::AST.new(class_name: 'Array') }
           subject { described_class.new(ast: ast).handle }
+
+          let(:ast) { Yarr::AST.new(class_name: 'Array') }
 
           it { is_expected.to eq 'Array, Array (abbrev)' }
         end
@@ -45,10 +47,10 @@ module Yarr
       end
 
       describe ListMethodName do
-
         describe '#handle' do
-          let(:ast) { Yarr::AST.new(method_name: 'si%') }
           subject { described_class.new(ast: ast).handle }
+
+          let(:ast) { Yarr::AST.new(method_name: 'si%') }
 
           it { is_expected.to eq 'Array#size' }
         end

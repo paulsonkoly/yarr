@@ -50,7 +50,7 @@ module Yarr
         split_length = MAX_LENGTH - omission.length - suffix.length
         # If the message doesn't end with separator but shorter than allowed
         # length we don't want to chop of the last section of it
-        message = message + SEPARATOR
+        message += SEPARATOR
         message.rindex(SEPARATOR, split_length) || split_length
       end
 

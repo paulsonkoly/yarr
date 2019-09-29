@@ -178,8 +178,8 @@ module Yarr
     # @return [AST] abstract syntax tree of user input
     def parse(string, *args)
       AST.new(super)
-    rescue Parslet::ParseFailed => error
-      raise ParseError.new(error)
+    rescue Parslet::ParseFailed => e
+      raise ParseError, e
     end
   end
 end

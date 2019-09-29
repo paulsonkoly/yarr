@@ -7,7 +7,8 @@ module Yarr
     let(:no_irc) { subject }
 
     describe '#user_list' do
-      let(:user_list) {  no_irc.user_list }
+      let(:user_list) { no_irc.user_list }
+
       describe '#find' do
         it 'returns nil' do
           expect(user_list.find(Faker::Movies::StarWars.character)).to be_nil

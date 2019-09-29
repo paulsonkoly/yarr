@@ -140,7 +140,7 @@ module Yarr
 
       context 'evaluate type commands' do
         it 'parses >>1 + 1' do
-          expect(parser.parse('>>1 + 1')[:evaluate]).to eq({ code: '1 + 1' })
+          expect(parser.parse('>>1 + 1')[:evaluate]).to eq(code: '1 + 1')
         end
 
         it 'supports ast' do
@@ -170,7 +170,7 @@ module Yarr
       context 'url type commands' do
         it 'parses url' do
           expect(parser.parse('url something')[:url_evaluate])
-            .to eq({url: 'something'})
+            .to eq(url: 'something')
         end
 
         it 'supports stuff' do

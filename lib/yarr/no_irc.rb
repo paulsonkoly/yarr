@@ -9,7 +9,6 @@ module Yarr
       end
     end
 
-    def self.nick=(*)
-    end
+    def self.nick=(*); end
   end
 end

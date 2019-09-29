@@ -8,7 +8,7 @@ methods_path = File.join(basedir, "#{origin_file}_method_index.txt")
 
 # :reek:UtilityFunction
 def report_io(fn, io)
-  STDERR.puts "error occured at [#{fn}:#{io.lineno}] "
+  warn "error occured at [#{fn}:#{io.lineno}] "
 end
 
 DB.transaction do
@@ -39,12 +39,12 @@ DB.transaction do
                 end
       case name
       when /(\S*) *\((.*)\)/
-        name = $1
-        klass_name = $2
+        name = Regexp.last_match(1)
+        klass_name = Regexp.last_match(2)
 
         klass_id = DB[:klasses]
-          .where(name: klass_name, origin_id: origin_id)
-          .get(:id)
+                   .where(name: klass_name, origin_id: origin_id)
+                   .get(:id)
 
         begin
           DB[:methods].insert(name: name,

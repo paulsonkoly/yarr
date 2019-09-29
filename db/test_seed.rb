@@ -73,5 +73,4 @@ DB.transaction do
                       url: 'JSON/BigDecimal.html',
                       flavour: 'class',
                       origin_id: origin_id)
-
 end
