@@ -12,7 +12,6 @@ module Yarr
           evaluator: {
             url: 'http://fake.com',
             languages: {
-              default: '2.6.0',
               '22' => '2.2.2'
             },
             modes: {
@@ -100,7 +99,7 @@ module Yarr
 
           it 'sends the right request to web_service' do
             expect(web_service).to receive(:request)
-              .with(EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)', '2.6.0'))
+              .with(EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)'))
 
             allow(web_service)
               .to receive(:request)

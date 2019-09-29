@@ -8,7 +8,6 @@ module Yarr
   # A wrapper on a web request that uses carc.in
   class EvaluatorService
     URL = 'https://carc.in/run_requests'.freeze
-    CURRENT_RUBY='2.6.0'.freeze
 
     # @param web_service [Object] web service adaptor
     def initialize(web_service = Typhoeus)
@@ -33,7 +32,10 @@ module Yarr
       attr_reader :code, :lang
       include Dry::Equalizer(:code, :lang)
 
-      def initialize(code, lang = CURRENT_RUBY)
+      # Creates a new Request to be sent for evaluation
+      # @param code [String|nil] code to be evaluated
+      # @param lang [String|nil] Ruby version
+      def initialize(code, lang = nil)
         @code = code
         @lang = lang
       end

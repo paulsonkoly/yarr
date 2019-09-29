@@ -10,7 +10,7 @@ module Yarr
     class Evaluate < Base
       extend Concern::ASTDigger
       digger(:mode) { |mode| @config[:modes][mode || :default] }
-      digger(:lang) { |lang| lang || :default }
+      digger(:lang)
       digger(:code) { |code| preprocess(code.dup) }
 
       def self.match?(ast)
@@ -31,8 +31,8 @@ module Yarr
       end
 
       def handle
-        response = @service.request(
-          EvaluatorService::Request.new(code, service_lang))
+        response =
+          @service.request(EvaluatorService::Request.new(code, service_lang))
         respond_with(response)
       end
 
@@ -51,7 +51,7 @@ module Yarr
       def template
         format = mode[:format]
         case format
-        when Hash then format[lang]
+        when Hash then format[lang || :default]
         else format
         end
       end
