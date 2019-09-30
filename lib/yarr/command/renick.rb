@@ -1,7 +1,6 @@
 module Yarr
   module Command
-    # evaluates the content fetched from a url on an online evaluator service
-    # like carc.in
+    # Resets the bot's nick
     class Renick < Base
       def self.match?(ast)
         ast[:command] == 'renick'
