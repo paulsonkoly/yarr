@@ -18,6 +18,8 @@ evaluator:
       :filter: []
       :output: :truncate
       :format: |
+        # encoding: utf-8
+
         p begin
           %s
         end
@@ -33,6 +35,8 @@ evaluator:
       :output: :link
       :verb: 'disassembled'
       :format: |
+        # encoding: utf-8
+
         begin
           puts RubyVM::InstructionSequence.compile(%%q`%s`).disasm
         rescue Exception
@@ -48,6 +52,8 @@ evaluator:
       :verb: 'parsed'
       :format:
         :default: |
+          # encoding: utf-8
+
           begin
             pp RubyVM::AbstractSyntaxTree.parse(%%q`%s`)
           rescue Exception
@@ -56,6 +62,8 @@ evaluator:
             raise $!
           end
         "20": &old_ast |
+          # encoding: utf-8
+
           require 'ripper'
           require 'pp'
           begin
@@ -77,6 +85,8 @@ evaluator:
       :output: :link
       :verb: 'tokenized'
       :format: |
+        # encoding: utf-8
+
         require 'ripper'
         require 'pp'
         begin
