@@ -15,7 +15,7 @@ module Yarr
     #   Accesses an immediate AST sub node by key
     # @!method key?(sym)
     #   @param sym [Symbol] ast key
-    #   Is the given symbol atthe top level of the AST
+    #   Is the given symbol at the top level of the AST
 
     def_delegator :@hash, :[]
     def_delegator :@hash, :key?
