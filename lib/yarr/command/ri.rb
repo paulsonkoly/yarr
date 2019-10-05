@@ -16,6 +16,7 @@ module Yarr
 
       define_single_item_responder { |result| result.first.url }
 
+      # Runs the command
       def handle
         response(query)
       end

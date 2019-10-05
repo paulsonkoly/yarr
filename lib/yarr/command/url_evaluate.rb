@@ -9,6 +9,8 @@ module Yarr
       extend Concern::ASTDigger
       digger :url
 
+      # @param ast [AST] parsed ast
+      # @return [True|False] can this command handle the AST?
       def self.match?(ast)
         ast.key? :url_evaluate
       end
@@ -26,6 +28,7 @@ module Yarr
         @evaluator_service = evaluator_service
       end
 
+      # Runs the command
       def handle
         user_content = @fetch_service.get(url)
         response_code = user_content.response_code

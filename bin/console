@@ -7,7 +7,7 @@ require 'yarr'
 bot = Yarr::Bot.new
 puts "Yarr Version #{Yarr::VERSION}"
 
-while line = Readline.readline('> ', true)
+while (line = Readline.readline('> ', true))
   puts bot.reply_to(line)
   STDOUT.flush
 end

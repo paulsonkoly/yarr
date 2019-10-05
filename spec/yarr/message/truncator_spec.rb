@@ -51,7 +51,7 @@ module Yarr
             expect(truncator.truncate("a\nb")).not_to include "\n"
           end
 
-          context 'if there is no natural break point' do
+          context 'when there is no natural break point' do
             it 'cuts the message to max length' do
               expect(truncator.truncate('a' * 1000))
                 .to have_attributes(length: Truncator::MAX_LENGTH)

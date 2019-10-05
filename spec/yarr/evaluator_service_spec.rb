@@ -108,7 +108,7 @@ module Yarr
         end
       end
 
-      context 'of an expression whose result needs truncating' do
+      context 'with an expression whose result needs truncating' do
         let(:typhoeus_response) do
           instance_double(
             Typhoeus::Response,

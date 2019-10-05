@@ -8,8 +8,8 @@ RSpec.describe Yarr::Bot do
     expect(bot.reply_to('ri size')).to match %r{https://ruby-doc.org/.*/Array.html#method-i-size}
   end
 
-  it 'does ri Array.size' do
-    expect(bot.reply_to('ri size')).to match %r{https://ruby-doc.org/.*/Array.html#method-i-size}
+  it 'does ri Array#size' do
+    expect(bot.reply_to('ri Array#size')).to match %r{https://ruby-doc.org/.*/Array.html#method-i-size}
   end
 
   it 'does ri Array' do

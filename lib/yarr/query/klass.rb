@@ -38,6 +38,12 @@ module Yarr
         name + (core? ? '' : " (#{origin.name})")
       end
 
+      # Is the class name matching the origin name
+      #
+      # If the class name is matching the origin name then ambiguous ri class
+      # queries should prefer this documentation, as probably this is the main
+      # documentation.
+      # @return [True|False] is the class name matcing the origin name?
       def same_origin?
         origin.name == name.downcase
       end

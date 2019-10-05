@@ -14,7 +14,7 @@ module Yarr
         expect { parser.parse('xxx') }.to raise_error InputParser::ParseError
       end
 
-      context 'ri type commands' do
+      context 'with ri type commands' do
         it 'parses ri' do
           expect(parser.parse('ri []')[:command]).to eq 'ri'
         end
@@ -69,7 +69,7 @@ module Yarr
           expect(parser.parse('ri method')[:method_name]).to eq 'method'
         end
 
-        it 'allows for % meta chars in a class name' do
+        it 'allows for % meta chars in a method name' do
           expect(parser.parse('ri me%hod')[:method_name]).to eq 'me%hod'
         end
 
@@ -138,7 +138,7 @@ module Yarr
         end
       end
 
-      context 'evaluate type commands' do
+      context 'with evaluate type commands' do
         it 'parses >>1 + 1' do
           expect(parser.parse('>>1 + 1')[:evaluate]).to eq(code: '1 + 1')
         end
@@ -167,7 +167,7 @@ module Yarr
         end
       end
 
-      context 'url type commands' do
+      context 'with url type commands' do
         it 'parses url' do
           expect(parser.parse('url something')[:url_evaluate])
             .to eq(url: 'something')
@@ -178,7 +178,7 @@ module Yarr
         end
       end
 
-      context 'no argument commands' do
+      context 'with no argument commands' do
         it 'parses renick' do
           expect(parser.parse('renick')[:command]).to eq('renick')
         end

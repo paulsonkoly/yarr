@@ -41,7 +41,7 @@ module Yarr
       end
 
       describe '#handle' do
-        context 'of 1 + 1' do
+        context 'with 1 + 1' do
           let(:ast) { Yarr::AST.new(evaluate: { code: '1 + 1' }) }
 
           it 'sends the right request to web_service' do

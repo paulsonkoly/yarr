@@ -9,6 +9,7 @@ module Yarr
       end
     end
 
+    # Accepts setting the nick, but being a null-object does nothing
     def self.nick=(*); end
   end
 end

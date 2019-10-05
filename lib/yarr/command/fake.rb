@@ -10,10 +10,13 @@ module Yarr
       digger :class_name
       digger :method_name
 
+      # @param ast [AST] parsed ast
+      # @return [True|False] can this command handle the AST?
       def self.match?(ast)
         ast[:command] == 'fake' && ast.key?(:class_method)
       end
 
+      # Runs the command
       def handle
         Faker.const_get(class_name).send(method_name).to_s
       rescue NameError

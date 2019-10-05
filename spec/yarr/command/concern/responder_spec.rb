@@ -87,7 +87,9 @@ module Yarr
             context 'with multiple results' do
               it 'includes the advice in the result' do
                 expect(responder.send(:response, %w[a b c]))
-                  .to eq 'I found 3 entries matching test. Go do something else.'
+                  .to eq %(
+                    I found 3 entries matching test. Go do something else.
+                ).strip
               end
             end
           end

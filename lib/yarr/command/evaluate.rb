@@ -13,6 +13,8 @@ module Yarr
       digger(:lang)
       digger(:code) { |code| preprocess(code.dup) }
 
+      # @param ast [AST] parsed ast
+      # @return [True|False] can this command handle the AST?
       def self.match?(ast)
         ast.key? :evaluate
       end
@@ -30,6 +32,7 @@ module Yarr
         @config = configuration.evaluator
       end
 
+      # Runs the command
       def handle
         response =
           @service.request(EvaluatorService::Request.new(code, service_lang))
