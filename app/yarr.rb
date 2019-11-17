@@ -2,7 +2,7 @@ require 'cinch'
 require 'yarr'
 
 bot = Cinch::Bot.new do
-  yarr = Yarr::Bot.new(self)
+  yarr = Yarr::Bot.new(irc: self)
   yconfig = Yarr.config
 
   configure do |c|
