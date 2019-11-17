@@ -4,15 +4,14 @@ require 'yarr/evaluator_service'
 
 module Yarr
   RSpec.describe EvaluatorService do
-    let(:adaptor) { class_double(Typhoeus, 'adaptor') }
+    let(:adaptor) { class_double('Adaptor') }
 
-    let(:evaluator_service) { described_class.new(adaptor) }
+    let(:evaluator_service) { described_class.new(fetch_service: adaptor) }
 
     describe '#request' do
       let(:request) { EvaluatorService::Request.new('1 + 1') }
       let(:typhoeus_response) do
-        instance_double(
-          Typhoeus::Response,
+          double('response',
           response_body: {
             'run_request' =>
             { 'run' =>
@@ -50,8 +49,7 @@ module Yarr
 
       context 'with stderr content' do
         let(:typhoeus_response) do
-          instance_double(
-            Typhoeus::Response,
+          double('response',
             response_body: {
               'run_request' =>
               { 'run' =>
@@ -80,8 +78,7 @@ module Yarr
 
       context 'with both stdout and stderr content' do
         let(:typhoeus_response) do
-          instance_double(
-            Typhoeus::Response,
+          double('response',
             response_body: {
               'run_request' =>
               { 'run' =>
@@ -110,8 +107,7 @@ module Yarr
 
       context 'with an expression whose result needs truncating' do
         let(:typhoeus_response) do
-          instance_double(
-            Typhoeus::Response,
+          double('response',
             response_body: {
               'run_request' =>
               { 'run' =>

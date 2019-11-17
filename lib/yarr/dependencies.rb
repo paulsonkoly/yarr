@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
+require 'typhoeus'
 require 'dry-container'
 require 'dry-auto_inject'
-require 'yarr/evaluator_service'
 require 'yarr/no_irc'
 require 'yarr/input_parser'
 require 'yarr/configuration'
@@ -13,7 +13,12 @@ module Yarr
     extend Dry::Container::Mixin
 
     namespace :services do
-      register('evaluator_service') { EvaluatorService.new }
+      register('evaluator_service') do
+        # this being a dependency and a user of dependencies requires avoiding
+        # circularity
+        require 'yarr/evaluator_service'
+        EvaluatorService.new
+      end
       register('evaluator_service.request') { EvaluatorService::Request }
       register('fetch_service') { Typhoeus }
     end

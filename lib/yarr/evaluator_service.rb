@@ -1,6 +1,6 @@
 require 'json'
-require 'typhoeus'
 require 'dry-equalizer'
+require 'yarr/dependencies'
 
 require 'yarr/message/truncator'
 
@@ -9,16 +9,13 @@ module Yarr
   class EvaluatorService
     URL = 'https://carc.in/run_requests'.freeze
 
-    # @param web_service [Object] web service adaptor
-    def initialize(web_service = Typhoeus)
-      @web_service = web_service
-    end
+    include Import['services.fetch_service']
 
     # Sends a request to the web service and returns the response
     # @param request [Request] the code to evaluate
     # @return [Response] web service response object
     def request(request)
-      response_body = @web_service.post(
+      response_body = fetch_service.post(
         URL,
         body: request.to_wire,
         headers: headers
