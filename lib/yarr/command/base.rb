@@ -1,4 +1,5 @@
 require 'yarr/no_irc'
+require 'yarr/dependencies'
 
 module Yarr
   module Command
@@ -7,17 +8,15 @@ module Yarr
     # A command receives a parsed {AST} from the bot and responds with some
     # string to it.
     class Base
+      include Import['irc']
+
       # Creates a command that handles the parsed input
       # @param ast [Yarr:AST] the parsed input
-      # @param irc [Cinch::Bot|Yarr::NoIRC] irc provider
-      def initialize(ast:, irc: NoIRC)
-        @ast = ast
-        @irc = irc
-      end
+      def initialize(ast:, **args)
+        super(**args)
 
-      # @!attribute [r] irc
-      #   @return [Cinch::Bot|Yarr::NoIRC] irc provider
-      attr_reader :irc
+        @ast = ast
+      end
 
       # @!attribute [r] ast
       #   @return [Yarr::AST] the handled ast structure
