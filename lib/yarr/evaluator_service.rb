@@ -10,7 +10,18 @@ module Yarr
   class EvaluatorService
     URL = 'https://carc.in/run_requests'.freeze
 
+    # @!method call(request:)
+    #   @param request [EvaluatorService::Request] the code to evaluate
+    #   @return [Success|Failure of EvaluatorService::Response] web service
+    #           response
+
+    # docs ^
     include Dry::Transaction
+
+    # @!method initialize(fetch_service: Typhoeus)
+    #   @param fetch_service [Object] web service adaptor
+
+    # docs ^
     include Import['services.fetch_service']
 
     step :post_request
