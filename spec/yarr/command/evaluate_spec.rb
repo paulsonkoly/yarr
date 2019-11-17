@@ -5,7 +5,7 @@ require 'json'
 module Yarr
   module Command
     RSpec.describe Evaluate do
-      let(:web_service) { instance_double(EvaluatorService) }
+      let(:evaluator_service) { instance_double(EvaluatorService) }
 
       let(:configuration) do
         double 'configuration',
@@ -36,7 +36,7 @@ module Yarr
 
       let(:command) do
         described_class.new(ast: ast,
-                            web_service: web_service,
+                            evaluator_service: evaluator_service,
                             configuration: configuration)
       end
 
@@ -44,11 +44,11 @@ module Yarr
         context 'with 1 + 1' do
           let(:ast) { Yarr::AST.new(evaluate: { code: '1 + 1' }) }
 
-          it 'sends the right request to web_service' do
-            expect(web_service).to receive(:request)
+          it 'sends the right request to evaluator_service' do
+            expect(evaluator_service).to receive(:request)
               .with(EvaluatorService::Request.new('1 + 1'))
 
-            allow(web_service)
+            allow(evaluator_service)
               .to receive(:request)
               .and_return(evaluator_response_double(stdout: '2'))
 
@@ -56,7 +56,7 @@ module Yarr
           end
 
           it 'returns the right result' do
-            allow(web_service)
+            allow(evaluator_service)
               .to receive(:request)
               .and_return(evaluator_response_double(stdout: '2'))
 
@@ -71,18 +71,18 @@ module Yarr
                           { mode: 'ast', lang: '22', code: '`1 + 1`' })
           end
 
-          it 'sends the right request to web_service' do
-            expect(web_service).to receive(:request)
+          it 'sends the right request to evaluator_service' do
+            expect(evaluator_service).to receive(:request)
               .with(EvaluatorService::Request.new('ast of(%q`\\`1 + 1\\``)', '2.2.2'))
 
-            allow(web_service)
+            allow(evaluator_service)
               .to receive(:request)
               .and_return(evaluator_response_double(stdout: '2'))
             command.handle
           end
 
           it 'returns the right result' do
-            allow(web_service)
+            allow(evaluator_service)
               .to receive(:request)
               .and_return(evaluator_response_double(stdout: '2'))
             expect(command.handle)
@@ -96,11 +96,11 @@ module Yarr
                           { mode: 'ast', code: '`1 + 1`' })
           end
 
-          it 'sends the right request to web_service' do
-            expect(web_service).to receive(:request)
+          it 'sends the right request to evaluator_service' do
+            expect(evaluator_service).to receive(:request)
               .with(EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)'))
 
-            allow(web_service)
+            allow(evaluator_service)
               .to receive(:request)
               .and_return(evaluator_response_double(stdout: '2'))
             command.handle

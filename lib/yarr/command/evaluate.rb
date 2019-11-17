@@ -1,7 +1,6 @@
-require 'yarr/evaluator_service'
-require 'yarr/configuration'
 require 'yarr/command/concern/ast_digger'
 require 'yarr/message/truncator'
+require 'yarr/dependencies'
 
 module Yarr
   module Command
@@ -9,7 +8,7 @@ module Yarr
     # carc.in
     class Evaluate < Base
       extend Concern::ASTDigger
-      digger(:mode) { |mode| @config[:modes][mode || :default] }
+      digger(:mode) { |mode| config[:modes][mode || :default] }
       digger(:lang)
       digger(:code) { |code| preprocess(code.dup) }
 
@@ -19,23 +18,30 @@ module Yarr
         ast.key? :evaluate
       end
 
-      # @param web_service [#post] A web client that can post
-      # @param configuration [Configuration] Configuration loaded
-      # @see {Yarr::Base} for the rest of the arguments
-      def initialize(ast:,
-                     irc: NoIRC,
-                     web_service: EvaluatorService.new,
-                     configuration: Yarr.config)
-        super(ast: ast, irc: irc)
+      include Import[
+        'services.evaluator_service',
+        'services.evaluator_service.request',
+        'irc',
+        'configuration'
+      ]
 
-        @service = web_service
-        @config = configuration.evaluator
-      end
+      # # @param web_service [#post] A web client that can post
+      # # @param configuration [Configuration] Configuration loaded
+      # # @see {Yarr::Base} for the rest of the arguments
+      # def initialize(ast:,
+      #                irc: NoIRC,
+      #                web_service: EvaluatorService.new,
+      #                configuration: Yarr.config)
+      #   super(ast: ast, irc: irc)
+
+      #   @service = web_service
+      #   @config = configuration.evaluator
+      # end
 
       # Runs the command
       def handle
-        response =
-          @service.request(EvaluatorService::Request.new(code, service_lang))
+        request_ = request.new(code, service_lang)
+        response = evaluator_service.request(request_)
         respond_with(response)
       end
 
@@ -71,8 +77,12 @@ module Yarr
         end
       end
 
+      def config
+        configuration.evaluator
+      end
+
       def service_lang
-        @config[:languages][lang]
+        config[:languages][lang]
       end
     end
   end
