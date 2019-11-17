@@ -32,7 +32,7 @@ module Yarr
         end
 
         evaluator_request = request.new(user_content.body)
-        evaluator_service.request(evaluator_request).output
+        evaluator_service.call(request: evaluator_request).value!.output
       end
     end
   end

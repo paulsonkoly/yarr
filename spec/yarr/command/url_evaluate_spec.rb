@@ -29,10 +29,10 @@ module Yarr
 
           allow(fetch_service).to receive(:get).and_return(fetch_response)
 
-          expect(evaluator_service).to receive(:request)
-            .with(EvaluatorService::Request.new('1 + 1'))
+          expect(evaluator_service).to receive(:call)
+            .with(request: EvaluatorService::Request.new('1 + 1'))
 
-          allow(evaluator_service).to receive(:request)
+          allow(evaluator_service).to receive(:call)
             .and_return(evaluator_response_double(stdout: '2'))
 
           command.handle
@@ -41,7 +41,7 @@ module Yarr
         it 'returns the right result' do
           allow(fetch_service).to receive(:get).and_return(fetch_response)
 
-          allow(evaluator_service).to receive(:request)
+          allow(evaluator_service).to receive(:call)
             .and_return(evaluator_response_double(stdout: '2'))
 
           expect(command.handle).to eq '# => 2 (http://fake.com/evaluated)'

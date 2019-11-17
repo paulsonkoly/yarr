@@ -1,5 +1,6 @@
 require 'json'
 require 'dry-equalizer'
+require 'dry-transaction'
 require 'yarr/dependencies'
 
 require 'yarr/message/truncator'
@@ -9,20 +10,12 @@ module Yarr
   class EvaluatorService
     URL = 'https://carc.in/run_requests'.freeze
 
+    include Dry::Transaction
     include Import['services.fetch_service']
 
-    # Sends a request to the web service and returns the response
-    # @param request [Request] the code to evaluate
-    # @return [Response] web service response object
-    def request(request)
-      response_body = fetch_service.post(
-        URL,
-        body: request.to_wire,
-        headers: headers
-      ).response_body
-
-      Response.new(response_body)
-    end
+    step :post_request
+    step :get_body
+    step :create_response
 
     # Request that's sent to web service.
     class Request
@@ -89,6 +82,19 @@ module Yarr
     end
 
     private
+
+    def post_request(request:)
+      Success(fetch_service.post(URL, body: request.to_wire, headers: headers))
+    end
+
+    def get_body(response)
+      # TODO: what if not 200?
+      Success(response.response_body)
+    end
+
+    def create_response(response_body)
+      Success(Response.new(response_body))
+    end
 
     def headers
       { 'Content-Type': 'application/json; charset=utf-8' }

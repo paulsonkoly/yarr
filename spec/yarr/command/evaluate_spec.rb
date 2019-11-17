@@ -45,11 +45,11 @@ module Yarr
           let(:ast) { Yarr::AST.new(evaluate: { code: '1 + 1' }) }
 
           it 'sends the right request to evaluator_service' do
-            expect(evaluator_service).to receive(:request)
-              .with(EvaluatorService::Request.new('1 + 1'))
+            expect(evaluator_service).to receive(:call)
+              .with(request: EvaluatorService::Request.new('1 + 1'))
 
             allow(evaluator_service)
-              .to receive(:request)
+              .to receive(:call)
               .and_return(evaluator_response_double(stdout: '2'))
 
             command.handle
@@ -57,7 +57,7 @@ module Yarr
 
           it 'returns the right result' do
             allow(evaluator_service)
-              .to receive(:request)
+              .to receive(:call)
               .and_return(evaluator_response_double(stdout: '2'))
 
             expect(command.handle)
@@ -72,18 +72,18 @@ module Yarr
           end
 
           it 'sends the right request to evaluator_service' do
-            expect(evaluator_service).to receive(:request)
-              .with(EvaluatorService::Request.new('ast of(%q`\\`1 + 1\\``)', '2.2.2'))
+            expect(evaluator_service).to receive(:call)
+              .with(request: EvaluatorService::Request.new('ast of(%q`\\`1 + 1\\``)', '2.2.2'))
 
             allow(evaluator_service)
-              .to receive(:request)
+              .to receive(:call)
               .and_return(evaluator_response_double(stdout: '2'))
             command.handle
           end
 
           it 'returns the right result' do
             allow(evaluator_service)
-              .to receive(:request)
+              .to receive(:call)
               .and_return(evaluator_response_double(stdout: '2'))
             expect(command.handle)
               .to eq 'I have cooked your code, the result is at http://fake.com/evaluated'
@@ -97,11 +97,11 @@ module Yarr
           end
 
           it 'sends the right request to evaluator_service' do
-            expect(evaluator_service).to receive(:request)
-              .with(EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)'))
+            expect(evaluator_service).to receive(:call)
+              .with(request: EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)'))
 
             allow(evaluator_service)
-              .to receive(:request)
+              .to receive(:call)
               .and_return(evaluator_response_double(stdout: '2'))
             command.handle
           end

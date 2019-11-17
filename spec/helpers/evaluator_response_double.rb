@@ -1,4 +1,7 @@
 require 'yarr/evaluator_service'
+require 'dry-monads'
+
+include Dry::Monads[:result]
 
 # partial double for the evaluator service responses
 def evaluator_response_double(stderr: '', stdout:)
@@ -7,5 +10,5 @@ def evaluator_response_double(stderr: '', stdout:)
   allow(response).to receive(:stdout).and_return(stdout)
   allow(response).to receive(:stderr).and_return(stderr)
   allow(response).to receive(:url).and_return('http://fake.com/evaluated')
-  response
+  Success(response)
 end

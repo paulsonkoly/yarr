@@ -28,7 +28,8 @@ module Yarr
       # Runs the command
       def handle
         request_ = request.new(code, service_lang)
-        response = evaluator_service.request(request_)
+        # TODO
+        response = evaluator_service.call(request: request_).value!
         respond_with(response)
       end
 

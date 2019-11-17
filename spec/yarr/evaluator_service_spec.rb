@@ -4,14 +4,14 @@ require 'yarr/evaluator_service'
 
 module Yarr
   RSpec.describe EvaluatorService do
-    let(:adaptor) { class_double('Adaptor') }
+    subject(:evaluator_service) { described_class.new(fetch_service: adaptor) }
 
-    let(:evaluator_service) { described_class.new(fetch_service: adaptor) }
+    let(:adaptor) { class_double('Adaptor') }
 
     describe '#request' do
       let(:request) { EvaluatorService::Request.new('1 + 1') }
       let(:typhoeus_response) do
-          double('response',
+        double('response',
           response_body: {
             'run_request' =>
             { 'run' =>
@@ -31,7 +31,7 @@ module Yarr
           headers: anything
         ).and_return(typhoeus_response)
 
-        evaluator_service.request(request)
+        evaluator_service.call(request: request)
       end
 
       it 'response has the right data' do
@@ -41,7 +41,7 @@ module Yarr
           headers: anything
         ).and_return(typhoeus_response)
 
-        service_response = evaluator_service.request(request)
+        service_response = evaluator_service.call(request: request).value!
         expect(service_response).to have_attributes(
           output: '# => 1 (http://fake.com/evaluated)'
         )
@@ -69,7 +69,7 @@ module Yarr
             headers: anything
           ).and_return(typhoeus_response)
 
-          service_response = evaluator_service.request(request)
+          service_response = evaluator_service.call(request: request).value!
           expect(service_response).to have_attributes(
             output: 'stderr: error occured (http://fake.com/evaluated)'
           )
@@ -98,7 +98,7 @@ module Yarr
             headers: anything
           ).and_return(typhoeus_response)
 
-          service_response = evaluator_service.request(request)
+          service_response = evaluator_service.call(request: request).value!
           expect(service_response).to have_attributes(
             output: '# => 1 stderr: error occured (http://fake.com/evaluated)'
           )
@@ -127,7 +127,7 @@ module Yarr
             headers: anything
           ).and_return(typhoeus_response)
 
-          service_response = evaluator_service.request(request)
+          service_response = evaluator_service.call(request: request).value!
           message_length = service_response.output.length
 
           expect(message_length)
