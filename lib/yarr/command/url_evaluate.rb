@@ -1,4 +1,6 @@
-require 'yarr/evaluator_service'
+# frozen_string_literal: true
+
+require 'yarr/dependencies'
 require 'yarr/command/concern/ast_digger'
 
 module Yarr
@@ -9,35 +11,28 @@ module Yarr
       extend Concern::ASTDigger
       digger :url
 
+      include Import[
+        'services.evaluator_service',
+        'services.evaluator_service.request',
+        'services.fetch_service'
+      ]
+
       # @param ast [AST] parsed ast
       # @return [True|False] can this command handle the AST?
       def self.match?(ast)
         ast.key? :url_evaluate
       end
 
-      # @param fetch_service [#get] A web service that can get
-      # @param evaluator_service [Yarr::EvaluatorService] the evaluator
-      # @see {Yarr::Base} for the rest of the arguments
-      def initialize(ast:,
-                     irc: NoIRC,
-                     fetch_service: Typhoeus,
-                     evaluator_service: EvaluatorService.new)
-        super(ast: ast, irc: irc)
-
-        @fetch_service = fetch_service
-        @evaluator_service = evaluator_service
-      end
-
       # Runs the command
       def handle
-        user_content = @fetch_service.get(url)
+        user_content = fetch_service.get(url)
         response_code = user_content.response_code
         unless response_code == 200
           return "Request returned response code #{response_code}"
         end
 
-        evaluator_request = EvaluatorService::Request.new(user_content.body)
-        @evaluator_service.request(evaluator_request).output
+        evaluator_request = request.new(user_content.body)
+        evaluator_service.request(evaluator_request).output
       end
     end
   end

@@ -4,6 +4,8 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'app_configuration'
 gem 'cinch', '~> 2.3'
+gem 'dry-auto_inject', '~> 0.6'
+gem 'dry-container', '~> 0.7'
 gem 'dry-equalizer', '~> 0.2'
 gem 'faker', '~> 1.9'
 gem 'parslet', '~> 1.8'
