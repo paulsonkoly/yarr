@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'yarr/command'
-require 'yarr/input_parser'
 require 'yarr/message/truncator'
-require 'yarr/no_irc'
+require 'yarr/dependencies'
 
 # Responds to rdoc documentation queries with links and more.
 module Yarr
@@ -9,12 +10,11 @@ module Yarr
   class Bot
     include Message::Truncator
 
-    # The YARR IRC bot
-    # @param irc_provider [Cinch::Bot] IRC functionality provider.
-    def initialize(irc_provider = NoIRC)
-      @parser = InputParser.new
-      @irc = irc_provider
-    end
+    include Import[
+      'irc',
+      'parser.input.parse_error',
+      input_parser: 'parser.input'
+    ]
 
     # Replies to a message
     # @example
@@ -27,16 +27,16 @@ module Yarr
     # @return [String] response string
     def reply_to(message)
       ast, stuff = parse_input(message)
-      response = Command.for_ast(ast, @irc).handle
+      response = Command.for_ast(ast, irc).handle
       post_process(response, stuff)
-    rescue InputParser::ParseError => e
+    rescue parse_error => e
       e.report(message)
     end
 
     private
 
     def parse_input(message)
-      ast = @parser.parse(message.chomp)
+      ast = input_parser.parse(message.chomp)
       stuff = ast[:stuff] || ''
       [ast, stuff]
     end
@@ -45,7 +45,7 @@ module Yarr
       if stuff.empty?
         response
       else
-        user = @irc.user_list.find(stuff)
+        user = irc.user_list.find(stuff)
         if user then user.nick + ': ' << response
         else response << ', ' << truncate(stuff)
         end
