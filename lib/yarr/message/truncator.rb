@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Yarr
   module Message
     # Flood protection.
     module Truncator
       MAX_LENGTH = 160 # max message length.
-      OMISSION = '...'.freeze # use ... if truncated
-      SEPARATOR = ' '.freeze  # natural break point
+      OMISSION = '...' # use ... if truncated
+      SEPARATOR = ' '  # natural break point
 
       # Truncates the given string to the predefined maximum size.
       # @param message [String] the string to truncate
@@ -32,13 +34,12 @@ module Yarr
       def truncate(message,
                    omission: OMISSION,
                    suffix: '')
-        multiline = message.lines.count > 1
-        message = message.lines.first.strip
-        suffixed = message + suffix
+        multiline, first_line = first_line(message)
+        suffixed = first_line + suffix
         return suffixed if suffixed.length <= MAX_LENGTH && ! multiline
 
-        split_point = split_point(message, omission, suffix)
-        "#{message[0, split_point]}#{omission}#{suffix}"
+        split_point = split_point(first_line, omission, suffix)
+        "#{first_line[0, split_point]}#{omission}#{suffix}"
       end
 
       module_function :truncate
@@ -55,6 +56,12 @@ module Yarr
       end
 
       module_function :split_point
+
+      def first_line(message)
+        message.lines.then { |lines| [lines.count > 1, lines.first.strip] }
+      end
+
+      module_function :first_line
     end
   end
 end
