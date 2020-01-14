@@ -18,6 +18,7 @@ C%%OpenStruct.html%%OpenStruct
 C%%Range.html%%Range
 C%%Rational.html%%Rational
 C%%Regexp.html%%Regexp
+C%%Set.html%%Set
 C%%Struct.html%%Struct
 C%%Symbol.html%%Symbol
 C%%Time.html%%Time

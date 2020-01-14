@@ -1,3 +1,5 @@
+C%%InnerStateLex.html%%InnerStateLex
+C%%Object.html%%Object
 C%%RDoc/Alias.html%%RDoc::Alias
 C%%RDoc/AnonClass.html%%RDoc::AnonClass
 C%%RDoc/AnyMethod.html%%RDoc::AnyMethod
@@ -40,7 +42,6 @@ C%%RDoc/Markup/BlankLine.html%%RDoc::Markup::BlankLine
 C%%RDoc/Markup/BlockQuote.html%%RDoc::Markup::BlockQuote
 C%%RDoc/Markup/Document.html%%RDoc::Markup::Document
 C%%RDoc/Markup/Formatter.html%%RDoc::Markup::Formatter
-C%%RDoc/Markup/FormatterTestCase.html%%RDoc::Markup::FormatterTestCase
 C%%RDoc/Markup/HardBreak.html%%RDoc::Markup::HardBreak
 C%%RDoc/Markup.html%%RDoc::Markup
 C%%RDoc/Markup/Include.html%%RDoc::Markup::Include
@@ -50,12 +51,12 @@ C%%RDoc/Markup/ListItem.html%%RDoc::Markup::ListItem
 C%%RDoc/Markup/Paragraph.html%%RDoc::Markup::Paragraph
 C%%RDoc/Markup/Parser/Error.html%%RDoc::Markup::Parser::Error
 C%%RDoc/Markup/Parser.html%%RDoc::Markup::Parser
+C%%RDoc/Markup/Parser/MyStringScanner.html%%RDoc::Markup::Parser::MyStringScanner
 C%%RDoc/Markup/Parser/ParseError.html%%RDoc::Markup::Parser::ParseError
 C%%RDoc/Markup/PreProcess.html%%RDoc::Markup::PreProcess
 C%%RDoc/Markup/Raw.html%%RDoc::Markup::Raw
 C%%RDoc/Markup/RegexpHandling.html%%RDoc::Markup::RegexpHandling
 C%%RDoc/Markup/Rule.html%%RDoc::Markup::Rule
-C%%RDoc/Markup/TextFormatterTestCase.html%%RDoc::Markup::TextFormatterTestCase
 C%%RDoc/Markup/ToAnsi.html%%RDoc::Markup::ToAnsi
 C%%RDoc/Markup/ToBs.html%%RDoc::Markup::ToBs
 C%%RDoc/Markup/ToHtmlCrossref.html%%RDoc::Markup::ToHtmlCrossref

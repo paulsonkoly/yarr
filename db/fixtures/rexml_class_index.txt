@@ -43,7 +43,6 @@ C%%REXML/Parsers/XPathParser.html%%REXML::Parsers::XPathParser
 C%%REXML/QuickPath.html%%REXML::QuickPath
 C%%REXML/SourceFactory.html%%REXML::SourceFactory
 C%%REXML/Source.html%%REXML::Source
-C%%REXML/SyncEnumerator.html%%REXML::SyncEnumerator
 C%%REXML/Text.html%%REXML::Text
 C%%REXML/UndefinedNamespaceException.html%%REXML::UndefinedNamespaceException
 C%%REXML/Validation/Choice.html%%REXML::Validation::Choice

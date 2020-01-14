@@ -22,6 +22,7 @@ C%%Enumerator/Chain.html%%Enumerator::Chain
 C%%Enumerator/Generator.html%%Enumerator::Generator
 C%%Enumerator.html%%Enumerator
 C%%Enumerator/Lazy.html%%Enumerator::Lazy
+C%%Enumerator/Producer.html%%Enumerator::Producer
 C%%Enumerator/Yielder.html%%Enumerator::Yielder
 C%%ENV.html%%ENV
 C%%EOFError.html%%EOFError
@@ -57,12 +58,14 @@ C%%Module.html%%Module
 C%%Mutex.html%%Mutex
 C%%NameError.html%%NameError
 C%%NilClass.html%%NilClass
+C%%NoMatchingPatternError.html%%NoMatchingPatternError
 C%%NoMemoryError.html%%NoMemoryError
 C%%NoMethodError.html%%NoMethodError
 C%%NotImplementedError.html%%NotImplementedError
 C%%Numeric.html%%Numeric
 C%%Object.html%%Object
 C%%ObjectSpace/WeakMap.html%%ObjectSpace::WeakMap
+C%%Pool.html%%Pool
 C%%Process/Status.html%%Process::Status
 C%%Proc.html%%Proc
 C%%Queue.html%%Queue
@@ -72,6 +75,7 @@ C%%Range.html%%Range
 C%%Rational.html%%Rational
 C%%RegexpError.html%%RegexpError
 C%%Regexp.html%%Regexp
+C%%Ripper.html%%Ripper
 C%%RubyVM/AbstractSyntaxTree/Node.html%%RubyVM::AbstractSyntaxTree::Node
 C%%RubyVM.html%%RubyVM
 C%%RubyVM/InstructionSequence.html%%RubyVM::InstructionSequence

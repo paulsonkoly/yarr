@@ -1,3 +1,4 @@
+C%%Net/Protocol.html%%Net::Protocol
 C%%Net/SMTPAuthenticationError.html%%Net::SMTPAuthenticationError
 C%%Net/SMTPFatalError.html%%Net::SMTPFatalError
 C%%Net/SMTP.html%%Net::SMTP

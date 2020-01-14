@@ -1,3 +1,2 @@
 C%%Delegator.html%%Delegator
 C%%Object.html%%Object
-C%%SimpleDelegator.html%%SimpleDelegator

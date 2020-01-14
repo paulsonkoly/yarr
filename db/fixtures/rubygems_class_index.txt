@@ -167,6 +167,9 @@ C%%Gem/Resolver/VendorSet.html%%Gem::Resolver::VendorSet
 C%%Gem/Resolver/VendorSpecification.html%%Gem::Resolver::VendorSpecification
 C%%Gem/RubyVersionMismatch.html%%Gem::RubyVersionMismatch
 C%%Gem/RuntimeRequirementNotMetError.html%%Gem::RuntimeRequirementNotMetError
+C%%Gem/S3URISigner/ConfigurationError.html%%Gem::S3URISigner::ConfigurationError
+C%%Gem/S3URISigner.html%%Gem::S3URISigner
+C%%Gem/S3URISigner/InstanceProfileError.html%%Gem::S3URISigner::InstanceProfileError
 C%%Gem/Security/Exception.html%%Gem::Security::Exception
 C%%Gem/Security/Policy.html%%Gem::Security::Policy
 C%%Gem/Security/Signer.html%%Gem::Security::Signer
@@ -201,6 +204,7 @@ C%%Gem/Uninstaller.html%%Gem::Uninstaller
 C%%Gem/UninstallError.html%%Gem::UninstallError
 C%%Gem/UnsatisfiableDependencyError.html%%Gem::UnsatisfiableDependencyError
 C%%Gem/UriFormatter.html%%Gem::UriFormatter
+C%%Gem/UriParser.html%%Gem::UriParser
 C%%Gem/Validator.html%%Gem::Validator
 C%%Gem/VerificationError.html%%Gem::VerificationError
 C%%Gem/Version.html%%Gem::Version
@@ -218,6 +222,7 @@ M%%Gem.html%%Gem
 M%%Gem/InstallUpdateOptions.html%%Gem::InstallUpdateOptions
 M%%Gem/LocalRemoteOptions.html%%Gem::LocalRemoteOptions
 M%%Gem/MockGemUi/TTY.html%%Gem::MockGemUi::TTY
+M%%Gem/RbConfig.html%%Gem::RbConfig
 M%%Gem/Request/ConnectionPools/Net.html%%Gem::Request::ConnectionPools::Net
 M%%Gem/Resolver/Molinillo/Delegates.html%%Gem::Resolver::Molinillo::Delegates
 M%%Gem/Resolver/Molinillo/Delegates/ResolutionState.html%%Gem::Resolver::Molinillo::Delegates::ResolutionState
@@ -229,6 +234,7 @@ M%%Gem/SafeYAML.html%%Gem::SafeYAML
 M%%Gem/Security.html%%Gem::Security
 M%%Gem/SecurityOption.html%%Gem::SecurityOption
 M%%Gem/Text.html%%Gem::Text
+M%%Gem/UriParsing.html%%Gem::UriParsing
 M%%Gem/UserInteraction.html%%Gem::UserInteraction
 M%%Gem/Util.html%%Gem::Util
 M%%Gem/VersionOption.html%%Gem::VersionOption

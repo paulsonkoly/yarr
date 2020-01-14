@@ -1,4 +1,3 @@
-Random/Formatter.html#method-i-alphanumeric%%alphanumeric (Random::Formatter)
 Random/Formatter.html#method-i-base64%%base64 (Random::Formatter)
 Random/Formatter.html#method-i-hex%%hex (Random::Formatter)
 Random/Formatter.html#method-i-random_bytes%%random_bytes (Random::Formatter)

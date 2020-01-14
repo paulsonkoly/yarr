@@ -1,5 +1,9 @@
+C%%ExceptionForMatrix/ErrDimensionMismatch.html%%ExceptionForMatrix::ErrDimensionMismatch
+C%%ExceptionForMatrix/ErrNotRegular.html%%ExceptionForMatrix::ErrNotRegular
+C%%ExceptionForMatrix/ErrOperationNotDefined.html%%ExceptionForMatrix::ErrOperationNotDefined
+C%%ExceptionForMatrix/ErrOperationNotImplemented.html%%ExceptionForMatrix::ErrOperationNotImplemented
 C%%Matrix/EigenvalueDecomposition.html%%Matrix::EigenvalueDecomposition
 C%%Matrix.html%%Matrix
 C%%Matrix/LUPDecomposition.html%%Matrix::LUPDecomposition
-C%%Vector.html%%Vector
-C%%Vector/ZeroVectorError.html%%Vector::ZeroVectorError
+C%%Object.html%%Object
+M%%ExceptionForMatrix.html%%ExceptionForMatrix

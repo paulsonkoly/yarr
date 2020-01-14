@@ -1,3 +1,4 @@
+C%%Date/Error.html%%Date::Error
 C%%Date.html%%Date
 C%%DateTime.html%%DateTime
 C%%Time.html%%Time

@@ -60,3 +60,4 @@ M%%WEBrick/HTTPServlet.html%%WEBrick::HTTPServlet
 M%%WEBrick/HTTPStatus.html%%WEBrick::HTTPStatus
 M%%WEBrick/HTTPUtils.html%%WEBrick::HTTPUtils
 M%%WEBrick/Utils.html%%WEBrick::Utils
+M%%WEBrick/Utils/TimeoutHandler/Process.html%%WEBrick::Utils::TimeoutHandler::Process
