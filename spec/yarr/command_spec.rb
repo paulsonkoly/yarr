@@ -81,6 +81,14 @@ module Yarr
       end
     end
 
+    context 'with fact command' do
+      it 'is a Fact' do
+        handler = dispatcher.for_ast(command: 'fact')
+
+        expect(handler).to be_a Command::Fact
+      end
+    end
+
     context 'with no matching real command' do
       it 'defaults to Base' do
         handler = dispatcher.for_ast(command: 'xxx')

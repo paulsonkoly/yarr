@@ -31,9 +31,10 @@ module Yarr
           expect { parser.parse('ri') }.to raise_error InputParser::ParseError
         end
 
-        %w[@@ .. // ' " a$ {}].each do |w|
-          it "raises error for #{w}" do
-            expect { parser.parse("ri #{w}") }.to raise_error InputParser::ParseError
+        %w[@@ .. // ' " a$ {}].each do |word|
+          it "raises error for #{word}" do
+            expect { parser.parse("ri #{word}") }
+              .to raise_error InputParser::ParseError
           end
         end
 
@@ -161,9 +162,7 @@ module Yarr
 
         it 'supports combination of mode and lang' do
           evaluate = parser.parse('asm20>>1 + 1')[:evaluate]
-          expect(evaluate[:mode]).to eq 'asm'
-          expect(evaluate[:lang]).to eq '20'
-          expect(evaluate[:code]).to eq '1 + 1'
+          expect(evaluate).to include(mode: 'asm', lang: '20', code: '1 + 1')
         end
       end
 
@@ -181,6 +180,20 @@ module Yarr
       context 'with no argument commands' do
         it 'parses renick' do
           expect(parser.parse('renick')[:command]).to eq('renick')
+        end
+      end
+
+      context 'with fact commands' do
+        it 'parses fact pizza' do
+          expect(parser.parse('fact pizza')[:name]).to eq 'pizza'
+        end
+
+        it 'supports stuff' do
+          expect(parser.parse('fact pizza, phaul')[:stuff]).to eq 'phaul'
+        end
+
+        it 'has an alias as ?' do
+          expect(parser.parse('?pizza, phaul')[:command]).to eq '?'
         end
       end
     end

@@ -7,7 +7,7 @@ module Yarr
   #
   # Recognised commands:
   # +ast{lang}>>+, +tok{lang}>>+, +asm{lang}>>+, +bare{lang}>>+, +{lang}>>+,
-  # +asm+, +ri+, +list+, +fake+, +renick+
+  # +asm+, +ri+, +list+, +fake+, +renick+, +fact+
   #
   # The +lang+ part is optional and it stands for a 2 digit ruby version
   # specifier, like 21 for 2.1. The rest of the input is context specific, and
@@ -97,7 +97,7 @@ module Yarr
       end
     end
 
-    rule(:input) { evaluate | ri_notation | url_evaluate | no_arg }
+    rule(:input) { evaluate | ri_notation | url_evaluate | no_arg | fact }
 
     rule(:no_arg) { str('renick').as(:command) }
 
@@ -170,6 +170,14 @@ module Yarr
     end
 
     rule(:url) { match('[^\s,]').repeat.as(:url) }
+
+    rule(:fact) do
+      (fact_command.as(:command) >> spaces? >> factoid_name.as(:name) >> stuff)
+    end
+
+    rule(:fact_command) { str('fact') | str('?') }
+
+    rule(:factoid_name) { match('[\w\d-]').repeat(1) }
 
     root(:input)
 

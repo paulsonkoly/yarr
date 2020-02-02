@@ -5,6 +5,7 @@ require 'yarr/command/fake'
 require 'yarr/command/evaluate'
 require 'yarr/command/url_evaluate'
 require 'yarr/command/renick'
+require 'yarr/command/fact'
 
 module Yarr
   # Handles the specific commands after dispatch
@@ -21,7 +22,8 @@ module Yarr
                 Fake,
                 Evaluate,
                 URLEvaluate,
-                Renick].freeze
+                Renick,
+                Fact].freeze
 
     # Selects the appropriate handler for the AST
     #

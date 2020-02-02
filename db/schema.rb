@@ -25,3 +25,12 @@ DB.create_table(:methods) do
   String :flavour, size: 50, null: false # class or instance
   String :url, size: 50, null: false
 end
+
+DB.create_table(:facts) do
+  primary_key :id
+  String :name, type: String, null: false
+  Integer :count, null: false, default: 0
+  String :content, null: false
+
+  index :name, unique: true
+end

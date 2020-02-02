@@ -35,4 +35,8 @@ RSpec.describe Yarr::Bot do
   it 'points to the right place of the error' do
     expect(bot.reply_to('ri @@@')).to match('around `r\'')
   end
+
+  it 'does fact pizza' do
+    expect(bot.reply_to('fact pizza')).to eq "here's your pizza: 🍕"
+  end
 end

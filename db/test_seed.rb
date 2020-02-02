@@ -73,4 +73,7 @@ DB.transaction do
                       url: 'JSON/BigDecimal.html',
                       flavour: 'class',
                       origin_id: origin_id)
+
+  DB[:facts].insert(name: 'pizza',
+                    content: "here's your pizza: 🍕")
 end
