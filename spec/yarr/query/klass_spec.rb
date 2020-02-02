@@ -7,26 +7,18 @@ module Yarr
   module Query
     RSpec.describe Klass do
       describe '#full_name' do
-        context 'when the class is from core' do
-          subject do
-            described_class.where(
-              name: 'Array',
-              origin: Origin.where(name: 'core')
-            ).first.full_name
-          end
+        subject { klass.full_name }
 
-          it { is_expected.to eq 'Array' }
+        context 'when the class is from core' do
+          let(:klass) { build :klass, origin: build(:origin, name: 'core') }
+
+          it { is_expected.to eq klass.name }
         end
 
         context "when the class isn't from core" do
-          subject do
-            described_class.where(
-              name: 'Array',
-              origin: Origin.where(name: 'abbrev')
-            ).first.full_name
-          end
+          let(:klass) { build :klass, origin: build(:origin, name: 'abbrev') }
 
-          it { is_expected.to eq 'Array (abbrev)' }
+          it { is_expected.to eq "#{klass.name} (abbrev)" }
         end
       end
     end

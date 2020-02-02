@@ -3,9 +3,10 @@ require 'spec_helper'
 module Yarr
   module Command
     RSpec.describe Fact do
+      let(:fact) { create(:fact) }
       let(:ast) { Yarr::AST.new(command: command, name: name) }
+      let(:name) { fact.name }
       let(:command) { 'fact' }
-      let(:name) { 'pizza' }
 
       describe '#match?' do
         it 'matches the command fact' do
@@ -24,7 +25,7 @@ module Yarr
       describe '#handle' do
         subject { described_class.new(ast: ast).handle }
 
-        it { is_expected.to eq "here's your pizza: 🍕" }
+        it { is_expected.to eq fact.content }
 
         context 'when no factoid is found' do
           let(:name) { 'non-existent' }

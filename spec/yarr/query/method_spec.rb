@@ -7,26 +7,18 @@ module Yarr
   module Query
     RSpec.describe Method do
       describe '#full_name' do
-        context 'when the method is an instance method' do
-          subject do
-            described_class.where(
-              name: 'size',
-              klass: Klass.where(name: 'Array')
-            ).first.full_name
-          end
+        subject { _method.full_name }
 
-          it { is_expected.to eq 'Array#size' }
+        context 'when the method is an instance method' do
+          let(:_method) { build(:method, flavour: 'instance') }
+
+          it { is_expected.to eq "#{_method.klass.name}##{_method.name}" }
         end
 
         context 'when the method is a class method' do
-          subject do
-            described_class.where(
-              name: 'new',
-              klass: Klass.where(name: 'Array')
-            ).first.full_name
-          end
+          let(:_method) { build(:method, flavour: 'class') }
 
-          it { is_expected.to eq 'Array.new' }
+          it { is_expected.to eq "#{_method.klass.name}.#{_method.name}" }
         end
       end
     end

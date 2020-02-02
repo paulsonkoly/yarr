@@ -19,7 +19,9 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner-sequel'
   gem 'deep-cover'
+  gem 'factory_bot'
   gem 'rspec'
 end
 

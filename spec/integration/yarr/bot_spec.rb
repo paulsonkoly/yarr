@@ -4,6 +4,14 @@ require 'yarr/bot'
 RSpec.describe Yarr::Bot do
   let(:bot) { subject }
 
+  before do
+    array = create :klass, name: 'Array'
+    create :method, flavour: 'instance', name: 'size', klass: array
+    origin = create :origin, name: 'abbrev'
+    create :klass, name: 'Array', origin: origin
+    create :fact, name: 'pizza', content: "here's your pizza: 🍕"
+  end
+
   it 'does ri size' do
     expect(bot.reply_to('ri size')).to match %r{https://ruby-doc.org/.*/Array.html#method-i-size}
   end

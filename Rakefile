@@ -31,9 +31,7 @@ namespace :db do
 
   desc 'Seeds the database'
   task :seed do
-    if ENV['YARR_TEST']
-      sh 'ruby db/test_seed.rb'
-    else
+    unless ENV['YARR_TEST']
       libs = Dir['db/fixtures/**/*class_index.txt'].map do |fn|
         fn.delete_prefix('db/fixtures/').delete_suffix('_class_index.txt')
       end
