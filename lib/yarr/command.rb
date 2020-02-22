@@ -1,29 +1,13 @@
-require 'yarr/command/base'
-require 'yarr/command/ri'
-require 'yarr/command/list'
-require 'yarr/command/fake'
-require 'yarr/command/evaluate'
-require 'yarr/command/url_evaluate'
-require 'yarr/command/renick'
-require 'yarr/command/fact'
+files = Dir[File.join(File.dirname(__FILE__), 'command', '*.rb')].sort
+files.each { |command_src| require command_src }
 
 module Yarr
   # Handles the specific commands after dispatch
   module Command
     # Commands {for_ast} can dispatch to.
-    COMMANDS = [RiInstanceMethod,
-                RiClassMethod,
-                RiMethodName,
-                RiClassName,
-                ListInstanceMethod,
-                ListClassMethod,
-                ListMethodName,
-                ListClassName,
-                Fake,
-                Evaluate,
-                URLEvaluate,
-                Renick,
-                Fact].freeze
+    COMMANDS = ObjectSpace.each_object(Class).select do |subclass|
+      subclass.ancestors.include? Base
+    end
 
     # Selects the appropriate handler for the AST
     #

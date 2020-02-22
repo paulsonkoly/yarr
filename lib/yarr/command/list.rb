@@ -22,12 +22,6 @@ module Yarr
       def handle
         response(query)
       end
-
-      # Can we handle the given AST?
-      # @param ast [hash] parsed AST
-      def self.match?(ast)
-        ast[:command] == 'list'
-      end
     end
 
     # Base class for list commands handling calls.
@@ -56,7 +50,7 @@ module Yarr
       # Can we handle the given AST?
       # @param ast [hash] parsed AST
       def self.match?(ast)
-        super && ast.key?(:instance_method)
+        ast[:command] == 'list' && ast.key?(:instance_method)
       end
     end
 
@@ -69,7 +63,7 @@ module Yarr
       # Can we handle the given AST?
       # @param ast [hash] parsed AST
       def self.match?(ast)
-        super && ast.key?(:class_method)
+        ast[:command] == 'list' && ast.key?(:class_method)
       end
     end
 
@@ -78,7 +72,7 @@ module Yarr
       # Can we handle the given AST?
       # @param ast [hash] parsed AST
       def self.match?(ast)
-        super && ast.key?(:class_name)
+        ast[:command] == 'list' && ast.key?(:class_name)
       end
 
       private
@@ -97,7 +91,7 @@ module Yarr
       # Can we handle the given AST?
       # @param ast [hash] parsed AST
       def self.match?(ast)
-        super && ast.key?(:method_name)
+        ast[:command] == 'list' && ast.key?(:method_name)
       end
 
       private
