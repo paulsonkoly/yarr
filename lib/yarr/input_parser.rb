@@ -181,6 +181,8 @@ module Yarr
 
     root(:input)
 
+    # :reek:UncommunicativeVariableName
+
     # Same as Parslet::Parser#parse, except we return string hash values
     # @param string [String] the input to parse
     # @return [AST] abstract syntax tree of user input

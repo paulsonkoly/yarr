@@ -16,6 +16,8 @@ module Yarr
       @irc = irc_provider
     end
 
+    # :reek:UncommunicativeVariableName
+
     # Replies to a message
     # @example
     #
