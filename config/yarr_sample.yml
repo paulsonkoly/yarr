@@ -6,6 +6,7 @@ channels:
 ruby_version: '2.7.0'
 evaluator:
   :languages:
+    "27": "2.7.0"
     "26": "2.6.0"
     "25": "2.5.3"
     "24": "2.4.1"
