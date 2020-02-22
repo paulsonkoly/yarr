@@ -4,7 +4,7 @@ require 'yarr/command/concern/ast_digger'
 
 module Yarr
   module Command
-    # Exposing the faker gem as a bot command
+    # Showing factoids by name
     class Fact < Base
       extend Concern::ASTDigger
 
