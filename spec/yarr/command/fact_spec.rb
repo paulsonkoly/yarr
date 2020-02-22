@@ -1,38 +1,43 @@
 require 'spec_helper'
 
-module Yarr
-  module Command
-    RSpec.describe Fact do
-      let(:fact) { create(:fact) }
-      let(:ast) { Yarr::AST.new(command: command, name: name) }
-      let(:name) { fact.name }
-      let(:command) { 'fact' }
+RSpec.describe Yarr::Command::Fact do
+  let(:fact) { create(:fact) }
+  let(:ast) { Yarr::AST.new(command: command, name: name) }
+  let(:name) { fact.name }
+  let(:command) { 'fact' }
 
-      describe '#match?' do
-        it 'matches the command fact' do
-          expect(described_class).to be_able_to_handle ast
-        end
+  describe '#match?' do
+    it 'matches the command fact' do
+      expect(described_class).to be_able_to_handle ast
+    end
 
-        context 'with command being ?' do
-          let(:command) { '?' }
+    context 'with command being ?' do
+      let(:command) { '?' }
 
-          it 'matches' do
-            expect(described_class).to be_able_to_handle ast
-          end
-        end
+      it 'matches' do
+        expect(described_class).to be_able_to_handle ast
       end
+    end
+  end
 
-      describe '#handle' do
-        subject { described_class.new(ast: ast).handle }
+  describe '#handle' do
+    subject { described_class.new(ast: ast).handle }
 
-        it { is_expected.to eq fact.content }
+    let(:handling) do
+      subject
+      fact.reload
+    end
 
-        context 'when no factoid is found' do
-          let(:name) { 'non-existent' }
+    it { is_expected.to eq fact.content }
 
-          it { is_expected.to eq "I don't know anything about non-existent." }
-        end
-      end
+    context 'when no factoid is found' do
+      let(:name) { 'non-existent' }
+
+      it { is_expected.to eq "I don't know anything about non-existent." }
+    end
+
+    it 'increments the count of the factoid' do
+      expect { handling }.to change(fact, :count).from(0).to(1)
     end
   end
 end

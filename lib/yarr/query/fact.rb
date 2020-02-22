@@ -11,6 +11,11 @@ module Yarr
       #   @return [Integer] The number of times this factoid has been called.
       # @!attribute [r] content
       #   @return [String] The factoid content.
+
+      # Increments the count column by 1
+      def increment_count
+        update_fields({ count: Sequel[:count] + 1 }, [:count])
+      end
     end
   end
 end
