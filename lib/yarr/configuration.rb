@@ -53,7 +53,7 @@ module Yarr
     # @return [String] the ruby version that can be inserted in the ruby-doc
     # URLs.
     def ruby_version
-      @config.public_send(__method__)
+      @config.public_send(__method__) || '2.6'
     end
 
     # @return [Bool] Yarr running in test environment
