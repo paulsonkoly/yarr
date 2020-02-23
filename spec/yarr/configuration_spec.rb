@@ -17,20 +17,6 @@ module Yarr
       it { is_expected.not_to be_test }
     end
 
-    context 'with YARR_DEVELOPMENT set to 1' do
-      environment_variable('YARR_DEVELOPMENT') { ENV['YARR_DEVELOPMENT'] = '1' }
-
-      it { is_expected.to be_development }
-    end
-
-    context 'with YARR_DEVELOPMENT unset' do
-      environment_variable('YARR_DEVELOPMENT') do
-        ENV.delete('YARR_DEVELOPMENT')
-      end
-
-      it { is_expected.not_to be_development }
-    end
-
     describe 'file based configuration' do
       let(:config) do
         dir = tmpdir

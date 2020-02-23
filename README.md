@@ -159,10 +159,7 @@ the result of Faker::Classname.methodname from the
 Bug reports and pull requests are welcome on GitHub at https://github.com/phaul/yarr.
 
 The `lint:all` rake task kicks off a bunch of checks on the project including
-branch coverage.
-
-Debug can be enabled by running the app in development environment by setting
-the YARR_DEVELOPMENT=1 environment variable. In development mode the bot outputs more verbose logs to the console.
+branch coverage. `bundle exec rake lint:reek` has to be clean.
 
 ### Testing
 

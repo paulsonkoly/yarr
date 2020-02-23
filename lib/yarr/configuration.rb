@@ -10,7 +10,6 @@ module Yarr
   # Export environment variables to change the set up. Supported variables:
   #
   #   - YARR_TEST => use test database
-  #   - YARR_DEVELOPMENT => output verbose debug info
   #
   # configuration file can be in config/yarr.yml
   class Configuration
