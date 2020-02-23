@@ -7,7 +7,7 @@ RSpec.describe Yarr::Command::Concern::User do
     context 'with | in the nick' do
       let(:user) { double('user', nick: 'xx||yy', host: 'blah') }
 
-      it 'is defends against regexp injection' do
+      it 'defends against regexp injection' do
         expect(op?(user)).to be_falsey
       end
     end
