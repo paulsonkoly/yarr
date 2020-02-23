@@ -99,7 +99,7 @@ module Yarr
 
     rule(:input) { evaluate | ri_notation | url_evaluate | no_arg | fact }
 
-    rule(:no_arg) { str('renick').as(:command) }
+    rule(:no_arg) { (str('ops') | str('renick')).as(:command) }
 
     rule(:evaluate) { (override >> str('>>') >> code).as(:evaluate) }
 

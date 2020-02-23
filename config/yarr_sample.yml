@@ -4,6 +4,7 @@ nick: 'nick'
 channels:
   - '#ruby'
 ruby_version: '2.7.0'
+ops_host_mask: 'ruby/staff/'
 evaluator:
   :languages:
     "27": "2.7.0"

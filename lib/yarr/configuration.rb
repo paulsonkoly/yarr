@@ -45,7 +45,7 @@ module Yarr
     # implemented via method_missing, no respond_to_missing, and forwardable
     # checks that.
     forwarded_methods = %i[test development username password nick channels
-                           evaluator]
+                           evaluator ops_host_mask]
     forwarded_methods.each do |sym|
       define_method(sym) { @config.public_send(sym) }
     end
@@ -53,7 +53,7 @@ module Yarr
     # @return [String] the ruby version that can be inserted in the ruby-doc
     # URLs.
     def ruby_version
-      @config.public_send(__method__) || '2.6'
+      @config.public_send(__method__)
     end
 
     # @return [Bool] Yarr running in test environment

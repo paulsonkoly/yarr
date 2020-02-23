@@ -4,16 +4,10 @@ require 'faker'
 
 module Yarr
   RSpec.describe NoIRC do
-    let(:no_irc) { subject }
-
     describe '#user_list' do
-      let(:user_list) { no_irc.user_list }
+      subject { described_class.user_list }
 
-      describe '#find' do
-        it 'returns nil' do
-          expect(user_list.find(Faker::Movies::StarWars.character)).to be_nil
-        end
-      end
+      it { is_expected.to be_empty }
     end
   end
 end

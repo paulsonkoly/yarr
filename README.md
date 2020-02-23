@@ -144,6 +144,10 @@ However it is possible to force it to be part of a class or module name by this 
 
 If during a reconnect the bot lost its default nick, this command will try to regain it.
 
+### ops
+
+Lists current channel operators. Can be used to mention all operators in the channel if you want operatior attention. Useful if the channel is trolled. Operators are users with ruby/staff mask, not necesarrily with +o flag.
+
 ### fake
 
 An easter egg command, using Classname.methodname ri notation. It responds with

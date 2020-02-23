@@ -181,6 +181,10 @@ module Yarr
         it 'parses renick' do
           expect(parser.parse('renick')[:command]).to eq('renick')
         end
+
+        it 'parses ops' do
+          expect(parser.parse('ops')[:command]).to eq('ops')
+        end
       end
 
       context 'with fact commands' do
