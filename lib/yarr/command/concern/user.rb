@@ -8,7 +8,11 @@ module Yarr
         # Is the user an operator
         # @param user [Cinch::User|NoIRC::User] user
         def op?(user)
-          user.host&.match?(/\A#{Yarr.config.ops_host_mask}#{user.nick}\z/)
+          nick = user.nick
+          host = user.host || ''
+
+          nick.match?(/\A\w+\z/) &&
+            host.match?(/\A#{Yarr.config.ops_host_mask}#{nick}\z/)
         end
 
         module_function :op?
