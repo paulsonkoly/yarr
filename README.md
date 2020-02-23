@@ -146,7 +146,7 @@ If during a reconnect the bot lost its default nick, this command will try to re
 
 ### ops
 
-Lists current channel operators. Can be used to mention all operators in the channel if you want operatior attention. Useful if the channel is trolled. Operators are users with ruby/staff mask, not necesarrily with +o flag.
+Lists current channel operators. Can be used to mention all operators in the channel if you want operator attention. Useful if the channel is trolled. Operators are users with ruby/staff mask, not necesarrily with +o flag.
 
 ### fake
 
