@@ -12,6 +12,7 @@ gem 'sqlite3', '~> 1.4'
 gem 'typhoeus', '~> 1.3'
 
 group :development do
+  gem 'nokogiri'
   gem 'pry'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
