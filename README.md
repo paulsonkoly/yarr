@@ -148,6 +148,15 @@ If during a reconnect the bot lost its default nick, this command will try to re
 
 Lists current channel operators. Can be used to mention all operators in the channel if you want operator attention. Useful if the channel is trolled. Operators are users with ruby/staff mask, not necesarrily with +o flag.
 
+### facts
+
+Responds with a factoid. Command can be triggered with the `fact` command or the `?` alias. Factoids are listed at https://ruby-community.com/ruboto/facts.
+
+```
+? pizza
+here's your pizza: 🍕
+```
+
 ### fake
 
 An easter egg command, using Classname.methodname ri notation. It responds with
