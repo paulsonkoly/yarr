@@ -15,11 +15,11 @@ RSpec.describe Yarr::Command::Concern::User do
       end
     end
 
-    context 'with _ in the nick and op host mask' do
+    context 'with _ in the nick and not in the host mask' do
       let(:user) do
         instance_double(Cinch::User,
                         nick: '_xx',
-                        host_unsynced: "#{Yarr.config.ops_host_mask}_xx")
+                        host_unsynced: "#{Yarr.config.ops_host_mask}xx")
       end
 
       it 'is truthy' do

@@ -8,10 +8,10 @@ module Yarr
         # Is the user an operator
         # @param user [Cinch::User|NoIRC::User] user
         def op?(user)
-          nick = user.nick
+          nick = user.nick.delete('_')
           host = user.host_unsynced || ''
 
-          nick.match?(/\A[\w_]+\z/) &&
+          nick.match?(/\A[\w]+\z/) &&
             host.match?(/\A#{Yarr.config.ops_host_mask}#{nick}\z/)
         end
 
