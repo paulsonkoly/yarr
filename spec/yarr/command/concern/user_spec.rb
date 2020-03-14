@@ -5,7 +5,7 @@ RSpec.describe Yarr::Command::Concern::User do
 
   describe '#op?' do
     context 'with | in the nick' do
-      let(:user) { double('user', nick: 'xx||yy', host: 'blah') }
+      let(:user) { double('user', nick: 'xx||yy', host_unsynced: 'blah') }
 
       it 'defends against regexp injection' do
         expect(op?(user)).to be_falsey
@@ -13,7 +13,7 @@ RSpec.describe Yarr::Command::Concern::User do
     end
 
     context 'with nil host' do
-      let(:user) { double('user', nick: 'x', host: nil) }
+      let(:user) { double('user', nick: 'x', host_unsynced: nil) }
 
       it 'is falsey' do
         expect(op?(user)).to be_falsey

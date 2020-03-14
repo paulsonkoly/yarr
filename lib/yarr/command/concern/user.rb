@@ -9,7 +9,7 @@ module Yarr
         # @param user [Cinch::User|NoIRC::User] user
         def op?(user)
           nick = user.nick
-          host = user.host || ''
+          host = user.host_unsynced || ''
 
           nick.match?(/\A\w+\z/) &&
             host.match?(/\A#{Yarr.config.ops_host_mask}#{nick}\z/)
