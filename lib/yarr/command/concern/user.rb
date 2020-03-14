@@ -11,7 +11,7 @@ module Yarr
           nick = user.nick
           host = user.host_unsynced || ''
 
-          nick.match?(/\A\w+\z/) &&
+          nick.match?(/\A[\w_]+\z/) &&
             host.match?(/\A#{Yarr.config.ops_host_mask}#{nick}\z/)
         end
 
