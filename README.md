@@ -154,7 +154,7 @@ Responds with a factoid. Command can be triggered with the `fact` command or the
 
 ```
 ? pizza
-here's your pizza: 🍕
+>>> here's your pizza: 🍕
 ```
 
 ### fake
