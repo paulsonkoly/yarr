@@ -4,8 +4,8 @@ module Yarr
       # Authorization capability for commands.
       #
       # Prepend this concern and call {authorize_for} at the class level.
-      # The {User} concern can be included to have access to rule predicate
-      # methods like {User.op?}, then the rule name becomes +op+.
+      # The {User} concern can be included to have access to role predicate
+      # methods like {User.op?}, then the role name becomes +op+.
       #
       # @example
       #
@@ -13,7 +13,7 @@ module Yarr
       #     include Concern::User
       #     prepend Concern::Authorize
       #
-      #     authorize_for rule: :op
+      #     authorize_for role: :op
       #
       #     def handle
       #       ..
