@@ -6,9 +6,7 @@ RSpec.describe Yarr::Command::Concern::User do
 
   describe '#op?' do
     context 'with | in the nick' do
-      let(:user) do
-        instance_double(Cinch::User, nick: 'xx||yy', host_unsynced: 'blah')
-      end
+      let(:user) { build(:user, nick: 'xx||yy') }
 
       it 'defends against regexp injection' do
         expect(op?(user)).to be_falsey
@@ -16,11 +14,7 @@ RSpec.describe Yarr::Command::Concern::User do
     end
 
     context 'with _ in the nick and not in the host mask' do
-      let(:user) do
-        instance_double(Cinch::User,
-                        nick: '_xx',
-                        host_unsynced: "#{Yarr.config.ops_host_mask}xx")
-      end
+      let(:user) { build(:operator, nick: '_xx') }
 
       it 'is truthy' do
         expect(op?(user)).to be_truthy
@@ -28,7 +22,15 @@ RSpec.describe Yarr::Command::Concern::User do
     end
 
     context 'with nil host' do
-      let(:user) { instance_double(Cinch::User, nick: 'x', host_unsynced: nil) }
+      let(:user) { build(:operator, host_unsynced: nil) }
+
+      it 'is falsey' do
+        expect(op?(user)).to be_falsey
+      end
+    end
+
+    context 'when user is not online' do
+      let(:user) { build(:operator, host_unsynced: nil) }
 
       it 'is falsey' do
         expect(op?(user)).to be_falsey
