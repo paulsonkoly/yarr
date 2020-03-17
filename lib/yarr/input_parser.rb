@@ -97,7 +97,9 @@ module Yarr
       end
     end
 
-    rule(:input) { evaluate | ri_notation | url_evaluate | no_arg | fact }
+    rule(:input) do
+      evaluate | ri_notation | url_evaluate | no_arg | fact_add | fact
+    end
 
     rule(:no_arg) { (str('ops') | str('renick')).as(:command) }
 
@@ -171,13 +173,23 @@ module Yarr
 
     rule(:url) { match('[^\s,]').repeat.as(:url) }
 
-    rule(:fact) do
-      (fact_command.as(:command) >> spaces? >> factoid_name.as(:name) >> stuff)
+    rule(:fact) { fact_command >> spaces? >> fact_name >> stuff }
+
+    rule(:fact_add) do
+      fact_command >>
+        spaces? >>
+        str('add').as(:sub_command) >>
+        spaces? >>
+        fact_name >>
+        spaces? >>
+        fact_content
     end
 
-    rule(:fact_command) { str('fact') | str('?') }
+    rule(:fact_content) { any.repeat.as(:content) }
 
-    rule(:factoid_name) { match('[\w\d-]').repeat(1) }
+    rule(:fact_command) { (str('fact') | str('?')).as(:command) }
+
+    rule(:fact_name) { match('[\w\d-]').repeat(1).as(:name) }
 
     root(:input)
 

@@ -199,6 +199,24 @@ module Yarr
         it 'has an alias as ?' do
           expect(parser.parse('?pizza, phaul')[:command]).to eq '?'
         end
+
+        context 'with add sub command' do
+          it 'parses fact pizza' do
+            expect(parser.parse('fact add pizza no pizza today'))
+              .to be_an_ast_with(command: 'fact',
+                                 sub_command: 'add',
+                                 name: 'pizza',
+                                 content: 'no pizza today')
+          end
+
+          it 'has an alias as ?' do
+            expect(parser.parse('? add pizza no pizza today'))
+              .to be_an_ast_with(command: '?',
+                                 sub_command: 'add',
+                                 name: 'pizza',
+                                 content: 'no pizza today')
+          end
+        end
       end
     end
   end

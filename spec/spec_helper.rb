@@ -4,6 +4,7 @@ require 'factory_bot'
 require 'database_cleaner'
 
 require 'helpers/evaluator_response_double'
+require 'helpers/ast_matcher'
 
 require 'yarr'
 
