@@ -9,6 +9,12 @@ module Yarr
     # Accepts setting the nick, but being a null-object does nothing
     def self.nick=(*); end
 
+    # falsey value, real IRC adaptor is expected to respond with a truthy value
+    # @return [FalseClass] false
+    def self.irc
+      false
+    end
+
     # Null object user for no irc connection
     class User
       # @return [String] 'no user'
