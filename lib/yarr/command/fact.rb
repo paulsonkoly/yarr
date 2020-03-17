@@ -10,27 +10,10 @@ module Yarr
 
       digger :name
 
-      # Null object for not finding a factoid
-      class NoFactoid
-        # @param name [String] factoid name
-        def initialize(name)
-          @name = name
-        end
-
-        # @see {Yarr::Query::Fact#increment_count}
-        def increment_count; end
-
-        # @see {Yarr::Query::Fact#content}
-        def content
-          "I don't know anything about #{@name}."
-        end
-      end
-      private_constant :NoFactoid
-
       # @param ast [AST] parsed ast
       # @return [True|False] can this command handle the AST?
       def self.match?(ast)
-        ['fact', '?'].member? ast[:command]
+        ['fact', '?'].member?(ast[:command]) && ! ast.key?(:sub_command)
       end
 
       # Runs the command
@@ -42,7 +25,7 @@ module Yarr
       private
 
       def factoid
-        @factoid ||= Query::Fact[name: name] || NoFactoid.new(name)
+        @factoid ||= Query::Fact.by_name(name)
       end
     end
   end

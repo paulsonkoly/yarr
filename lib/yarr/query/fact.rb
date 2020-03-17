@@ -16,6 +16,39 @@ module Yarr
       def increment_count
         update_fields({ count: Sequel[:count] + 1 }, [:count])
       end
+
+      # does nothing as we don't support saving existing factoids
+      def save_content(_)
+        "I already know that #{name} is #{content}"
+      end
+
+      # Null object for not finding a factoid
+      class NoFact
+        # @param name [String] factoid name
+        def initialize(name)
+          @name = name
+        end
+
+        # @see {Yarr::Query::Fact#increment_count}
+        def increment_count; end
+
+        # @see {Yarr::Query::Fact#content}
+        def content
+          "I don't know anything about #{@name}."
+        end
+
+        # Creates a new factoid with content
+        def save_content(content)
+          Fact.create(name: @name, content: content, count: 0)
+          "I will remember that #{@name} is #{content}"
+        end
+      end
+
+      # Finds factoid by name
+      # @return [Fact | Fact::NoFactoid] result object or null object
+      def self.by_name(name)
+        self[name: name] || NoFact.new(name)
+      end
     end
   end
 end
