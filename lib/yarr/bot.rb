@@ -26,10 +26,11 @@ module Yarr
     #   bot.reply_to 'ast ast' # => "{:command=>\"ast\", :method_name=>\"ast\"}"
     #
     # @param message [String] incoming message (without IRC command prefix)
+    # @param user [Cinch::Bot|Yarr::NoIRC::User] message sender
     # @return [String] response string
-    def reply_to(message)
+    def reply_to(message, user = NoIRC::User.new)
       ast, stuff = parse_input(message)
-      response = Command.for_ast(ast, @irc).handle
+      response = Command.for_ast(ast, @irc, user).handle
       post_process(response, stuff)
     rescue InputParser::ParseError => e
       e.report(message)

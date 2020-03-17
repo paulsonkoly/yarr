@@ -10,10 +10,16 @@ module Yarr
       # Creates a command that handles the parsed input
       # @param ast [Yarr:AST] the parsed input
       # @param irc [Cinch::Bot|Yarr::NoIRC] irc provider
-      def initialize(ast:, irc: NoIRC)
+      # @param user [Cinch::Bot|Yarr::NoIRC::User] message sender
+      def initialize(ast:, irc: NoIRC, user: NoIRC::User.new)
         @ast = ast
         @irc = irc
+        @user = user
       end
+
+      # @!attribute [r] user
+      #   @return [Cinch::User|Yarr::NoIRC::User] message sender
+      attr_reader :user
 
       # @!attribute [r] irc
       #   @return [Cinch::Bot|Yarr::NoIRC] irc provider

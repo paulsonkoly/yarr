@@ -14,14 +14,15 @@ module Yarr
     # When no appropriate handler found it returns a {Base} command.
     # @param ast [Yarr::AST] the parsed AST structure
     # @param irc [Cinch::Bot|Yarr::NoIRC] irc provider
+    # @param user [Cinch::Bot|Yarr::NoIRC::User] message sender
     # @return [Yarr::Command] the command handler for the incoming command / AST
     # @example
     #   ast = AST.new(command: 'ri', method_name: 'method')
     #   Command.for_ast(ast).class # => Yarr::Command::RiMethodName
-    def self.for_ast(ast, irc = NoIRC)
+    def self.for_ast(ast, irc = NoIRC, user = NoIRC::User.new)
       COMMANDS
         .find(-> { Base }) { |handler| handler.match?(ast) }
-        .new(ast: ast, irc: irc)
+        .new(ast: ast, irc: irc, user: user)
     end
   end
 end

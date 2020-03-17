@@ -8,5 +8,23 @@ module Yarr
 
     # Accepts setting the nick, but being a null-object does nothing
     def self.nick=(*); end
+
+    # Null object user for no irc connection
+    class User
+      # @return [String] 'no user'
+      def nick
+        'no user'
+      end
+
+      # @return [String] 'console'
+      def host_unsynced
+        ''
+      end
+
+      # @return [FalseClass] false
+      def online?
+        false
+      end
+    end
   end
 end
