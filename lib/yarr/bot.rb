@@ -16,8 +16,6 @@ module Yarr
       @irc = irc_provider
     end
 
-    # :reek:UncommunicativeVariableName
-
     # Replies to a message
     # @example
     #
@@ -29,14 +27,20 @@ module Yarr
     # @param user [Cinch::Bot|Yarr::NoIRC::User] message sender
     # @return [String] response string
     def reply_to(message, user = NoIRC::User.new)
-      ast, stuff = parse_input(message)
-      response = Command.for_ast(ast, @irc, user).handle
-      post_process(response, stuff)
-    rescue InputParser::ParseError => e
-      e.report(message)
+      reply_to_or_raise(message, user)
+    rescue InputParser::ParseError => parser_error
+      parser_error.report(message)
+    rescue Command::Concern::Authorize::AuthorizationError => auth_error
+      auth_error.message
     end
 
     private
+
+    def reply_to_or_raise(message, user)
+      ast, stuff = parse_input(message)
+      response = Command.for_ast(ast, @irc, user).handle
+      post_process(response, stuff)
+    end
 
     def parse_input(message)
       ast = @parser.parse(message.chomp)
