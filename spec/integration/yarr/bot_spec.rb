@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'yarr/bot'
+require 'yarr/query'
 
 RSpec.describe Yarr::Bot do
   let(:bot) { subject }
@@ -46,5 +47,10 @@ RSpec.describe Yarr::Bot do
 
   it 'does fact pizza' do
     expect(bot.reply_to('fact pizza')).to eq "here's your pizza: 🍕"
+  end
+
+  it 'can add a new fact' do
+    expect { bot.reply_to('fact add x y') }
+      .to change(Yarr::Query::Fact, :count).by(1)
   end
 end

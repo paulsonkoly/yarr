@@ -5,6 +5,7 @@ require 'database_cleaner'
 
 require 'helpers/evaluator_response_double'
 require 'helpers/ast_matcher'
+require 'shared_examples/a_command_that_authorizes'
 
 require 'yarr'
 
