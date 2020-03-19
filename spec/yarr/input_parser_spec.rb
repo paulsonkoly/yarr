@@ -219,6 +219,37 @@ module Yarr
                                  name: 'pizza',
                                  content: 'no pizza today')
           end
+
+          it 'aliases add to mk' do
+            expect(parser.parse('? mk pizza no pizza today'))
+              .to be_an_ast_with(command: 'fact',
+                                 sub_command: 'add',
+                                 name: 'pizza',
+                                 content: 'no pizza today')
+          end
+        end
+
+        context 'with remove sub command' do
+          it 'parses fact remove pizza' do
+            expect(parser.parse('fact remove pizza'))
+              .to be_an_ast_with(command: 'fact',
+                                 sub_command: 'remove',
+                                 name: 'pizza')
+          end
+
+          it 'has an alias as ?' do
+            expect(parser.parse('? remove pizza'))
+              .to be_an_ast_with(command: 'fact',
+                                 sub_command: 'remove',
+                                 name: 'pizza')
+          end
+
+          it 'aliases remove to to rm' do
+            expect(parser.parse('? rm pizza'))
+              .to be_an_ast_with(command: 'fact',
+                                 sub_command: 'remove',
+                                 name: 'pizza')
+          end
         end
       end
     end

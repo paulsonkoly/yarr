@@ -102,11 +102,18 @@ module Yarr
     class AliasRewriter < Parslet::Transform
       rule('?') { 'fact' }
       rule('mk') { 'add' }
+      rule('rm') { 'remove' }
     end
     private_constant :AliasRewriter
 
     rule(:input) do
-      evaluate | ri_notation | url_evaluate | no_arg | fact_add | fact
+      evaluate |
+        ri_notation |
+        url_evaluate |
+        no_arg |
+        fact_add |
+        fact_delete |
+        fact
     end
 
     rule(:no_arg) { (str('ops') | str('renick')).as(:command) }
@@ -191,6 +198,14 @@ module Yarr
         fact_name >>
         spaces? >>
         fact_content
+    end
+
+    rule(:fact_delete) do
+      fact_command >>
+        spaces? >>
+        (str('remove') | str('rm')).as(:sub_command) >>
+        spaces? >>
+        fact_name
     end
 
     rule(:fact_content) { any.repeat.as(:content) }

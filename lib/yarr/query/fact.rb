@@ -22,6 +22,12 @@ module Yarr
         "I already know that #{name} is #{content}"
       end
 
+      # Deletes this factoid
+      def remove
+        delete
+        "I forgot what #{name} is."
+      end
+
       # Null object for not finding a factoid
       class NoFact
         # @param name [String] factoid name
@@ -41,6 +47,11 @@ module Yarr
         def save_content(content)
           Fact.create(name: @name, content: content, count: 0)
           "I will remember that #{@name} is #{content}"
+        end
+
+        # Doesn't do anything, as factoid doesn't exist
+        def remove
+          "I never knew what #{@name} is."
         end
       end
 
