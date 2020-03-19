@@ -34,6 +34,10 @@ RSpec.describe Yarr::Command::RemoveFact do
           .to(nil)
       end
 
+      it 'reduces the known factoid count' do
+        expect { handling }.to change(Yarr::Query::Fact, :count).by(-1)
+      end
+
       it 'responds with the I forgot what .. message' do
         expect(handling).to eq 'I forgot what pizza is.'
       end
