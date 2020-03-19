@@ -8,11 +8,9 @@ RSpec.describe Yarr::Command::RemoveFact do
   let(:ast) do
     Yarr::AST.new(command: 'fact',
                   sub_command: 'remove',
-                  name: name,
-                  content: content)
+                  name: name)
   end
   let(:name) { fact.name }
-  let(:content) { fact.content }
 
   it_behaves_like 'a command that authorizes', :op
 
