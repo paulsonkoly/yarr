@@ -10,14 +10,6 @@ RSpec.describe Yarr::Command::Fact do
     it 'matches the command fact' do
       expect(described_class).to be_able_to_handle ast
     end
-
-    context 'with command being ?' do
-      let(:command) { '?' }
-
-      it 'matches' do
-        expect(described_class).to be_able_to_handle ast
-      end
-    end
   end
 
   describe '#handle' do

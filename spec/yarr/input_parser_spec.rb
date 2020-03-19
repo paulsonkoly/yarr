@@ -189,15 +189,18 @@ module Yarr
 
       context 'with fact commands' do
         it 'parses fact pizza' do
-          expect(parser.parse('fact pizza')[:name]).to eq 'pizza'
+          expect(parser.parse('fact pizza'))
+            .to be_an_ast_with(command: 'fact', name: 'pizza')
         end
 
         it 'supports stuff' do
-          expect(parser.parse('fact pizza, phaul')[:stuff]).to eq 'phaul'
+          expect(parser.parse('fact pizza, phaul'))
+            .to be_an_ast_with(command: 'fact', name: 'pizza', stuff: 'phaul')
         end
 
         it 'has an alias as ?' do
-          expect(parser.parse('?pizza, phaul')[:command]).to eq '?'
+          expect(parser.parse('?pizza, phaul'))
+            .to be_an_ast_with(command: 'fact', name: 'pizza', stuff: 'phaul')
         end
 
         context 'with add sub command' do
@@ -209,9 +212,9 @@ module Yarr
                                  content: 'no pizza today')
           end
 
-          it 'has an alias as ?' do
-            expect(parser.parse('? add pizza no pizza today'))
-              .to be_an_ast_with(command: '?',
+          it 'has an alias as mk' do
+            expect(parser.parse('? mk pizza no pizza today'))
+              .to be_an_ast_with(command: 'fact',
                                  sub_command: 'add',
                                  name: 'pizza',
                                  content: 'no pizza today')

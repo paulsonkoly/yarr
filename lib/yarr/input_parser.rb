@@ -97,6 +97,14 @@ module Yarr
       end
     end
 
+    # Aliases that will be replaced in AST, so downstream doesn't have to handle
+    # different options
+    class AliasRewriter < Parslet::Transform
+      rule('?') { 'fact' }
+      rule('mk') { 'add' }
+    end
+    private_constant :AliasRewriter
+
     rule(:input) do
       evaluate | ri_notation | url_evaluate | no_arg | fact_add | fact
     end
@@ -178,7 +186,7 @@ module Yarr
     rule(:fact_add) do
       fact_command >>
         spaces? >>
-        str('add').as(:sub_command) >>
+        (str('add') | str('mk')).as(:sub_command) >>
         spaces? >>
         fact_name >>
         spaces? >>
@@ -199,7 +207,7 @@ module Yarr
     # @param string [String] the input to parse
     # @return [AST] abstract syntax tree of user input
     def parse(string, *args)
-      AST.new(super)
+      AST.new(AliasRewriter.new.apply(super))
     rescue Parslet::ParseFailed => e
       raise ParseError, e
     end
