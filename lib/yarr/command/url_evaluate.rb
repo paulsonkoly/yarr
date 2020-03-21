@@ -20,9 +20,10 @@ module Yarr
       # @see {Yarr::Base} for the rest of the arguments
       def initialize(ast:,
                      irc: NoIRC,
+                     user: NoIRC::User.new,
                      fetch_service: Typhoeus,
                      evaluator_service: EvaluatorService.new)
-        super(ast: ast, irc: irc)
+        super(ast: ast, irc: irc, user: user)
 
         @fetch_service = fetch_service
         @evaluator_service = evaluator_service

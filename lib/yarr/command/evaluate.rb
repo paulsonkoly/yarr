@@ -24,9 +24,10 @@ module Yarr
       # @see {Yarr::Base} for the rest of the arguments
       def initialize(ast:,
                      irc: NoIRC,
+                     user: NoIRC::User.new,
                      web_service: EvaluatorService.new,
                      configuration: Yarr.config)
-        super(ast: ast, irc: irc)
+        super(ast: ast, irc: irc, user: user)
 
         @service = web_service
         @config = configuration.evaluator
