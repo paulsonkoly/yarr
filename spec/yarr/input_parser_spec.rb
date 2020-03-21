@@ -213,14 +213,6 @@ module Yarr
                                    content: 'no pizza today')
             end
 
-            it 'has an alias as ?' do
-              expect(parser.parse("? #{command} pizza no pizza today"))
-                .to be_an_ast_with(command: 'fact',
-                                   sub_command: command,
-                                   name: 'pizza',
-                                   content: 'no pizza today')
-            end
-
             it "abbreviates #{command} to #{abbrev}" do
               expect(parser.parse("? #{abbrev} pizza no pizza today"))
                 .to be_an_ast_with(command: 'fact',
@@ -239,18 +231,29 @@ module Yarr
                                  name: 'pizza')
           end
 
-          it 'has an alias as ?' do
-            expect(parser.parse('? remove pizza'))
-              .to be_an_ast_with(command: 'fact',
-                                 sub_command: 'remove',
-                                 name: 'pizza')
-          end
-
-          it 'aliases remove to to rm' do
+          it 'aliases remove to rm' do
             expect(parser.parse('? rm pizza'))
               .to be_an_ast_with(command: 'fact',
                                  sub_command: 'remove',
                                  name: 'pizza')
+          end
+        end
+
+        context 'with rename sub command' do
+          it 'parses fact rename pizza food' do
+            expect(parser.parse('fact rename pizza food'))
+              .to be_an_ast_with(command: 'fact',
+                                 sub_command: 'rename',
+                                 old_name: 'pizza',
+                                 new_name: 'food')
+          end
+
+          it 'aliases renme to mv' do
+            expect(parser.parse('? mv pizza food'))
+              .to be_an_ast_with(command: 'fact',
+                                 sub_command: 'rename',
+                                 old_name: 'pizza',
+                                 new_name: 'food')
           end
         end
       end

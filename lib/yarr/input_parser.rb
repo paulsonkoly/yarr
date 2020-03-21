@@ -104,6 +104,7 @@ module Yarr
       rule('mk') { 'add' }
       rule('rm') { 'remove' }
       rule('ed') { 'edit' }
+      rule('mv') { 'rename' }
     end
     private_constant :AliasRewriter
 
@@ -113,6 +114,7 @@ module Yarr
         url_evaluate |
         no_arg |
         fact_name_and_content |
+        fact_rename |
         fact_delete |
         fact
     end
@@ -201,6 +203,16 @@ module Yarr
         fact_content
     end
 
+    rule(:fact_rename) do
+      fact_command >>
+        spaces? >>
+        (str('rename') | str('mv')).as(:sub_command) >>
+        spaces? >>
+        _fact_name.as(:old_name) >>
+        spaces? >>
+        _fact_name.as(:new_name)
+    end
+
     rule(:fact_delete) do
       fact_command >>
         spaces? >>
@@ -213,7 +225,9 @@ module Yarr
 
     rule(:fact_command) { (str('fact') | str('?')).as(:command) }
 
-    rule(:fact_name) { match('[\w\d-]').repeat(1).as(:name) }
+    rule(:fact_name) { _fact_name.as(:name) }
+
+    rule(:_fact_name) { match('[\w\d-]').repeat(1) }
 
     root(:input)
 

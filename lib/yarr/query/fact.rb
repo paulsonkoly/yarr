@@ -28,6 +28,15 @@ module Yarr
         "I stand corrected that #{name} is #{content}"
       end
 
+      # renames factoid
+      def rename(new_name)
+        old_name = name
+        update(name: new_name)
+        "I will remember that #{old_name} is actually called #{new_name}."
+      rescue Sequel::UniqueConstraintViolation
+        "Name collision as #{new_name} is already taken."
+      end
+
       # Deletes this factoid
       def remove
         delete
@@ -59,6 +68,11 @@ module Yarr
         def update_content(_)
           "I'm sorry, did you mean to teach me about #{@name}? " \
             'Please use `fact add` for that.'
+        end
+
+        # Does nothing as rename only operates on existing factoids
+        def rename(_)
+          "I don't know anything about #{@name}."
         end
 
         # Doesn't do anything, as factoid doesn't exist
