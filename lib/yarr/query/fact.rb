@@ -22,6 +22,12 @@ module Yarr
         "I already know that #{name} is #{content}"
       end
 
+      # updates the existing content
+      def update_content(content)
+        update(content: content)
+        "I stand corrected that #{name} is #{content}"
+      end
+
       # Deletes this factoid
       def remove
         delete
@@ -47,6 +53,12 @@ module Yarr
         def save_content(content)
           Fact.create(name: @name, content: content, count: 0)
           "I will remember that #{@name} is #{content}"
+        end
+
+        # Does nothing as update only operates on existing factoids
+        def update_content(_)
+          "I'm sorry, did you mean to teach me about #{@name}? " \
+            'Please use `fact add` for that.'
         end
 
         # Doesn't do anything, as factoid doesn't exist

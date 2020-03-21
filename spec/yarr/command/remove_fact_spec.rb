@@ -37,7 +37,7 @@ RSpec.describe Yarr::Command::RemoveFact do
       end
 
       it 'responds with the I forgot what .. message' do
-        expect(handling).to eq 'I forgot what pizza is.'
+        expect(handling).to eq "I forgot what #{fact.name} is."
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Yarr::Command::RemoveFact do
 
       it 'responds with the I never knew .. message' do
         expect(handling)
-          .to eq 'I never knew what pizza is.'
+          .to eq "I never knew what #{fact.name} is."
       end
     end
   end

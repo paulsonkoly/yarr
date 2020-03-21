@@ -103,6 +103,7 @@ module Yarr
       rule('?') { 'fact' }
       rule('mk') { 'add' }
       rule('rm') { 'remove' }
+      rule('ed') { 'edit' }
     end
     private_constant :AliasRewriter
 
@@ -111,7 +112,7 @@ module Yarr
         ri_notation |
         url_evaluate |
         no_arg |
-        fact_add |
+        fact_name_and_content |
         fact_delete |
         fact
     end
@@ -190,10 +191,10 @@ module Yarr
 
     rule(:fact) { fact_command >> spaces? >> fact_name >> stuff }
 
-    rule(:fact_add) do
+    rule(:fact_name_and_content) do
       fact_command >>
         spaces? >>
-        (str('add') | str('mk')).as(:sub_command) >>
+        (str('add') | str('mk') | str('edit') | str('ed')).as(:sub_command) >>
         spaces? >>
         fact_name >>
         spaces? >>

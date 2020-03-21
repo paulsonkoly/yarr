@@ -187,7 +187,7 @@ module Yarr
         end
       end
 
-      context 'with fact commands' do
+      context 'with fact command' do
         it 'parses fact pizza' do
           expect(parser.parse('fact pizza'))
             .to be_an_ast_with(command: 'fact', name: 'pizza')
@@ -203,29 +203,31 @@ module Yarr
             .to be_an_ast_with(command: 'fact', name: 'pizza', stuff: 'phaul')
         end
 
-        context 'with add sub command' do
-          it 'parses fact pizza' do
-            expect(parser.parse('fact add pizza no pizza today'))
-              .to be_an_ast_with(command: 'fact',
-                                 sub_command: 'add',
-                                 name: 'pizza',
-                                 content: 'no pizza today')
-          end
+        { 'add' => 'mk', 'edit' => 'ed' }.each do |command, abbrev|
+          context "with #{command} sub command" do
+            it 'parses fact pizza' do
+              expect(parser.parse("fact #{command} pizza no pizza today"))
+                .to be_an_ast_with(command: 'fact',
+                                   sub_command: command,
+                                   name: 'pizza',
+                                   content: 'no pizza today')
+            end
 
-          it 'has an alias as mk' do
-            expect(parser.parse('? mk pizza no pizza today'))
-              .to be_an_ast_with(command: 'fact',
-                                 sub_command: 'add',
-                                 name: 'pizza',
-                                 content: 'no pizza today')
-          end
+            it 'has an alias as ?' do
+              expect(parser.parse("? #{command} pizza no pizza today"))
+                .to be_an_ast_with(command: 'fact',
+                                   sub_command: command,
+                                   name: 'pizza',
+                                   content: 'no pizza today')
+            end
 
-          it 'aliases add to mk' do
-            expect(parser.parse('? mk pizza no pizza today'))
-              .to be_an_ast_with(command: 'fact',
-                                 sub_command: 'add',
-                                 name: 'pizza',
-                                 content: 'no pizza today')
+            it "abbreviates #{command} to #{abbrev}" do
+              expect(parser.parse("? #{abbrev} pizza no pizza today"))
+                .to be_an_ast_with(command: 'fact',
+                                   sub_command: command,
+                                   name: 'pizza',
+                                   content: 'no pizza today')
+            end
           end
         end
 

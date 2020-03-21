@@ -36,7 +36,7 @@ RSpec.describe Yarr::Command::AddFact do
 
       it 'responds with the I will remember .. message' do
         expect(handling)
-          .to eq "I will remember that pizza is here's your pizza: 🍕"
+          .to eq "I will remember that #{fact.name} is #{fact.content}"
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe Yarr::Command::AddFact do
 
       it 'responds with the I  already know .. message' do
         expect(handling)
-          .to eq "I already know that pizza is here's your pizza: 🍕"
+          .to eq "I already know that #{fact.name} is #{fact.content}"
       end
     end
   end
