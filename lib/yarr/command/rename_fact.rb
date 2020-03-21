@@ -16,7 +16,6 @@ module Yarr
 
       digger :old_name
       digger :new_name
-      digger :content
 
       # @param ast [AST] parsed ast
       # @return [True|False] can this command handle the AST?
