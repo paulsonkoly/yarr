@@ -81,6 +81,22 @@ module Yarr
       end
     end
 
+    context 'with evaluate command' do
+      it 'is an Evaulate' do
+        handler = dispatcher.for_ast(evaluate: 13)
+
+        expect(handler).to be_a Command::Evaluate
+      end
+    end
+
+    context 'with url evaluate command' do
+      it 'is a URLEvaluate' do
+        handler = dispatcher.for_ast(url_evaluate: 'http://x.org')
+
+        expect(handler).to be_a Command::URLEvaluate
+      end
+    end
+
     context 'with fact command' do
       it 'is a Fact' do
         handler = dispatcher.for_ast(command: 'fact')
