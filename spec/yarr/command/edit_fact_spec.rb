@@ -14,7 +14,7 @@ RSpec.describe Yarr::Command::EditFact do
   end
   let(:name) { fact.name }
   let(:content) { fact.content }
-  let(:new_content) { attributes_for(:fact)[:content] }
+  let(:new_content) { 'content different from previous content' }
   let(:new_attributes) { attributes.merge(content: new_content) }
 
   it_behaves_like 'a command that authorizes', :op
