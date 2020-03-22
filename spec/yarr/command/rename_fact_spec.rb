@@ -13,7 +13,7 @@ RSpec.describe Yarr::Command::RenameFact do
                   new_name: new_name)
   end
   let(:old_name) { fact.name }
-  let(:new_name) { attributes_for(:fact)[:name] }
+  let(:new_name) { 'name different from previous name' }
   let(:new_attributes) { attributes.merge(name: new_name) }
 
   it_behaves_like 'a command that authorizes', :op
@@ -80,7 +80,7 @@ RSpec.describe Yarr::Command::RenameFact do
           .not_to(change { Yarr::Query::Fact[name: new_name] })
       end
 
-      it 'responds with the I name collision .. message' do
+      it 'responds with the name collision .. message' do
         expect(handling)
           .to eq "Name collision as #{new_name} is already taken."
       end
