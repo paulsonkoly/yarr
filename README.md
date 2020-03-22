@@ -146,15 +146,33 @@ If during a reconnect the bot lost its default nick, this command will try to re
 
 ### ops
 
-Lists current channel operators. Can be used to mention all operators in the channel if you want operator attention. Useful if the channel is trolled. Operators are users with ruby/staff mask, not necesarrily with +o flag.
+Lists current channel operators. Can be used to mention all operators in the channel if you want operator attention. Useful if the channel is trolled. Operators are users with ruby/staff mask, not necessarily with +o flag.
 
 ### facts
 
 Responds with a factoid. Command can be triggered with the `fact` command or the `?` alias. Factoids are listed at https://ruby-community.com/ruboto/facts.
 
 ```
-? pizza
+&? pizza
 >>> here's your pizza: 🍕
+```
+
+#### factoid manipulation commands
+
+These commands are restricted to channel operators.
+
+ | subcommand | alias | syntax                                 |
+ | :-------   | :---  | :------------------------------------- |
+ | `add`      | `mk`  | `fact add <name> <content>`            |
+ | `remove`   | `rm`  | `fact remove <name>`                   |
+ | `edit`     | `ed`  | `fact edit <name> <content>`           |
+ | `rename`   | `mv`  | `fact edit <name> <name>`              |
+
+```
+& fact add ruby An object oriented programming language.
+>>> I will remember that ruby is An object oriented programming language.
+& ? ruby
+>>> An object oriented programming language.
 ```
 
 ### fake
