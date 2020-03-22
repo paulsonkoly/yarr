@@ -80,7 +80,7 @@ RSpec.describe Yarr::Command::RenameFact do
           .not_to(change { Yarr::Query::Fact[name: new_name] })
       end
 
-      it 'responds with the I will remember .. message' do
+      it 'responds with the I name collision .. message' do
         expect(handling)
           .to eq "Name collision as #{new_name} is already taken."
       end
