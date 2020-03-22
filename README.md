@@ -166,7 +166,7 @@ These commands are restricted to channel operators.
  | `add`      | `mk`  | `fact add <name> <content>`            |
  | `remove`   | `rm`  | `fact remove <name>`                   |
  | `edit`     | `ed`  | `fact edit <name> <content>`           |
- | `rename`   | `mv`  | `fact edit <name> <name>`              |
+ | `rename`   | `mv`  | `fact rename <name> <name>`            |
 
 ```
 & fact add ruby An object oriented programming language.
