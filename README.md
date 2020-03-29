@@ -35,8 +35,8 @@ You can run the bot, or you can run yarr in a console (no IRC connection).
 To run the application you have to run the following command:
 
 ```bash
-$ bundle exec ruby bin/console # run console mode.
-$ bundle exec ruby app/yarr # run bot mode.
+$ bin/console # run console mode.
+$ bin/yarr # run bot mode.
 ```
 
 In irc mode all commands have to be prefixed with `&'.

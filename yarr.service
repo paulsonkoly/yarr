@@ -8,7 +8,7 @@ User = yarr
 Group = yarr
 # Set to your apps location
 WorkingDirectory = /srv/yarr/yarr
-ExecStart=/usr/bin/bash -lc 'bundle exec ruby app/yarr.rb'
+ExecStart=/usr/bin/bash -lc 'bundle exec bin/yarr.rb'
 TimeoutSec=30
 RestartSec=15s
 Restart=always
