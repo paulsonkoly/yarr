@@ -1,7 +1,7 @@
 AllCops:
   Exclude:
-    - .bundle
-    - vendor
+    - .bundle/**/*
+    - vendor/**/*
 
 
 # reek disagrees, and complains about uncommunicative variable name
