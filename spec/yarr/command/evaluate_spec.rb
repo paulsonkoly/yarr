@@ -73,7 +73,8 @@ module Yarr
 
           it 'sends the right request to web_service' do
             expect(web_service).to receive(:request)
-              .with(EvaluatorService::Request.new('ast of(%q`\\`1 + 1\\``)', '2.2.2'))
+              .with(EvaluatorService::Request.new('ast of(%q`\\`1 + 1\\``)',
+                                                  '2.2.2'))
 
             allow(web_service)
               .to receive(:request)
@@ -97,8 +98,9 @@ module Yarr
           end
 
           it 'sends the right request to web_service' do
+            text = 'new ast of(%q`\\`1 + 1\\``)'
             expect(web_service).to receive(:request)
-              .with(EvaluatorService::Request.new('new ast of(%q`\\`1 + 1\\``)'))
+              .with(EvaluatorService::Request.new(text))
 
             allow(web_service)
               .to receive(:request)

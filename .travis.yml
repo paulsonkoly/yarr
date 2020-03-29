@@ -1,7 +1,7 @@
 language: ruby
 rvm:
   - 2.6.5
-script: bundle exec rake spec
+script: bundle exec rake lint:ci_build
 cache: bundler
 branches:
   only:

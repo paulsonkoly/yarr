@@ -1,9 +1,10 @@
 class Array
   def sequence(i)
-    self[i % self.length]
+    self[i % length]
   end
 end
 
+# rubocop:disable Metrics/BlockLength
 FactoryBot.define do
   factory :method, class: 'Yarr::Query::Method' do
     sequence :flavour do |i|
@@ -54,3 +55,4 @@ FactoryBot.define do
     to_create(&:save)
   end
 end
+# rubocop:enable Metrics/BlockLength

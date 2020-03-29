@@ -17,6 +17,9 @@ group :development do
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
   gem 'reek'
+  gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rspec'
 end
 
 group :test do

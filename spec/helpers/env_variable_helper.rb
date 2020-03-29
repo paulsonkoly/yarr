@@ -1,3 +1,5 @@
+# TODO
+# rubocop:disable Metrics/MethodLength
 def environment_variable(name)
   before do
     @original_setting = ENV[name]
@@ -12,3 +14,4 @@ def environment_variable(name)
     end
   end
 end
+# rubocop:enable Metrics/MethodLength

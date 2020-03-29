@@ -46,7 +46,10 @@ end
 
 namespace :lint do
   desc 'all lints'
-  task :all => %i[spec_helper_check no_byebug reek spec module_coverage]
+  task :all => %i[spec_helper_check ci_build module_coverage]
+
+  desc 'CI build'
+  task :ci_build => %i[rubocop reek spec]
 
   desc 'Check for require spec_helper in spec files'
   task :spec_helper_check do
@@ -58,15 +61,8 @@ namespace :lint do
     end
   end
 
-  desc 'byebug should not be checked in'
-  task :no_byebug do
-    puts 'looking for files with byebug'
-    FileList['**/*.rb'].each do |f|
-      File.open(f, 'r') do |io|
-        abort "byebug found in #{f}" if io.each_line.any?(/byebug/)
-      end
-    end
-  end
+  desc 'rubocop'
+  task(:rubocop) { sh 'rubocop' }
 
   desc 'module level coverage'
   task :module_coverage do

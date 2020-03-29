@@ -5,8 +5,10 @@ module Yarr
     # Flood protection.
     module Truncator
       MAX_LENGTH = 160 # max message length.
+      # rubocop:disable Style/MutableConstant
       OMISSION = '...' # use ... if truncated
       SEPARATOR = ' '  # natural break point
+      # rubocop:enable Style/MutableConstant
 
       # Truncates the given string to the predefined maximum size.
       # @param message [String] the string to truncate
@@ -36,7 +38,7 @@ module Yarr
                    suffix: '')
         multiline, first_line = first_line(message)
         suffixed = first_line + suffix
-        return suffixed if suffixed.length <= MAX_LENGTH && ! multiline
+        return suffixed if suffixed.length <= MAX_LENGTH && !multiline
 
         split_point = split_point(first_line, omission, suffix)
         "#{first_line[0, split_point]}#{omission}#{suffix}"

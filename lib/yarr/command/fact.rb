@@ -13,7 +13,7 @@ module Yarr
       # @param ast [AST] parsed ast
       # @return [True|False] can this command handle the AST?
       def self.match?(ast)
-        ast[:command] == 'fact' && ! ast.key?(:sub_command)
+        ast[:command] == 'fact' && !ast.key?(:sub_command)
       end
 
       # Runs the command

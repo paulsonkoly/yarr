@@ -11,6 +11,7 @@ def report_io(fn, io)
   warn "error occured at [#{fn}:#{io.lineno}] "
 end
 
+# rubocop:disable Metrics/BlockLength
 DB.transaction do
   origin_id = DB[:origins].insert(name: origin)
 
@@ -63,3 +64,4 @@ DB.transaction do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

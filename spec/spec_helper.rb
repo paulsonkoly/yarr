@@ -25,11 +25,9 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  # rubocop:disable Rspec/HookArgument
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run
     end
   end
-  # rubocop:enable Rspec/HookArgument
 end

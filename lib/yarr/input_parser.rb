@@ -166,7 +166,7 @@ module Yarr
 
     rule(:method_) { (operator | suffixed | normal_name).as(:method_name) }
 
-    rule(:klass_origin) { klass >> spaces? >> str(?() >> origin >> str(?)) }
+    rule(:klass_origin) { klass >> spaces? >> str('(') >> origin >> str(')') }
 
     rule(:origin) { match('[a-z]').repeat(1).as(:origin_name) }
 
@@ -231,15 +231,13 @@ module Yarr
 
     root(:input)
 
-    # :reek:UncommunicativeVariableName
-
     # Same as Parslet::Parser#parse, except we return string hash values
     # @param string [String] the input to parse
     # @return [AST] abstract syntax tree of user input
     def parse(string, *args)
       AST.new(AliasRewriter.new.apply(super))
-    rescue Parslet::ParseFailed => e
-      raise ParseError, e
+    rescue Parslet::ParseFailed => parser_error
+      raise ParseError, parser_error
     end
   end
 end
