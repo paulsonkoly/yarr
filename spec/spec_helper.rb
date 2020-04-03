@@ -1,19 +1,19 @@
+# frozen_string_literal: true
+
 require 'deep_cover'
 require 'faker'
 require 'factory_bot'
 require 'database_cleaner'
 
-require 'helpers/evaluator_response_double'
-require 'helpers/ast_matcher'
-require 'shared_examples/a_command_that_authorizes'
-
-require 'yarr'
-
-RSpec::Matchers.define :be_able_to_handle do |expected|
-  match do |actual|
-    actual.match? expected
+%w[matchers helpers shared_examples shared_contexts].each do |directory|
+  Dir.chdir('spec') do
+    Dir.glob("#{directory}/**/*.rb").sort.each do |file|
+      require file
+    end
   end
 end
+
+require 'yarr'
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
