@@ -12,6 +12,8 @@ gem 'sqlite3', '~> 1.4'
 gem 'typhoeus', '~> 1.3'
 
 group :development do
+  gem 'guard'
+  gem 'guard-rspec'
   gem 'nokogiri'
   gem 'pry'
   gem 'pry-rescue'
@@ -22,7 +24,7 @@ group :development do
   gem 'rubocop-rspec'
 end
 
-group :test do
+group :development, :test do
   gem 'database_cleaner-sequel'
   gem 'deep-cover'
   gem 'factory_bot'
