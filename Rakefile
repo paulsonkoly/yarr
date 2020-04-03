@@ -62,15 +62,15 @@ namespace :lint do
   end
 
   desc 'rubocop'
-  task(:rubocop) { sh 'rubocop' }
+  task(:rubocop) { sh 'bundle exec rubocop' }
 
   desc 'module level coverage'
   task :module_coverage do
     puts 'Module coverage checks'
     ENV['YARR_TEST'] = '1'
-    sh 'deep-cover exec rspec'
+    sh 'bundle exec deep-cover exec rspec'
   end
 
   desc 'reek'
-  task(:reek) { sh 'reek -c .reek' }
+  task(:reek) { sh 'bundle exec reek -c .reek' }
 end
