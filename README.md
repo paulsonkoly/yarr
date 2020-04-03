@@ -1,5 +1,7 @@
 # Yarr
 
+**Y**et **A**nother **R**uby **R**obot
+
 This application is the workhorse behind the rubydoc bot on freenode.net #ruby.
 
 [![Build Status](https://travis-ci.org/phaul/yarr.svg?branch=master)](https://travis-ci.org/phaul/yarr)
@@ -49,7 +51,7 @@ etc. The command can be modified to send a disassembly, tokenisation, or parse
 request on the code to carc.in. These modifiers can also be combined with the
 ruby version, action modifier comes first.
 
- |          |                                        |
+ | mode     |                                        |
  | :------- | :------------------------------------- |
  | `asm`    | dissassemble                           |
  | `tok`    | lexer output                           |
