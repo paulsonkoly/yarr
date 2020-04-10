@@ -28,10 +28,8 @@ module Yarr
     # @return [String] response string
     def reply_to(message, user = NoIRC::User.new)
       reply_to_or_raise(message, user)
-    rescue InputParser::ParseError => parser_error
-      parser_error.report(message)
-    rescue Command::Concern::Authorize::AuthorizationError => auth_error
-      auth_error.message
+    rescue Error => error
+      error.message
     end
 
     private

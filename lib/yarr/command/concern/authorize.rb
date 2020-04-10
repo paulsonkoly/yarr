@@ -1,3 +1,5 @@
+require 'yarr/error'
+
 module Yarr
   module Command
     module Concern
@@ -20,18 +22,6 @@ module Yarr
       #     end
       #   end
       module Authorize
-        # Raised when current user does not have privileges
-        class AuthorizationError < StandardError
-          # @param user [String] nick of the user
-          # @param role [Symbol] role to authorize for
-          def initialize(user, role)
-            @user = user
-            @role = role
-
-            super "#{user.nick} is not authorized to execute command as #{role}"
-          end
-        end
-
         # Prepended command handler
         def handle
           if irc.irc

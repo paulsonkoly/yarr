@@ -1,5 +1,6 @@
 require 'parslet'
 require 'yarr/ast'
+require 'yarr/error'
 require 'yarr/configuration'
 
 module Yarr
@@ -78,25 +79,6 @@ module Yarr
   #
   #  - renick
   class InputParser < Parslet::Parser
-    # Error raised when parsing fails
-    class ParseError < RuntimeError
-      # @api private
-      # This class should be only instantiated from within the {InputParser}
-      def initialize(parslet_error)
-        @parslet_error = parslet_error
-      end
-
-      # Reports the parse error occurred
-      # @param message [String] original message of the bot
-      # @return [String] bot response
-      def report(message)
-        cause = @parslet_error.parse_failure_cause
-        position = cause.pos.charpos
-        puts cause.ascii_tree if Yarr.config.development?
-        "parser error at position #{position} around `#{message[position]}'"
-      end
-    end
-
     # Aliases that will be replaced in AST, so downstream doesn't have to handle
     # different options
     class AliasRewriter < Parslet::Transform
@@ -237,7 +219,7 @@ module Yarr
     def parse(string, *args)
       AST.new(AliasRewriter.new.apply(super))
     rescue Parslet::ParseFailed => parser_error
-      raise ParseError, parser_error
+      raise ParseError.new(parser_error, string)
     end
   end
 end

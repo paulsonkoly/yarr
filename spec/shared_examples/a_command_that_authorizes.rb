@@ -23,8 +23,7 @@ RSpec.shared_examples 'a command that authorizes' do |role|
     end
 
     it 'raises authorization error' do
-      expect { subject.handle }
-        .to raise_error Yarr::Command::Concern::Authorize::AuthorizationError
+      expect { subject.handle }.to raise_error Yarr::AuthorizationError
     end
   end
 end

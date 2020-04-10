@@ -6,12 +6,11 @@ RSpec.describe Yarr::InputParser do
 
   describe '#parse' do
     it 'raises error on empty command' do
-      expect { parser.parse('') }.to raise_error Yarr::InputParser::ParseError
+      expect { parser.parse('') }.to raise_error Yarr::ParseError
     end
 
     it 'raises error on invalid command' do
-      expect { parser.parse('xxx') }
-        .to raise_error Yarr::InputParser::ParseError
+      expect { parser.parse('xxx') }.to raise_error Yarr::ParseError
     end
 
     context 'with ri type commands' do
@@ -28,14 +27,12 @@ RSpec.describe Yarr::InputParser do
       end
 
       it 'raises error on empty target' do
-        expect { parser.parse('ri') }
-          .to raise_error Yarr::InputParser::ParseError
+        expect { parser.parse('ri') }.to raise_error Yarr::ParseError
       end
 
       %w[@@ .. // ' " a$ {}].each do |word|
         it "raises error for #{word}" do
-          expect { parser.parse("ri #{word}") }
-            .to raise_error Yarr::InputParser::ParseError
+          expect { parser.parse("ri #{word}") }.to raise_error Yarr::ParseError
         end
       end
 
@@ -76,9 +73,7 @@ RSpec.describe Yarr::InputParser do
       end
 
       it 'raises error for upper case inside a method name' do
-        expect do
-          parser.parse('ri mEtHoD')
-        end.to raise_error Yarr::InputParser::ParseError
+        expect { parser.parse('ri mEtHoD') }.to raise_error Yarr::ParseError
       end
 
       it 'parses % as a method' do
@@ -136,8 +131,7 @@ RSpec.describe Yarr::InputParser do
       end
 
       it 'raises parse error for single number method name' do
-        expect { parser.parse('ri 5') }
-          .to raise_error Yarr::InputParser::ParseError
+        expect { parser.parse('ri 5') }.to raise_error Yarr::ParseError
       end
     end
 

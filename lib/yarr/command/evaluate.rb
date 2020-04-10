@@ -68,7 +68,7 @@ module Yarr
         when :link
           "I have #{mode[:verb]} your code, the result is at #{url}"
         else
-          raise 'output mode is neither :truncate nor :link. config file error'
+          raise ConfigFileError, 'output mode is neither :truncate nor :link'
         end
       end
 
