@@ -6,7 +6,7 @@ require 'yarr/command/concern/user'
 
 module Yarr
   module Command
-    # Adds a new factoid if there isn't one already with the same name
+    # Removes an existing factoid
     class RemoveFact < Base
       extend Concern::ASTDigger
       prepend Concern::Authorize
