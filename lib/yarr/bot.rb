@@ -29,7 +29,7 @@ module Yarr
     def reply_to(message, user = NoIRC::User.new)
       reply_to_or_raise(message, user)
     rescue Error => error
-      error.message
+      nick_prefix(user, error.message)
     end
 
     private
@@ -51,10 +51,14 @@ module Yarr
         response
       else
         user = @irc.user_list.find(stuff)
-        if user then user.nick + ': ' << response
-        else response << ', ' << truncate(stuff)
-        end
+        nick_prefix(user, response)
       end
+    end
+
+    def nick_prefix(user, message)
+      return message unless @irc.irc
+
+      "#{user.nick}: #{message}"
     end
   end
 end

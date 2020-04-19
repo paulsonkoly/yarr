@@ -10,19 +10,19 @@ module Yarr
     def initialize(parslet_error, message)
       @parslet_error = parslet_error
       @message = message
-      puts cause.ascii_tree if Yarr.config.development?
+      puts failure_cause.ascii_tree if Yarr.config.development?
 
       super "parser error at position #{position} around `#{fail_char}'"
     end
 
     private
 
-    def cause
+    def failure_cause
       @parslet_error.parse_failure_cause
     end
 
     def position
-      cause.pos.charpos
+      failure_cause.pos.charpos
     end
 
     def fail_char
@@ -44,5 +44,9 @@ module Yarr
 
   # error in the config/yarr.yml file
   class ConfigFileError < Error
+  end
+
+  # when there is no answer or mulitple answers
+  class AnswerAmbiguityError < Error
   end
 end

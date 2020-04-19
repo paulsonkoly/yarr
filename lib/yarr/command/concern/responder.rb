@@ -1,3 +1,5 @@
+require 'yarr/error'
+
 module Yarr
   module Command
     module Concern
@@ -15,13 +17,14 @@ module Yarr
         private
 
         def zero_response
-          "Found no entry that matches #{target}"
+          message = "Found no entry that matches #{target}"
+          raise AnswerAmbiguityError, message
         end
 
         def multi_response(count)
-          response = "I found #{count} entries matching #{target}."
-          response << ' ' << advice unless advice.empty?
-          response
+          message = "I found #{count} entries matching #{target}."
+          message << ' ' << advice unless advice.empty?
+          raise AnswerAmbiguityError, message
         end
 
         # @!parse

@@ -19,9 +19,10 @@ module Yarr
           end
 
           context 'when result is empty' do
-            it 'responds with not found' do
-              expect(responder.send(:response, []))
-                .to eq 'Found no entry that matches test'
+            it 'raises AnswerAmbiguityError with no entry in the message' do
+              expect { responder.send(:response, []) }
+                .to raise_error(AnswerAmbiguityError,
+                                'Found no entry that matches test')
             end
           end
 
@@ -47,9 +48,10 @@ module Yarr
           end
 
           context 'when result is empty' do
-            it 'responds with not found' do
-              expect(responder.send(:response, []))
-                .to eq 'Found no entry that matches test'
+            it 'raises AnswerAmbiguityError with no entry in the message' do
+              expect { responder.send(:response, []) }
+                .to raise_error(AnswerAmbiguityError,
+                                'Found no entry that matches test')
             end
           end
 
@@ -60,9 +62,10 @@ module Yarr
           end
 
           context 'with multiple results' do
-            it 'responds with the info about the result' do
-              expect(responder.send(:response, %w[a b c]))
-                .to eq 'I found 3 entries matching test.'
+            it 'raises AnswerAmbiguityError with the matches in the message' do
+              expect { responder.send(:response, %w[a b c]) }
+                .to raise_error(AnswerAmbiguityError,
+                                'I found 3 entries matching test.')
             end
           end
 
@@ -85,11 +88,12 @@ module Yarr
             end
 
             context 'with multiple results' do
-              it 'includes the advice in the result' do
-                expect(responder.send(:response, %w[a b c]))
-                  .to eq %(
-                    I found 3 entries matching test. Go do something else.
-                ).strip
+              it 'raises AnswerAmbiguityError with the advice in the message' do
+                expect { responder.send(:response, %w[a b c]) }
+                  .to raise_error(
+                    AnswerAmbiguityError,
+                    'I found 3 entries matching test. Go do something else.'
+                  )
               end
             end
           end

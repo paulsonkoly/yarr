@@ -34,11 +34,11 @@ RSpec.describe Yarr::Bot do
   end
 
   it 'reports error for commands it doesn\'t understand' do
-    expect(bot.reply_to('xxx aaa')).to start_with('parser error')
+    expect(bot.reply_to('xxx aaa')).to include('parser error')
   end
 
   it 'reports error for targets it can\'t parse' do
-    expect(bot.reply_to('xxx @@')).to start_with('parser error')
+    expect(bot.reply_to('xxx @@')).to include('parser error')
   end
 
   it 'points to the right place of the error' do
@@ -52,5 +52,14 @@ RSpec.describe Yarr::Bot do
   it 'can add a new fact' do
     expect { bot.reply_to('fact add x y') }
       .to change(Yarr::Query::Fact, :count).by(1)
+  end
+
+  context 'when the bot is connected to irc' do
+    let(:irc_provider) { double('Irc', irc: true) }
+    let(:bot) { described_class.new(irc_provider) }
+
+    it 'includes the initiating user if the command raises' do
+      expect(bot.reply_to('xxx @@')).to start_with('no user')
+    end
   end
 end
