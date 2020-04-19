@@ -55,11 +55,10 @@ RSpec.describe Yarr::Bot do
   end
 
   context 'when the bot is connected to irc' do
-    let(:irc_provider) { double('Irc', irc: true) }
-    let(:bot) { described_class.new(irc_provider) }
+    let(:irc_user) { double('Irc user', online?: true, nick: 'phaul') }
 
     it 'includes the initiating user if the command raises' do
-      expect(bot.reply_to('xxx @@')).to start_with('no user')
+      expect(bot.reply_to('xxx @@', irc_user)).to start_with('phaul')
     end
   end
 end

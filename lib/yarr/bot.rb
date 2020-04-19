@@ -2,12 +2,14 @@ require 'yarr/command'
 require 'yarr/input_parser'
 require 'yarr/message/truncator'
 require 'yarr/no_irc'
+require 'yarr/concern/message'
 
 # Responds to rdoc documentation queries with links and more.
 module Yarr
   # Handles the incoming message string and returns a response string.
   class Bot
     include Message::Truncator
+    include Message
 
     # The YARR IRC bot
     # @param irc_provider [Cinch::Bot] IRC functionality provider.
@@ -50,15 +52,9 @@ module Yarr
       if stuff.empty?
         response
       else
-        user = @irc.user_list.find(stuff)
+        user = @irc.user_list.find(stuff) || NoIRC::User.new
         nick_prefix(user, response)
       end
-    end
-
-    def nick_prefix(user, message)
-      return message unless @irc.irc
-
-      "#{user.nick}: #{message}"
     end
   end
 end
