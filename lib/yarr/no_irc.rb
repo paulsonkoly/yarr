@@ -3,7 +3,7 @@ module Yarr
   module NoIRC
     # @return [#find] empty user list
     def self.user_list
-      []
+      UserList.new
     end
 
     # Accepts setting the nick, but being a null-object does nothing
@@ -30,6 +30,17 @@ module Yarr
       # @return [FalseClass] false
       def online?
         false
+      end
+    end
+
+    # Null object for user list
+    class UserList
+      def find(_)
+        nil
+      end
+
+      def empty?
+        true
       end
     end
   end

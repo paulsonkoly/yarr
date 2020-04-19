@@ -49,12 +49,8 @@ module Yarr
     end
 
     def post_process(response, stuff)
-      if stuff.empty?
-        response
-      else
-        user = @irc.user_list.find(stuff) || NoIRC::User.new
-        nick_prefix(user, response)
-      end
+      user = @irc.user_list.find(stuff) || NoIRC::User.new
+      nick_prefix(user, response)
     end
   end
 end
