@@ -12,9 +12,10 @@ module Yarr
     include Message
 
     # The YARR IRC bot
-    # @param irc_provider [Cinch::Bot] IRC functionality provider.
-    def initialize(irc_provider = NoIRC)
-      @parser = InputParser.new
+    # @param irc_provider [Cinch::Bot] IRC functionality provider
+    # @param input_parser [Yarr::InputParser] input parser
+    def initialize(irc_provider = NoIRC, input_parser = InputParser.new)
+      @parser = input_parser
       @irc = irc_provider
     end
 
@@ -31,7 +32,7 @@ module Yarr
     def reply_to(message, user = NoIRC::User.new)
       reply_to_or_raise(message, user)
     rescue Error => error
-      nick_prefix(user, error.message)
+      truncate(nick_prefix(user, error.message))
     end
 
     private
@@ -50,7 +51,7 @@ module Yarr
 
     def post_process(response, stuff)
       user = @irc.user_list.find(stuff) || NoIRC::User.new
-      nick_prefix(user, response)
+      truncate(nick_prefix(user, response))
     end
   end
 end
