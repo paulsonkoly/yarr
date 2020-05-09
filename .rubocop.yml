@@ -25,3 +25,4 @@ Style/AccessModifierDeclarations:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
+    - Rakefile
