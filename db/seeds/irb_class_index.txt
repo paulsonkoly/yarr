@@ -3,6 +3,7 @@ C%%IRB/Abort.html%%IRB::Abort
 C%%IRB/CantChangeBinding.html%%IRB::CantChangeBinding
 C%%IRB/CantReturnToNormalMode.html%%IRB::CantReturnToNormalMode
 C%%IRB/CantShiftToMultiIrbMode.html%%IRB::CantShiftToMultiIrbMode
+C%%IRB/Canvas.html%%IRB::Canvas
 C%%IRB/Color/SymbolState.html%%IRB::Color::SymbolState
 C%%IRB/Context.html%%IRB::Context
 C%%IRB/ExtendCommand/ChangeWorkspace.html%%IRB::ExtendCommand::ChangeWorkspace
@@ -47,10 +48,12 @@ C%%IRB/OutputMethod.html%%IRB::OutputMethod
 C%%IRB/OutputMethod/NotImplementedError.html%%IRB::OutputMethod::NotImplementedError
 C%%IRB/ReadlineInputMethod.html%%IRB::ReadlineInputMethod
 C%%IRB/ReidlineInputMethod.html%%IRB::ReidlineInputMethod
+C%%IRB/RubyModel.html%%IRB::RubyModel
 C%%IRB/StdioInputMethod.html%%IRB::StdioInputMethod
 C%%IRB/StdioOutputMethod.html%%IRB::StdioOutputMethod
 C%%IRB/UndefinedPromptMode.html%%IRB::UndefinedPromptMode
 C%%IRB/UnrecognizedSwitch.html%%IRB::UnrecognizedSwitch
+C%%IRB/Vec.html%%IRB::Vec
 C%%IRB/WorkSpace.html%%IRB::WorkSpace
 C%%Object.html%%Object
 C%%RubyLex.html%%RubyLex
@@ -66,3 +69,6 @@ M%%IRB/IrbLoader.html%%IRB::IrbLoader
 M%%IRB/Locale/Encoding.html%%IRB::Locale::Encoding
 M%%IRB/MethodExtender.html%%IRB::MethodExtender
 M%%IRB/Notifier.html%%IRB::Notifier
+M%%IRB/RDoc.html%%IRB::RDoc
+M%%IRB/RDoc/RI.html%%IRB::RDoc::RI
+M%%IRB/Reline.html%%IRB::Reline

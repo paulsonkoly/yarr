@@ -1,5 +1,6 @@
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
+require_relative 'db/db_helper.rb'
 
 RSpec::Core::RakeTask.new(:spec_no_db) do |task|
   task.rspec_opts  = '--order rand'
@@ -40,8 +41,20 @@ namespace :db do
     end
   end
 
+  desc 'Truncate ri tables'
+  task :truncate_ri do
+    DB.transaction do
+      DB[:methods].truncate
+      DB[:klasses].truncate
+      DB[:origins].truncate
+    end
+  end
+
   desc 'Sets up a new database'
   task :setup => %i[drop create seed]
+
+  desc 'Reseed ri'
+  task :reseed_ri => %i[truncate_ri seed]
 end
 
 namespace :lint do

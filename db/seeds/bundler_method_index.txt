@@ -716,7 +716,6 @@ Bundler/Persistent/Net/HTTP/Persistent.html#method-i-key-3D%%key= (Bundler::Pers
 Bundler/Persistent/Net/HTTP/Persistent.html#method-i-max_version-3D%%max_version= (Bundler::Persistent::Net::HTTP::Persistent)
 Bundler/Persistent/Net/HTTP/Persistent.html#method-i-min_version-3D%%min_version= (Bundler::Persistent::Net::HTTP::Persistent)
 Bundler/Persistent/Net/HTTP/Persistent.html#method-i-normalize_uri%%normalize_uri (Bundler::Persistent::Net::HTTP::Persistent)
-Bundler/Persistent/Net/HTTP/Persistent.html#method-i-pipeline%%pipeline (Bundler::Persistent::Net::HTTP::Persistent)
 Bundler/Persistent/Net/HTTP/Persistent.html#method-i-private_key-3D%%private_key= (Bundler::Persistent::Net::HTTP::Persistent)
 Bundler/Persistent/Net/HTTP/Persistent.html#method-i-proxy-3D%%proxy= (Bundler::Persistent::Net::HTTP::Persistent)
 Bundler/Persistent/Net/HTTP/Persistent.html#method-i-proxy_bypass-3F%%proxy_bypass? (Bundler::Persistent::Net::HTTP::Persistent)

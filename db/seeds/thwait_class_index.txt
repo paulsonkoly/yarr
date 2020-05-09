@@ -1,3 +1,0 @@
-C%%Object.html%%Object
-C%%ThreadsWait.html%%ThreadsWait
-C%%ThWait.html%%ThWait

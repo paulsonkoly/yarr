@@ -1,8 +1,0 @@
-C%%Object.html%%Object
-C%%Synchronizer.html%%Synchronizer
-C%%Sync.html%%Sync
-C%%Sync_m/Err.html%%Sync_m::Err
-C%%Sync_m/Err/LockModeFailer.html%%Sync_m::Err::LockModeFailer
-C%%Sync_m/Err/UnknownLocker.html%%Sync_m::Err::UnknownLocker
-M%%Synchronizer_m.html%%Synchronizer_m
-M%%Sync_m.html%%Sync_m
