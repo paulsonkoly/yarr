@@ -109,6 +109,9 @@ RSpec.describe Yarr::EvaluatorService do
 
     context 'with an expression whose result needs truncating' do
       let(:typhoeus_response) do
+        stdout = Faker::Lorem.paragraph_by_chars(
+          Yarr::Message::Truncator::MAX_LENGTH + 100
+        )
         instance_double(
           Typhoeus::Response,
           response_body: {
@@ -116,7 +119,7 @@ RSpec.describe Yarr::EvaluatorService do
             { 'run' =>
               {
                 'html_url' => 'http://fake.com/evaluated',
-                'stdout' => Object.methods.to_s,
+                'stdout' => stdout,
                 'stderr' => ''
               } }
           }.to_json
