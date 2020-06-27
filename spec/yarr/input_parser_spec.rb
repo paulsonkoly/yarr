@@ -110,6 +110,14 @@ RSpec.describe Yarr::InputParser do
         )
       end
 
+      it 'parses "File::size" as class method' do
+        ast = parser.parse('ri File::size')
+        expect(ast[:class_method]).to eq(
+          class_name: 'File',
+          method_name: 'size'
+        )
+      end
+
       it 'supports stuff, anything$%^&*' do
         ast = parser.parse('ri [],anything$%^&*')
         expect(ast[:stuff]).to eq 'anything$%^&*'

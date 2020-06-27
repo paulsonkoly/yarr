@@ -135,20 +135,27 @@ module Yarr
         # do not override the method :method.
         method_ |
         klass_origin |
-        klass
+        class_name
     end
 
-    rule(:instance_method) { klass >> str('#') >> method_ }
+    rule(:instance_method) { class_name >> str('#') >> method_ }
 
-    rule(:class_method) { klass >> str('.') >> method_ }
+    rule(:class_method) { class_name >> (str('.') | str('::')) >> method_ }
 
-    rule(:klass) do
-      (match('[A-Z%]') >> match('[a-zA-Z0-9:%]').repeat).as(:class_name)
+    rule(:class_name) do
+      (class_name_fragment >>
+       (str('::') >> class_name_fragment).repeat).as(:class_name)
+    end
+
+    rule(:class_name_fragment) do
+      match('[A-Z%]') >> match('[a-zA-Z0-9%]').repeat
     end
 
     rule(:method_) { (operator | suffixed | normal_name).as(:method_name) }
 
-    rule(:klass_origin) { klass >> spaces? >> str('(') >> origin >> str(')') }
+    rule(:klass_origin) do
+      class_name >> spaces? >> str('(') >> origin >> str(')')
+    end
 
     rule(:origin) { match('[a-z]').repeat(1).as(:origin_name) }
 
