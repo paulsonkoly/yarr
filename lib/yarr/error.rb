@@ -12,7 +12,7 @@ module Yarr
       @message = message
       puts failure_cause.ascii_tree if Yarr::CONFIG.development?
 
-      super "parser error at position #{position} around `#{fail_char}'"
+      super end_user_message
     end
 
     private
@@ -21,12 +21,30 @@ module Yarr
       @parslet_error.parse_failure_cause
     end
 
+    def furthest_parse
+      furthest_parse = failure_cause
+      loop do
+        children = furthest_parse.children
+        return furthest_parse if children.empty?
+
+        furthest_parse = children.max_by(&:pos)
+      end
+    end
+
     def position
-      failure_cause.pos.charpos
+      furthest_parse.pos.charpos
+    end
+
+    def failure
+      furthest_parse.message
     end
 
     def fail_char
       @message[position]
+    end
+
+    def end_user_message
+      "parser error #{failure} at position #{position} around `#{fail_char}'"
     end
   end
 
