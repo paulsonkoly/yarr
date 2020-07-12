@@ -10,7 +10,7 @@ module Yarr
     def initialize(parslet_error, message)
       @parslet_error = parslet_error
       @message = message
-      puts failure_cause.ascii_tree if Yarr.config.development?
+      puts failure_cause.ascii_tree if Yarr::CONFIG.development?
 
       super "parser error at position #{position} around `#{fail_char}'"
     end

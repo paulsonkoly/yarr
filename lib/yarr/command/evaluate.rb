@@ -26,7 +26,7 @@ module Yarr
                      irc: NoIRC,
                      user: NoIRC::User.new,
                      web_service: EvaluatorService.new,
-                     configuration: Yarr.config)
+                     configuration: Yarr::CONFIG)
         super(ast: ast, irc: irc, user: user)
 
         @service = web_service

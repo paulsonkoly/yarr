@@ -60,8 +60,8 @@ RSpec.describe Yarr::Configuration do
   end
 end
 
-RSpec.describe 'Yarr.configuration' do
-  subject { Yarr.config }
+RSpec.describe 'Yarr::CONFIG' do
+  subject { Yarr::CONFIG }
 
   it { is_expected.to be_a Yarr::Configuration }
 end

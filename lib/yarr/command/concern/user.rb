@@ -12,7 +12,7 @@ module Yarr
           host = user.host_unsynced || ''
 
           nick.match?(/\A[\w]+\z/) &&
-            host.match?(/\A#{Yarr.config.ops_host_mask}#{nick}\z/) &&
+            host.match?(/\A#{Yarr::CONFIG.ops_host_mask}#{nick}\z/) &&
             user.online?
         end
 

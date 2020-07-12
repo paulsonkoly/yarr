@@ -11,7 +11,7 @@ module Yarr
       describe '#handle' do
         it 'invokes #nick= on the irc provider' do
           command.handle
-          expect(irc).to have_received(:nick=).with(Yarr.config.nick)
+          expect(irc).to have_received(:nick=).with(Yarr::CONFIG.nick)
         end
       end
     end

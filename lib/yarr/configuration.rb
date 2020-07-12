@@ -66,11 +66,5 @@ module Yarr
     end
   end
 
-  class << self
-    # @return [Configuration] the project setup
-    def configuration
-      Configuration.new
-    end
-    alias config configuration
-  end
+  CONFIG = Configuration.new.freeze
 end

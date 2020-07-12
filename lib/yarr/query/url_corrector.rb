@@ -9,7 +9,7 @@ module Yarr
     module URLCorrector
       # @return [String] the ri url
       def url
-        version = Yarr.config.ruby_version
+        version = Yarr::CONFIG.ruby_version
         if core?
           "#{host}/core-#{version}/#{super}"
         else

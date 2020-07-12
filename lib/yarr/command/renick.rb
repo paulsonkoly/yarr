@@ -10,7 +10,7 @@ module Yarr
 
       # Runs the command
       def handle
-        irc.nick = Yarr.config.nick
+        irc.nick = Yarr::CONFIG.nick
         'okay'
       end
     end

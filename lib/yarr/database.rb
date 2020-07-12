@@ -11,7 +11,7 @@ module Yarr
     # @param connector [symbol] the database connector
     def initialize(connector = :sqlite)
       @db_dir = File.join(PROJECT_ROOT, 'db')
-      @db_path = File.join(@db_dir, Yarr.config.test? ? 'test' : 'database')
+      @db_path = File.join(@db_dir, Yarr::CONFIG.test? ? 'test' : 'database')
 
       @db = Sequel.public_send(connector, @db_path)
 
