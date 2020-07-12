@@ -141,6 +141,13 @@ RSpec.describe Yarr::InputParser do
       it 'raises parse error for single number method name' do
         expect { parser.parse('ri 5') }.to raise_error Yarr::ParseError
       end
+
+      it 'parses weird method names if part of instance method' do
+        expect(parser.parse('ri Kernel#Array'))
+          .to be_an_ast_with(command: 'ri',
+                             instance_method: { class_name: 'Kernel',
+                                                method_name: 'Array' })
+      end
     end
 
     context 'with evaluate type commands' do

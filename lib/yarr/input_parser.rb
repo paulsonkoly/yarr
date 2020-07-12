@@ -3,6 +3,7 @@ require 'yarr/ast'
 require 'yarr/error'
 require 'yarr/configuration'
 
+# rubocop:disable Metrics/ClassLength
 module Yarr
   # == User input parser
   #
@@ -138,7 +139,14 @@ module Yarr
         class_name
     end
 
-    rule(:instance_method) { class_name >> str('#') >> method_ }
+    rule(:instance_method) do
+      class_name >> str('#') >> (method_ | weird_method)
+    end
+
+    # allow for Kernel#Array method
+    rule(:weird_method) do
+      (match('[A-Z]') >> match('[a-zA-Z0-9%]').repeat).as(:method_name)
+    end
 
     rule(:class_method) { class_name >> (str('.') | str('::')) >> method_ }
 
@@ -230,3 +238,4 @@ module Yarr
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
