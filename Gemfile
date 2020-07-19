@@ -14,6 +14,7 @@ gem 'typhoeus', '~> 1.3'
 group :development do
   gem 'guard'
   gem 'guard-rspec'
+  gem 'mutant-rspec'
   gem 'nokogiri'
   gem 'pry'
   gem 'pry-rescue'

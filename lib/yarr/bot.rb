@@ -44,13 +44,13 @@ module Yarr
     end
 
     def parse_input(message)
-      ast = @parser.parse(message.chomp)
+      ast = @parser.parse(message)
       stuff = ast[:stuff] || ''
       [ast, stuff]
     end
 
     def post_process(response, stuff)
-      user = @irc.user_list.find(stuff) || NoIRC::User.new
+      user = @irc.user_list.find(stuff) || User.new
       truncate(nick_prefix(user, response))
     end
   end
