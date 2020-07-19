@@ -33,9 +33,7 @@ module Yarr
       def handle
         user_content = @fetch_service.get(url)
         response_code = user_content.response_code
-        unless response_code == 200
-          return "Request returned response code #{response_code}"
-        end
+        return "Request returned response code #{response_code}" unless response_code == 200
 
         evaluator_request = EvaluatorService::Request.new(user_content.body)
         @evaluator_service.request(evaluator_request).output

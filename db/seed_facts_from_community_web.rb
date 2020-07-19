@@ -6,9 +6,7 @@ require_relative 'db_helper'
 WEBSITE = 'https://ruby-community.com/ruboto/facts'.freeze
 
 response = Typhoeus.get(WEBSITE)
-unless response.code == 200
-  abort "fetch response from #{WEBSITE} was code #{response.code}"
-end
+abort "fetch response from #{WEBSITE} was code #{response.code}" unless response.code == 200
 
 doc = Nokogiri::HTML(response.body)
 doc.css('div.page-top table tr').map do |row|

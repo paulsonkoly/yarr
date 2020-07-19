@@ -127,9 +127,7 @@ module Yarr
 
       def query
         constraints = { name: class_name }
-        if origin_name
-          constraints[:origin] = Query::Origin.where(name: origin_name)
-        end
+        constraints[:origin] = Query::Origin.where(name: origin_name) if origin_name
         result = QueryResult.new(Query::Klass.where(constraints))
         result.appropriate
       end

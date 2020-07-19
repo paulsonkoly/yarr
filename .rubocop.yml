@@ -26,3 +26,6 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
     - Rakefile
+
+Metrics/LineLength:
+  Max: 120
