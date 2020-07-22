@@ -8,6 +8,8 @@ module Yarr
   # A wrapper on a web request that uses carc.in
   class EvaluatorService
     URL = 'https://carc.in/run_requests'.freeze
+    # headers sent to web_service
+    HEADERS = { 'Content-Type': 'application/json; charset=utf-8' }.freeze
 
     # @param web_service [Object] web service adaptor
     def initialize(web_service = Typhoeus)
@@ -21,7 +23,7 @@ module Yarr
       response_body = @web_service.post(
         URL,
         body: request.to_wire,
-        headers: headers
+        headers: HEADERS
       ).response_body
 
       Response.new(response_body)
@@ -89,12 +91,6 @@ module Yarr
       def stdout
         results['stdout']
       end
-    end
-
-    private
-
-    def headers
-      { 'Content-Type': 'application/json; charset=utf-8' }
     end
   end
 end

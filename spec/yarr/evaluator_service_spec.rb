@@ -4,31 +4,42 @@ require 'yarr/evaluator_service'
 
 RSpec.describe Yarr::EvaluatorService do
   let(:adaptor) { class_double(Typhoeus, 'adaptor') }
-
   let(:evaluator_service) { described_class.new(adaptor) }
+  let(:request) { Yarr::EvaluatorService::Request.new('1 + 1') }
+  let(:typhoeus_response) do
+    instance_double(
+      Typhoeus::Response,
+      response_body: {
+        'run_request' =>
+        { 'run' =>
+          {
+            'html_url' => 'http://fake.com/evaluated',
+            'stdout' => '1',
+            'stderr' => ''
+          } }
+      }.to_json
+    )
+  end
 
-  describe '#request' do
-    let(:request) { Yarr::EvaluatorService::Request.new('1 + 1') }
-    let(:typhoeus_response) do
-      instance_double(
-        Typhoeus::Response,
-        response_body: {
-          'run_request' =>
-          { 'run' =>
-            {
-              'html_url' => 'http://fake.com/evaluated',
-              'stdout' => '1',
-              'stderr' => ''
-            } }
-        }.to_json
-      )
+  describe '#initialize' do
+    it 'defaults to Typhoeus' do
+      expect(Typhoeus).to receive(:post).and_return(typhoeus_response)
+      Yarr::EvaluatorService.new.request(request)
     end
 
+    it 'uses the given adaptor' do
+      expect(adaptor).to receive(:post).and_return(typhoeus_response)
+
+      evaluator_service.request(request)
+    end
+  end
+
+  describe '#request' do
     it 'calls the evaluator service' do
       expect(adaptor).to receive(:post).with(
-        anything,
+        described_class::URL,
         body: request.to_wire,
-        headers: anything
+        headers: described_class::HEADERS
       ).and_return(typhoeus_response)
 
       evaluator_service.request(request)
