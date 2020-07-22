@@ -86,4 +86,10 @@ namespace :lint do
 
   desc 'reek'
   task(:reek) { sh 'bundle exec reek -c .reek' }
+
+  desc 'mutant[target] - mutation based coverage, target ie.: Yarr::Bot'
+  task :mutant, [:arg] do |_task, args|
+    ENV['YARR_TEST'] = '1'
+    sh "bundle exec mutant --use rspec -I lib -- #{args[:arg]}"
+  end
 end
