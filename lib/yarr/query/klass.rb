@@ -45,7 +45,7 @@ module Yarr
       # documentation.
       # @return [True|False] is the class name matcing the origin name?
       def same_origin?
-        origin.name == name.downcase
+        origin.name.eql? name.downcase
       end
     end
   end
