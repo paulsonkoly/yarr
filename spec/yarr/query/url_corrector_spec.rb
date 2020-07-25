@@ -30,7 +30,7 @@ module Yarr
 
         describe '#url' do
           it 'is the core url' do
-            expect(corrector.url).to match(%r{core-\d.\d(.\d)?/xxx})
+            expect(corrector.url).to match(%r{#{URLCorrector::HOST}/core-\d.\d(.\d)?/xxx})
           end
         end
       end
@@ -46,7 +46,7 @@ module Yarr
 
         describe '#url' do
           it 'is the stdlib url url' do
-            rexp = %r{stdlib-\d.\d(.\d)?/libdoc/gem/rdoc/xxx}
+            rexp = %r{#{URLCorrector::HOST}/stdlib-\d.\d(.\d)?/libdoc/gem/rdoc/xxx}
             expect(corrector.url).to match rexp
           end
         end
