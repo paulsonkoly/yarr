@@ -10,10 +10,8 @@ module Yarr
     def self.nick=(*); end
 
     # falsey value, real IRC adaptor is expected to respond with a truthy value
-    # @return [FalseClass] false
-    def self.irc
-      false
-    end
+    # @return [NilClass] nil
+    def self.irc; end
 
     # Null object user for no irc connection
     class User
@@ -35,9 +33,7 @@ module Yarr
 
     # Null object for user list
     class UserList
-      def find(_)
-        nil
-      end
+      def find(_); end
 
       def empty?
         true
