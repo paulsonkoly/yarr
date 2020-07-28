@@ -50,7 +50,7 @@ module Yarr
     end
 
     def post_process(response, stuff)
-      user = @irc.user_list.find(stuff) || User.new
+      user = @irc.user_list.find(stuff) || NoIRC::User.new
       truncate(nick_prefix(user, response))
     end
   end
