@@ -53,6 +53,8 @@ module Yarr
 
     def evaluator
       evaluator = @config.evaluator
+      return unless evaluator
+
       evaluator[:modes].transform_values!(&Evaluator::Mode.method(:new))
       evaluator
     end
