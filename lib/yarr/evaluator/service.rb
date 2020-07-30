@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'typhoeus'
+require 'yarr/evaluator/response'
 
 module Yarr
   module Evaluator

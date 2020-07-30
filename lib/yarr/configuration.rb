@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'app_configuration'
+require 'yarr/evaluator/mode'
 
 # The rubydoc lookup bot
 module Yarr

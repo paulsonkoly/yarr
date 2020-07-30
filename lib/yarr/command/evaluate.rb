@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'yarr/evaluator/service'
+require 'yarr/evaluator/request'
 require 'yarr/configuration'
 require 'yarr/command/concern/ast_digger'
 require 'yarr/message/truncator'
