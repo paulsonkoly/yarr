@@ -9,7 +9,7 @@ Naming/RescuedExceptionsVariableName:
   Enabled: false
 
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 
 

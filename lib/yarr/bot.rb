@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yarr/command'
 require 'yarr/input_parser'
 require 'yarr/message/truncator'

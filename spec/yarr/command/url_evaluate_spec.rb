@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 require 'yarr/command/url_evaluate'
+require 'yarr/evaluator/request'
 
 module Yarr
   module Command
     RSpec.describe URLEvaluate do
       let(:fetch_service) { double('fetch_service') }
-      let(:evaluator_service) { instance_double(EvaluatorService) }
+      let(:evaluator_service) { instance_double(Evaluator::Service) }
       let(:fetch_response) do
         double('fetch_response',
                response_code: 200,
@@ -30,7 +33,7 @@ module Yarr
           allow(fetch_service).to receive(:get).and_return(fetch_response)
 
           expect(evaluator_service).to receive(:request)
-            .with(EvaluatorService::Request.new('1 + 1'))
+            .with(Evaluator::Request.new('1 + 1'))
 
           allow(evaluator_service).to receive(:request)
             .and_return(evaluator_response_double(stdout: '2'))

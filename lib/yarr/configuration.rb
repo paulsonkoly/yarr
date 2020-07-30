@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'app_configuration'
 
 # The rubydoc lookup bot
@@ -44,9 +46,15 @@ module Yarr
     # implemented via method_missing, no respond_to_missing, and forwardable
     # checks that.
     forwarded_methods = %i[test development username password nick channels
-                           evaluator ops_host_mask]
+                           ops_host_mask]
     forwarded_methods.each do |sym|
       define_method(sym) { @config.public_send(sym) }
+    end
+
+    def evaluator
+      evaluator = @config.evaluator
+      evaluator[:modes].transform_values!(&Evaluator::Mode.method(:new))
+      evaluator
     end
 
     # @return [String] the ruby version that can be inserted in the ruby-doc

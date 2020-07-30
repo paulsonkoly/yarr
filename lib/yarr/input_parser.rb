@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 require 'parslet'
 require 'yarr/ast'
 require 'yarr/error'
 require 'yarr/configuration'
-
-# rubocop:disable Metrics/ClassLength
 module Yarr
   # == User input parser
   #
@@ -238,4 +238,3 @@ module Yarr
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

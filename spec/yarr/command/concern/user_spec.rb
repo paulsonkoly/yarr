@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yarr/command/concern/responder'
 require 'cinch'
 

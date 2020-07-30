@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Yarr
   # Message related helper methods
   module Message

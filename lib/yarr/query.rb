@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yarr/database'
 require 'yarr/query/origin'
 require 'yarr/query/method'

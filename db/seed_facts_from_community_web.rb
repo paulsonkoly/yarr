@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'typhoeus'
 
 require_relative 'db_helper'
 
-WEBSITE = 'https://ruby-community.com/ruboto/facts'.freeze
+WEBSITE = 'https://ruby-community.com/ruboto/facts'
 
 response = Typhoeus.get(WEBSITE)
 abort "fetch response from #{WEBSITE} was code #{response.code}" unless response.code == 200

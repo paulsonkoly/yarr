@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yarr/error'
 
 module Yarr
@@ -22,9 +24,9 @@ module Yarr
         end
 
         def multi_response(count)
-          message = "I found #{count} entries matching #{target}."
+          message = +"I found #{count} entries matching #{target}."
           message << ' ' << advice unless advice.empty?
-          raise AnswerAmbiguityError, message
+          raise AnswerAmbiguityError, -message
         end
 
         # @!parse

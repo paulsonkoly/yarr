@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'yarr/command'
 
@@ -110,6 +112,14 @@ module Yarr
         handler = dispatcher.for_ast(command: 'xxx')
 
         expect(handler).to be_a Command::Base
+      end
+    end
+
+    context 'without a user or irc given' do
+      it 'creates a handler with NoIRC and NoIRC::User' do
+        handler = dispatcher.for_ast(command: 'xxx')
+
+        expect(handler).to match(an_object_having_attributes(irc: NoIRC, user: an_instance_of(NoIRC::User)))
       end
     end
   end

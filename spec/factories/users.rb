@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # User double
 User = Struct.new :nick, :host_unsynced, :online?
 

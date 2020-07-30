@@ -1,4 +1,6 @@
-require 'yarr/evaluator_service'
+# frozen_string_literal: true
+
+require 'yarr/evaluator/service'
 require 'yarr/configuration'
 require 'yarr/command/concern/ast_digger'
 require 'yarr/message/truncator'
@@ -9,8 +11,8 @@ module Yarr
     # carc.in
     class Evaluate < Base
       extend Concern::ASTDigger
-      digger(:mode) { |mode| @config[:modes][mode || :default] }
-      digger(:lang)
+      digger(:mode) { |mode| @config[:modes][mode&.to_sym || :default] }
+      digger(:lang) { |lang| lang&.to_sym }
       digger(:code) { |code| preprocess(code.dup) }
 
       # @param ast [AST] parsed ast
@@ -25,7 +27,7 @@ module Yarr
       def initialize(ast:,
                      irc: NoIRC,
                      user: NoIRC::User.new,
-                     web_service: EvaluatorService.new,
+                     web_service: Evaluator::Service.new,
                      configuration: Yarr::CONFIG)
         super(ast: ast, irc: irc, user: user)
 
@@ -36,14 +38,14 @@ module Yarr
       # Runs the command
       def handle
         response =
-          @service.request(EvaluatorService::Request.new(code, service_lang))
+          @service.request(Evaluator::Request.new(code, service_lang))
         respond_with(response)
       end
 
       private
 
       def filter(code)
-        mode[:filter].each { |from, to| code.gsub!(from, to) }
+        mode.filter.each { |from, to| code.gsub!(from, to) }
         code
       end
 
@@ -53,7 +55,7 @@ module Yarr
       end
 
       def template
-        format = mode[:format]
+        format = mode.format
         case format
         when Hash then format[lang || :default]
         else format
@@ -62,13 +64,11 @@ module Yarr
 
       def respond_with(response)
         url = response.url
-        case mode[:output]
+        case mode.output
         when :truncate
           response.output
         when :link
-          "I have #{mode[:verb]} your code, the result is at #{url}"
-        else
-          raise ConfigFileError, 'output mode is neither :truncate nor :link'
+          "I have #{mode.verb} your code, the result is at #{url}"
         end
       end
 

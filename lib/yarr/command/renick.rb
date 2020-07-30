@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Yarr
   module Command
     # Resets the bot's nick

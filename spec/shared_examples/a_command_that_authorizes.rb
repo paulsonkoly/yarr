@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'a command that authorizes' do |role|
   let(:command) { subject }
 

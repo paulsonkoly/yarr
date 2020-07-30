@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 
 module Yarr
@@ -35,7 +37,7 @@ module Yarr
       hash.transform_values do |value|
         case value
         when Hash then stringify_hash_values(value)
-        else value.to_s
+        else value.to_str
         end
       end
     end

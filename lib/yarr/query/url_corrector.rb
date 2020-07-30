@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yarr/configuration'
 
 module Yarr
@@ -7,7 +9,7 @@ module Yarr
     # Mixin that assumes an instance method +#origin+ to exist and return an
     # {Yarr::Query::Origin}.
     module URLCorrector
-      HOST = 'https://ruby-doc.org'.freeze
+      HOST = 'https://ruby-doc.org'
 
       # @return [String] the ri url
       def url

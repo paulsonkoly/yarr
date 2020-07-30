@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-require 'yarr/evaluator_service'
+require 'yarr/evaluator/service'
+require 'yarr/evaluator/request'
 
-RSpec.describe Yarr::EvaluatorService do
+RSpec.describe Yarr::Evaluator::Service do
   let(:adaptor) { class_double(Typhoeus, 'adaptor') }
   let(:evaluator_service) { described_class.new(adaptor) }
-  let(:request) { Yarr::EvaluatorService::Request.new('1 + 1') }
+  let(:request) { Yarr::Evaluator::Request.new('1 + 1') }
   let(:typhoeus_response) do
     instance_double(
       Typhoeus::Response,
@@ -24,7 +27,7 @@ RSpec.describe Yarr::EvaluatorService do
   describe '#initialize' do
     it 'defaults to Typhoeus' do
       expect(Typhoeus).to receive(:post).and_return(typhoeus_response)
-      Yarr::EvaluatorService.new.request(request)
+      Yarr::Evaluator::Service.new.request(request)
     end
 
     it 'uses the given adaptor' do

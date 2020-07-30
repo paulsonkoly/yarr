@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Array
   def sequence(i)
     self[i % length]

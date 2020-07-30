@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
@@ -5,6 +7,8 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'app_configuration'
 gem 'cinch', '~> 2.3'
 gem 'dry-equalizer', '~> 0.2'
+gem 'dry-initializer', '~> 3.0'
+gem 'dry-types', '~> 1.2'
 gem 'faker', '~> 1.9'
 gem 'parslet', '~> 1.8'
 gem 'sequel', '~> 5.18'

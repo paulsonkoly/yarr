@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Yarr
   # Generic error class for all Yarr errors
   Error = Class.new(StandardError)

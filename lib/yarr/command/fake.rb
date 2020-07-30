@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faker'
 require 'yarr/command/base'
 require 'yarr/command/concern/ast_digger'

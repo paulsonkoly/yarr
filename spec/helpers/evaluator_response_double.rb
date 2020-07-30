@@ -1,8 +1,10 @@
-require 'yarr/evaluator_service'
+# frozen_string_literal: true
+
+require 'yarr/evaluator/response'
 
 # partial double for the evaluator service responses
 def evaluator_response_double(stderr: '', stdout:)
-  response = Yarr::EvaluatorService::Response.new('{}')
+  response = Yarr::Evaluator::Response.new('{}')
 
   allow(response).to receive(:stdout).and_return(stdout)
   allow(response).to receive(:stderr).and_return(stderr)

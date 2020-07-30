@@ -5,10 +5,8 @@ module Yarr
     # Flood protection.
     module Truncator
       MAX_LENGTH = 320 # max message length.
-      # rubocop:disable Style/MutableConstant
       OMISSION = '...' # use ... if truncated
       SEPARATOR = ' '  # natural break point
-      # rubocop:enable Style/MutableConstant
 
       # Truncates the given string to the predefined maximum size.
       # @param message [String] the string to truncate

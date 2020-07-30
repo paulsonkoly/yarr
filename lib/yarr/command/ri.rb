@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yarr/command/base'
 require 'yarr/query'
 require 'yarr/command/concern/responder'

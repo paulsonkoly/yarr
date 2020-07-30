@@ -1,4 +1,6 @@
-require 'yarr/evaluator_service'
+# frozen_string_literal: true
+
+require 'yarr/evaluator/service'
 require 'yarr/command/concern/ast_digger'
 
 module Yarr
@@ -22,7 +24,7 @@ module Yarr
                      irc: NoIRC,
                      user: NoIRC::User.new,
                      fetch_service: Typhoeus,
-                     evaluator_service: EvaluatorService.new)
+                     evaluator_service: Evaluator::Service.new)
         super(ast: ast, irc: irc, user: user)
 
         @fetch_service = fetch_service
@@ -35,7 +37,7 @@ module Yarr
         response_code = user_content.response_code
         return "Request returned response code #{response_code}" unless response_code == 200
 
-        evaluator_request = EvaluatorService::Request.new(user_content.body)
+        evaluator_request = Evaluator::Request.new(user_content.body)
         @evaluator_service.request(evaluator_request).output
       end
     end

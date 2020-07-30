@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Yarr
   # Null object for no IRC connection
   module NoIRC

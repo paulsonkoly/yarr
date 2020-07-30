@@ -7,17 +7,17 @@ ruby_version: '2.7.1'
 ops_host_mask: 'ruby/staff/'
 evaluator:
   :languages:
-    "27": "2.7.0"
-    "26": "2.6.0"
-    "25": "2.5.3"
-    "24": "2.4.1"
-    "23": "2.3.3"
-    "22": "2.2.4"
-    "21": "2.1.5"
-    "20": "2.0.0"
+    :"27": "2.7.0"
+    :"26": "2.6.0"
+    :"25": "2.5.3"
+    :"24": "2.4.1"
+    :"23": "2.3.3"
+    :"22": "2.2.4"
+    :"21": "2.1.5"
+    :"20": "2.0.0"
   :modes:
     :default:
-      :filter: []
+      :filter: {}
       :output: :truncate
       :format: |
         # encoding: utf-8
@@ -26,7 +26,7 @@ evaluator:
           %s
         end
     bare:
-      :filter: []
+      :filter: {}
       :output: :truncate
       :format: |
         %s
@@ -63,7 +63,7 @@ evaluator:
             $stdout.flush
             raise $!
           end
-        "20": &old_ast |
+        :"20": &old_ast |
           # encoding: utf-8
 
           require 'ripper'
@@ -75,11 +75,11 @@ evaluator:
             $stdout.flush
             raise $!
           end
-        "21": *old_ast
-        "22": *old_ast
-        "23": *old_ast
-        "24": *old_ast
-        "25": *old_ast
+        ":21": *old_ast
+        ":22": *old_ast
+        ":23": *old_ast
+        ":24": *old_ast
+        ":25": *old_ast
     tok:
       :filter:
         '\': '\\'

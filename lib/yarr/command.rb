@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 files = Dir[File.join(File.dirname(__FILE__), 'command', '*.rb')].sort
 files.each { |command_src| require command_src }
 
