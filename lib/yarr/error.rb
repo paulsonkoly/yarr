@@ -69,4 +69,13 @@ module Yarr
   # when there is no answer or mulitple answers
   class AnswerAmbiguityError < Error
   end
+
+  # Server responded with data we don't understand
+  class UnexpectedServerResponseError < Error
+    def initialize(errors)
+      @errors = errors
+
+      super errors.inspect
+    end
+  end
 end

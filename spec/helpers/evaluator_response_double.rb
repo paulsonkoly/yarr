@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 require 'yarr/evaluator/response'
+require 'json'
 
 # partial double for the evaluator service responses
-def evaluator_response_double(stderr: '', stdout:)
-  response = Yarr::Evaluator::Response.new('{}')
-
-  allow(response).to receive(:stdout).and_return(stdout)
-  allow(response).to receive(:stderr).and_return(stderr)
-  allow(response).to receive(:url).and_return('http://fake.com/evaluated')
-  response
+def evaluator_response_double(stderr: '', stdout: '')
+  Yarr::Evaluator::Response.new(
+    { run_request: { run: { stderr: stderr, stdout: stdout, html_url: 'http://fake.com/evaluated' } } }.to_json
+  )
 end

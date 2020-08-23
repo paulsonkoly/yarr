@@ -20,11 +20,7 @@ module Yarr
       # @param request [Request] the code to evaluate
       # @return [Response] web service response object
       def request(request)
-        response_body = @web_service.post(
-          URL,
-          body: request.to_wire,
-          headers: HEADERS
-        ).response_body
+        response_body = @web_service.post(URL, body: request.to_wire, headers: HEADERS).response_body
 
         Response.new(response_body)
       end
