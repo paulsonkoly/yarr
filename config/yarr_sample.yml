@@ -46,7 +46,7 @@ evaluator:
           $stdout.flush
           raise $!
         end
-    ast:
+    :ast:
       :filter:
         '\': '\\'
         '`': '\\`'
@@ -75,12 +75,12 @@ evaluator:
             $stdout.flush
             raise $!
           end
-        ":21": *old_ast
-        ":22": *old_ast
-        ":23": *old_ast
-        ":24": *old_ast
-        ":25": *old_ast
-    tok:
+        :"21": *old_ast
+        :"22": *old_ast
+        :"23": *old_ast
+        :"24": *old_ast
+        :"25": *old_ast
+      :tok:
       :filter:
         '\': '\\'
         '`': '\\`'
