@@ -175,7 +175,7 @@ module Yarr
     # operator, and then fail to parse the rest.
     OPERATORS = %w[[]= === <=>
                    !~ != [] >> >= =~ == <= << ** -@ +@
-                   ! ^ > < / - + * & ~ `].freeze
+                   ! ^ > < / - + * & | ~ `].freeze
 
     rule(:operator) { OPERATORS.map(&method(:str)).inject(:|) }
 

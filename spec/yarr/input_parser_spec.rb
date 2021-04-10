@@ -82,6 +82,10 @@ RSpec.describe Yarr::InputParser do
         expect(parser.parse('ri %')[:method_name]).to eq '%'
       end
 
+      it 'parses | as a method' do
+        expect(parser.parse('ri |')[:method_name]).to eq '|'
+      end
+
       it 'parses %x%x as a method' do
         expect(parser.parse('ri %x%x')[:method_name]).to eq '%x%x'
       end
