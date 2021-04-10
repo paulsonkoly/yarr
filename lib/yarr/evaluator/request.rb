@@ -10,6 +10,7 @@ module Yarr
     # Request that's sent to web service.
     class Request
       attr_reader :code, :lang
+
       include Dry::Equalizer(:code, :lang)
 
       # Creates a new Request to be sent for evaluation

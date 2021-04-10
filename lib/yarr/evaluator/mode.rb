@@ -14,7 +14,7 @@ module Yarr
       option :output, type: Dry::Types['strict.symbol'].constrained(included_in: %i[truncate link])
       option :format, type: Dry::Types['strict.string'] |
                             Dry::Types['hash'].map(Dry::Types['strict.symbol'], Dry::Types['strict.string'])
-      option :verb, type: Dry::Types['strict.string'].optional, default: -> { nil }
+      option :verb, type: Dry::Types['strict.string'].optional, default: -> {}
     end
   end
 end

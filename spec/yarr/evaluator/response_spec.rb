@@ -39,7 +39,7 @@ RSpec.describe Yarr::Evaluator::Response do
     end
 
     context 'with an expression whose result needs truncating' do
-      let(:stdout) { Faker::Lorem.paragraph_by_chars(Yarr::Message::Truncator::MAX_LENGTH + 100) }
+      let(:stdout) { Faker::Lorem.paragraph_by_chars(number: Yarr::Message::Truncator::MAX_LENGTH + 100) }
 
       it 'truncates to the right size with the url' do
         expect(subject.output.length)

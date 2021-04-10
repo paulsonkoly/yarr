@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - .bundle/**/*
     - vendor/**/*
+  NewCops: enable
 
 
 # reek disagrees, and complains about uncommunicative variable name

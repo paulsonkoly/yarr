@@ -79,6 +79,7 @@ module Yarr
   # Simple word commands
   #
   #  - renick
+  # rubocop:disable Metrics/ClassLength
   class InputParser < Parslet::Parser
     # Aliases that will be replaced in AST, so downstream doesn't have to handle
     # different options
@@ -237,4 +238,5 @@ module Yarr
       raise ParseError.new(parser_error, string)
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

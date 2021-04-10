@@ -9,10 +9,10 @@ module Yarr
       let(:truncator) { described_class }
 
       let(:short) do
-        Faker::Lorem.paragraph_by_chars(Truncator::MAX_LENGTH - 10)
+        Faker::Lorem.paragraph_by_chars(number: Truncator::MAX_LENGTH - 10)
       end
       let(:long) do
-        Faker::Lorem.paragraph_by_chars(Truncator::MAX_LENGTH + 10)
+        Faker::Lorem.paragraph_by_chars(number: Truncator::MAX_LENGTH + 10)
       end
 
       describe '.truncate' do

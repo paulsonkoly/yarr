@@ -26,9 +26,7 @@ module Yarr
       module Authorize
         # Prepended command handler
         def handle
-          if irc.irc
-            raise AuthorizationError.new(user, role) unless send("#{role}?", user)
-          end
+          raise AuthorizationError.new(user, role) if irc.irc && !send("#{role}?", user)
 
           super
         end

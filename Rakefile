@@ -2,7 +2,7 @@
 
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
-require_relative 'db/db_helper.rb'
+require_relative 'db/db_helper'
 
 RSpec::Core::RakeTask.new(:spec_no_db) do |task|
   task.rspec_opts  = '--order rand'

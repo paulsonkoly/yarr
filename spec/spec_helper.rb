@@ -3,11 +3,11 @@
 require 'deep_cover'
 require 'faker'
 require 'factory_bot'
-require 'database_cleaner'
+require 'database_cleaner/sequel'
 
 %w[matchers helpers shared_examples shared_contexts].each do |directory|
   Dir.chdir('spec') do
-    Dir.glob("#{directory}/**/*.rb").sort.each do |file|
+    Dir.glob("#{directory}/**/*.rb").each do |file|
       require file
     end
   end

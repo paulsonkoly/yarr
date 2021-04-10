@@ -13,7 +13,7 @@ module Yarr
           nick = user.nick.delete('_')
           host = user.host_unsynced || ''
 
-          nick.match?(/\A[\w]+\z/) &&
+          nick.match?(/\A\w+\z/) &&
             host.match?(/\A#{Yarr::CONFIG.ops_host_mask}#{nick}\z/) &&
             user.online?
         end

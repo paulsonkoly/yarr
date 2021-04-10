@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-files = Dir[File.join(File.dirname(__FILE__), 'command', '*.rb')].sort
+files = Dir[File.join(File.dirname(__FILE__), 'command', '*.rb')]
 files.each { |command_src| require command_src }
 
 module Yarr

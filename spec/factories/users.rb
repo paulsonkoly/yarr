@@ -5,7 +5,7 @@ User = Struct.new :nick, :host_unsynced, :online?
 
 FactoryBot.define do
   factory :user do
-    nick { Faker::Internet.username(nil, ['_']) }
+    nick { Faker::Internet.username(separators: ['_']) }
     host_unsynced { Faker::Internet.domain_name }
     factory :operator do
       host_unsynced { "#{Yarr::CONFIG.ops_host_mask}#{nick.delete('_')}" }

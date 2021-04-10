@@ -6,15 +6,15 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'app_configuration'
 gem 'cinch', '~> 2.3'
-gem 'dry-equalizer', '~> 0.2'
+gem 'dry-equalizer', '~> 0.3'
 gem 'dry-initializer', '~> 3.0'
-gem 'dry-schema', '~> 1.5'
-gem 'dry-types', '~> 1.2'
-gem 'faker', '~> 1.9'
-gem 'parslet', '~> 1.8'
-gem 'sequel', '~> 5.18'
+gem 'dry-schema', '~> 1.6'
+gem 'dry-types', '~> 1.5'
+gem 'faker', '~> 2.17'
+gem 'parslet', '~> 2.0'
+gem 'sequel', '~> 5.43'
 gem 'sqlite3', '~> 1.4'
-gem 'typhoeus', '~> 1.3'
+gem 'typhoeus', '~> 1.4'
 
 group :development do
   gem 'guard'
@@ -27,7 +27,9 @@ group :development do
   gem 'reek'
   gem 'rubocop'
   gem 'rubocop-performance'
+  gem 'rubocop-rake'
   gem 'rubocop-rspec'
+  gem 'rubocop-sequel'
 end
 
 group :development, :test do
