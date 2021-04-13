@@ -37,8 +37,19 @@ RSpec.describe Yarr::Configuration do
 
     before do
       File.open(tmpfile, 'w') do |f|
-        f.write("username: '#{username}'\n")
-        f.write("password: '#{password}'\n")
+        f.write <<~YML
+          username: '#{username}'
+          password: '#{password}'
+          evaluator:
+            :languages:
+              :"27": "2.7.0"
+            :modes:
+              :default:
+                :filter: {}
+                :output: :truncate
+                :format: |
+                  %s
+        YML
       end
     end
 
@@ -55,6 +66,19 @@ RSpec.describe Yarr::Configuration do
     describe '#password' do
       it 'matches the password from the configuration file' do
         expect(config.password).to eq password
+      end
+    end
+
+    describe '#evaluator' do
+      subject { config.evaluator }
+
+      it { is_expected.to be_a Hash }
+
+      it 'can be called twice' do
+        expect do
+          config.evaluator
+          config.evaluator
+        end.not_to raise_error
       end
     end
   end

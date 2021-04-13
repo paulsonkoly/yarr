@@ -28,7 +28,8 @@ module Yarr
     # @param config [AppConfiguration::Config] DEFAULT_CONFIG is good in almost
     #               all cases
     def initialize(config = DEFAULT_CONFIG)
-      @config = config
+      @config = config.dup
+      transform_modes
     end
 
     # @!method username
@@ -47,17 +48,9 @@ module Yarr
     # implemented via method_missing, no respond_to_missing, and forwardable
     # checks that.
     forwarded_methods = %i[test development username password nick channels
-                           ops_host_mask]
+                           ops_host_mask evaluator]
     forwarded_methods.each do |sym|
       define_method(sym) { @config.public_send(sym) }
-    end
-
-    def evaluator
-      evaluator = @config.evaluator
-      return unless evaluator
-
-      evaluator[:modes].transform_values! { |mode| Evaluator::Mode.new(**mode) }
-      evaluator
     end
 
     # @return [String] the ruby version that can be inserted in the ruby-doc
@@ -74,6 +67,15 @@ module Yarr
     # @return [Bool] Yarr running in development environment
     def development?
       development == '1'
+    end
+
+    private
+
+    def transform_modes
+      evaluator = @config.evaluator
+      return unless evaluator
+
+      evaluator[:modes].transform_values! { |mode| Evaluator::Mode.new(**mode) }
     end
   end
 
