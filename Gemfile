@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'app_configuration'
-gem 'cinch', '~> 2.3'
+gem 'cinch', github: 'phaul/cinch'
 gem 'dry-equalizer', '~> 0.3'
 gem 'dry-initializer', '~> 3.0'
 gem 'dry-schema', '~> 1.6'
