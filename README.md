@@ -1,3 +1,7 @@
+# Project Update
+
+I no longer run this bot, and the code is now abandoned. Cinch has been abandoned for some time which is a dependency. It should be possible to replace cinch with an other IRC adaptor.
+
 # Yarr
 
 **Y**et **A**nother **R**uby **R**obot
